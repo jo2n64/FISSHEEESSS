@@ -34,9 +34,9 @@ namespace GXPEngine
         Sound openShop;
         SoundChannel openShopSoundChannel;
 
-        public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400,Tutorial tutorial=null) : base()
+        public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400, Tutorial tutorial = null) : base()
         {
-          //  _tutorial = tutorial;
+            //  _tutorial = tutorial;
 
             this.scene = scene;
             _currency = currency;
@@ -82,7 +82,7 @@ namespace GXPEngine
             repairAquarium = new Sound("repair_aquarium_sound.wav", false, true);
             makeFoodSound = new Sound("fish_food_pick_sound.wav", false, true);
             openShop = new Sound("opening_journal_shop_sound.wav", false, true);
-           // openShopSoundChannel = openShop.Play();
+            // openShopSoundChannel = openShop.Play();
 
         }
         void addFish()
@@ -113,7 +113,7 @@ namespace GXPEngine
                 makeFoodSound.Play();
             }
         }
-        int tutorialIndex=2;
+        int tutorialIndex = 2;
         void Update()
         {
             //if (_tutorial != null)
@@ -130,45 +130,46 @@ namespace GXPEngine
                 if (isBought == true)
                 {
                     //makeTutorialAppear();
-                   // ChangeTutorialMaxFrame(4);
+                    // ChangeTutorialMaxFrame(4);
                     canMakeFood = true;
                     addFish();
                     //if (_tutorial == null)
                     //{
-                        switch (inv.id)
-                        {
-                            case Inventory.Food:
-                                if (inv.checkIfItemIsOverlapped() == false)
-                                {
-                                    makeFood();
-                                }
-                                displayFoodCan();
-                                moveFoodCan();
-                                RemoveShop();
-                                RemoveSponge();
-                                break;
-                            case Inventory.Sponge:
-                                displaySponge();
-                                RemoveShop();
-                                RemoveFoodCan();
-                                break;
-                            case Inventory.Shop:
-                                displayShop();
-                                RemoveSponge();
-                                RemoveFoodCan();
-                                break;
-                            case 0:
-                                RemoveShop();
-                                RemoveSponge();
-                                handleMoney();
-                                RemoveFoodCan();
-                                goBack();
-                                break;
-                        }
-                        if (isOneFishShown == true)
-                        {
-                            makeDirt();
-                        }
+                    if (isOneFishShown == true)
+                    {
+                        makeDirt();
+                    }
+                    switch (inv.id)
+                    {
+                        case Inventory.Food:
+                            if (inv.checkIfItemIsOverlapped() == false)
+                            {
+                                makeFood();
+                            }
+                            displayFoodCan();
+                            moveFoodCan();
+                            RemoveShop();
+                            RemoveSponge();
+                            break;
+                        case Inventory.Sponge:
+                            displaySponge();
+                            RemoveShop();
+                            RemoveFoodCan();
+                            break;
+                        case Inventory.Shop:
+                            displayShop();
+                            RemoveSponge();
+                            RemoveFoodCan();
+                            break;
+                        case 0:
+                            RemoveShop();
+                            RemoveSponge();
+                            handleMoney();
+                            RemoveFoodCan();
+                            goBack();
+                            break;
+                    }
+
                     //}
                     //else
                     //{
@@ -262,11 +263,11 @@ namespace GXPEngine
                 else
                 {
                     //makeTutorialAppear();
-                   // ChangeTutorialMaxFrame();
+                    // ChangeTutorialMaxFrame();
                     goBack();
                     buyAquarium();
                 }
-   
+
 
             }
             //if (isBought == true)
@@ -389,7 +390,7 @@ namespace GXPEngine
                 {
                     RemoveChild(shop);
                 }
-               // makeTutorialDissapear();
+                // makeTutorialDissapear();
             }
         }
 
@@ -398,7 +399,7 @@ namespace GXPEngine
         {
             if (spongeOnScreen == false)
             {
-                spongeClean=cleanDirtWithSponge.Play();
+                spongeClean = cleanDirtWithSponge.Play();
                 AddChild(sponge);
                 spongeOnScreen = true;
             }
