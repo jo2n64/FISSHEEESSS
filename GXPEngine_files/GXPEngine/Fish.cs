@@ -44,8 +44,6 @@ namespace GXPEngine
             hungerIcon = new Sprite("square.png");
             timer = 100;
             buyToUnlock = new Sprite("square.png");
-            //this.x = Utils.Random(50, game.width - 50);
-            //this.y= Utils.Random(_position.y - 100, _position.y + 100);
         }
         public void Unlock()
         {
