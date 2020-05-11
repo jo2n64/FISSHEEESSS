@@ -38,7 +38,7 @@ public class Journal : GameObject
         close.SetXY(journal.x + journal.width - close.width, journal.y);
         canvas = new Canvas(journal.width, journal.height);
         descriptionCanvas = new Canvas(500, 500);
-        category = 1;
+        category = 0;
         AddChild(journalButton);
         AddChild(journal);
         AddChild(close);
@@ -81,7 +81,7 @@ public class Journal : GameObject
                 close.alpha = 1f;
                 inWindow = true;
                 category = 0;
-                for(int i = 0; i < listToShow.Count; i++)
+                for(int i = 0; i < buttonsToShow.Count; i++)
                 {
                     Button button = buttonsToShow[i];
                     button.SetXY(journal.x + 50, journal.y + 150 + 50 * i);
@@ -148,7 +148,7 @@ public class Journal : GameObject
                         fishSprites[i + 1].alpha = 0f;
                     }
                     descriptionCanvas.graphics.Clear(Color.Transparent);
-                    descriptionCanvas.graphics.DrawString(freshFish[i].GetFishDescription(), textFont, Brushes.Black, 0, 0);
+                    descriptionCanvas.graphics.DrawString(listToShow[i].GetFishDescription(), textFont, Brushes.Black, 0, 0);
                 }
             }
             if (MyGame.CheckMouseInRectClick(close))
