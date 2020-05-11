@@ -68,7 +68,7 @@ namespace GXPEngine
             clickToBuy.height = 200;
             clickToBuy.y += 300;
             AddChild(clickToBuy);
-            
+
             foodCan = new Sprite("fish_food.png");
             foodCan.SetOrigin(foodCan.width / 4, 0);
             foodCan.width /= 5;
@@ -82,8 +82,7 @@ namespace GXPEngine
             AddChild(shop);
             shop.visible = false;
             cleanDirtWithSponge = new Sound("sponge_use_sound.wav", true, true);
-            //spongeClean = cleanDirtWithSponge.Play();
-            //spongeClean.Stop();
+
             repairAquarium = new Sound("repair_aquarium_sound.wav", false, true);
             makeFoodSound = new Sound("fish_food_pick_sound.wav", false, true);
             openShop = new Sound("opening_journal_shop_sound.wav", false, true);
@@ -91,8 +90,6 @@ namespace GXPEngine
             {
                 AddChild(_tutorial);
             }
-
-            // openShopSoundChannel = openShop.Play();
 
         }
         void addFish()
@@ -123,124 +120,85 @@ namespace GXPEngine
                 makeFoodSound.Play();
             }
         }
-        int tutorialIndex = 2;
         void Update()
         {
-            //if (_tutorial != null)
-            //{
-            //    _tutorial.visible = true;
-            //}
-            //if (_tutorial != null)
-            //{
-            //    Console.WriteLine("this is scene " + (_tutorial.visible));
-            //}
 
             if (isActive)
             {
                 if (isBought == true)
                 {
-                    //makeTutorialAppear();
-                    // ChangeTutorialMaxFrame(4);
                     canMakeFood = true;
                     addFish();
-                    //if (_tutorial == null)
-                    //{
-                        switch (inv.id)
-                        {
-                            case Inventory.Food:
-                                if (inv.checkIfItemIsOverlapped() == false)
-                                {
-                                    makeFood();
-                                }
-                                displayFoodCan();
-                                moveFoodCan();
-                                RemoveShop();
-                                RemoveSponge();
-                                break;
-                            case Inventory.Sponge:
-                                displaySponge();
-                                RemoveShop();
-                                RemoveFoodCan();
-                                if(scene == 1 && _tutorial.isVisible && _tutorial.count == 3)
-                                {
-                                    _tutorial.count = 4;
-                                }
-                                break;
-                            case Inventory.Shop:
-                                displayShop();
-                                RemoveSponge();
-                                RemoveFoodCan();
-                                break;
-                            case 0:
-                                RemoveShop();
-                                RemoveSponge();
-                                handleMoney();
-                                RemoveFoodCan();
-                                goBack();
-                                break;
-                        }
-                        if (isOneFishShown == true)
-                        {
-                            makeDirt();
-                        }
+
+                    switch (inv.id)
+                    {
+                        case Inventory.Food:
+                            if (inv.checkIfItemIsOverlapped() == false)
+                            {
+                                makeFood();
+                            }
+                            displayFoodCan();
+                            moveFoodCan();
+                            RemoveShop();
+                            RemoveSponge();
+                            if(scene == 1 && _tutorial.isVisible && _tutorial.count == 6)
+                            {
+                                _tutorial.count = 7;
+                            }
+                            break;
+                        case Inventory.Sponge:
+                            displaySponge();
+                            RemoveShop();
+                            RemoveFoodCan();
+                            if (scene == 1 && _tutorial.isVisible && _tutorial.count == 3)
+                            {
+                                _tutorial.count = 4;
+                            }
+                            break;
+                        case Inventory.Shop:
+                            displayShop();
+                            RemoveSponge();
+                            RemoveFoodCan();
+                            if(scene == 1 && _tutorial.isVisible && _tutorial.count == 5)
+                            {
+                                _tutorial.count = 6;
+                            }
+                            break;
+                        case 0:
+                            RemoveShop();
+                            RemoveSponge();
+                            handleMoney();
+                            RemoveFoodCan();
+                            goBack();
+                            break;
+                    }
+                    if(sponge.dirtList.Count <= 0 && !isOneFishShown && _tutorial.count == 4)
+                    {
+                        _tutorial.count = 5;
+                    }
+                    {
+
+                    }
+                    if (isOneFishShown == true)
+                    {
+                        makeDirt();
+                    }
 
                 }
                 else
                 {
-                    //makeTutorialAppear();
-                    // ChangeTutorialMaxFrame();
                     goBack();
                     buyAquarium();
                 }
 
 
             }
-            //if (isBought == true)
-            //{
-            //    if (isOneFishShown == true)
-            //    {
-            //        makeDirt();
-            //    }
-            //}
-            //if (_tutorial != null)
-            //{
-            //    Console.WriteLine("this is scene" + (_tutorial.visible));
-            //}
+
         }
-        //void makeTutorialDissapear()
-        //{
-        //    if (_tutorial != null)
-        //    {
-        //        _tutorial.BecomeInvisible();
-        //    }
-        //}
-        //void makeTutorialAppear()
-        //{
-        //    if (_tutorial != null)
-        //    {
-        //        _tutorial.BecomeVisible();
-        //      //  _tutorial.maxFrameToChange++;
-        //    }
-        //}
-        //void ChangeTutorialMaxFrame()
-        //{
-        //    if (_tutorial != null)
-        //    {
-        //        _tutorial.maxFrameToChange=tutorialIndex;
-        //    }
-        //}
-        //void ChangeTutorialFrame()
-        //{
-        //    if (_tutorial != null)
-        //    {
-        //        _tutorial.currentFrame++;
-        //    }
-        //}
 
         void buyAquarium()
         {
 
-            //Console.WriteLine(_tutorial.visible);
             if (MyGame.CheckMouseInRectClick(clickToBuy))
             {
                 if (level.currencySystem.money >= priceOfAquarium)
@@ -250,21 +208,14 @@ namespace GXPEngine
                     AddChild(inv);
                     level.currencySystem.RemoveMoney(priceOfAquarium);
                     repairAquarium.Play();
-                    //if (_tutorial.visible == true)
-                    //{
-                    //    ChangeTutorialFrame();
-                    //}
+                    if(_tutorial.isVisible && scene == 1 && _tutorial.count == 1)
+                    {
+                        _tutorial.count = 2;
+                    }
 
-                    //tutorialIndex += 1;
-                    //ChangeTutorialMaxFrame();
                 }
 
             }
-        }
-
-        void DoTutorialThings()
-        {
-
         }
 
         void handleMoney()
@@ -320,7 +271,6 @@ namespace GXPEngine
                 {
                     RemoveChild(shop);
                 }
-                // makeTutorialDissapear();
             }
         }
 

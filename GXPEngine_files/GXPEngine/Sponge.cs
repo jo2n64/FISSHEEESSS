@@ -9,7 +9,7 @@ namespace GXPEngine
     {
         public Vec2 _position;
         float _radius;
-        List<Dirt> dirtList;
+        public List<Dirt> dirtList;
         Scene _currentScene;
         public Sponge(Scene currentScene) : base("sponge.png")
         {

@@ -48,6 +48,12 @@ namespace GXPEngine
                 if (MyGame.CheckMouseInRectClick(next))
                 {
                     count++;
+                    if(count >= 9)
+                    {
+                        isVisible = false;
+                        RemoveChild(skip);
+                        RemoveChild(next);
+                    }
                 }
 
                 switch (count)
@@ -75,6 +81,9 @@ namespace GXPEngine
                         break;
                     case 7:
                         text = "Now that you have the food picked up,\nchoose a place on the\naquarium and click to drop food";
+                        break;
+                    case 8:
+                        text = "Congrats, you passed the tutorial!\nClick on Next or Skip to exit this window";
                         break;
 
                 }
