@@ -80,6 +80,7 @@ public class Journal : GameObject
                 journal.alpha = 1f;
                 close.alpha = 1f;
                 inWindow = true;
+                category = 0;
                 for(int i = 0; i < listToShow.Count; i++)
                 {
                     Button button = buttonsToShow[i];

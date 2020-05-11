@@ -15,7 +15,7 @@ public class MyGame : Game
         
         isPlaying = false;
         test = new Button(new Vec2(width / 2, height / 2 - 100), 300, 200, "Welcome");
-        music = new Sound("sleyar.wav");
+        music = new Sound("music.mp3");
         AddChild(test);
 
     }
