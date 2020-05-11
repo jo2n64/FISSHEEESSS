@@ -12,7 +12,6 @@ public class Level : Sprite
     public Journal journal;
     public CurrencySystem currencySystem;
     public bool isInScene;
-    bool inJournal;
     //Tutorial tutorial;
     public Level() : base("aquariums.png")
     {
@@ -29,7 +28,6 @@ public class Level : Sprite
         AddScene(new Scene("empty_tank2.jpg", currencySystem, this, 2,300));
         AddScene(new Scene("fishtank3.jpg", currencySystem, this, 3,400));
         AddChild(journal);
-        inJournal = false;
         //AddChild(tutorial);
     }
 

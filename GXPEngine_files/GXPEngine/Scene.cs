@@ -26,7 +26,7 @@ namespace GXPEngine
         bool isBought = false;
         bool isOneFishShown = false;
         Sprite clickToBuy;
-        //Tutorial _tutorial;
+        Tutorial _tutorial;
         Sound cleanDirtWithSponge;
         SoundChannel spongeClean;
         Sound repairAquarium;
@@ -36,8 +36,10 @@ namespace GXPEngine
 
         public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400,Tutorial tutorial=null) : base()
         {
-          //  _tutorial = tutorial;
-
+            if (scene == 1)
+            {
+                _tutorial = new Tutorial(new Vec2(game.width / 2 - 300, game.height / 2), this);
+            }
             this.scene = scene;
             _currency = currency;
             visible = false;
@@ -64,6 +66,7 @@ namespace GXPEngine
             clickToBuy.height = 200;
             clickToBuy.y += 300;
             AddChild(clickToBuy);
+            
             foodCan = new Sprite("fish_food.png");
             foodCan.SetOrigin(foodCan.width / 4, 0);
             foodCan.width /= 5;
@@ -82,7 +85,11 @@ namespace GXPEngine
             repairAquarium = new Sound("repair_aquarium_sound.wav", false, true);
             makeFoodSound = new Sound("fish_food_pick_sound.wav", false, true);
             openShop = new Sound("opening_journal_shop_sound.wav", false, true);
-           // openShopSoundChannel = openShop.Play();
+            if (_tutorial != null)
+            {
+                AddChild(_tutorial);
+            }
+            // openShopSoundChannel = openShop.Play();
 
         }
         void addFish()
@@ -151,6 +158,10 @@ namespace GXPEngine
                                 displaySponge();
                                 RemoveShop();
                                 RemoveFoodCan();
+                                if(scene == 1 && _tutorial.isVisible && _tutorial.count == 3)
+                                {
+                                    _tutorial.count = 4;
+                                }
                                 break;
                             case Inventory.Shop:
                                 displayShop();
@@ -334,6 +345,11 @@ namespace GXPEngine
                 }
 
             }
+        }
+
+        void DoTutorialThings()
+        {
+
         }
 
         void handleMoney()

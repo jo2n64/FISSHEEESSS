@@ -13,6 +13,7 @@ namespace GXPEngine
         Item food;
         Item sponge;
         Item shop;
+        Journal journal;
         Sprite emptySpace1;
         Sprite emptySpace2;
         Sprite emptySpace3;
