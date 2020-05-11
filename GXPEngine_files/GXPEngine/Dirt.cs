@@ -12,8 +12,6 @@ namespace GXPEngine
         public int cleanImpact;
         public Dirt(ref int meter) : base("dirt.png")
         {
-
-            
             int type = Utils.Random(1, 100);
             if (type <= 50)
             {
