@@ -25,7 +25,7 @@ public class MyGame : Game
         if (CheckMouseInRectClick(test) && !isPlaying)
         {
             level = new Level();
-            music.Play();
+           // music.Play();
             AddChild(level);
             isPlaying = true;
         }
