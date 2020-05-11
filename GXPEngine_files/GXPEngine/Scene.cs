@@ -89,6 +89,7 @@ namespace GXPEngine
             if (_tutorial != null)
             {
                 AddChild(_tutorial);
+                Console.WriteLine(_tutorial.Index);
             }
 
         }
@@ -248,6 +249,7 @@ namespace GXPEngine
                 Dirt dirt = new Dirt(ref cleanMeter);
                 sponge.addDirt(dirt);
                 AddChild(dirt);
+                SetChildIndex(dirt, 2);
                 timer = 1000;
             }
         }
@@ -338,6 +340,11 @@ namespace GXPEngine
                 shop.visible = false;
                 isShopDisplayed = false;
             }
+        }
+
+        public int GetScene()
+        {
+            return scene;
         }
     }
 }

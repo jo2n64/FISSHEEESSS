@@ -8,7 +8,7 @@ using GXPEngine;
 public class Level : GameObject
 {
     List<Button> buttons;
-    List<Scene> scenes;
+    public List<Scene> scenes;
     public Journal journal;
     public CurrencySystem currencySystem;
     public bool isInScene;
