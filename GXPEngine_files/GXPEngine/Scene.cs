@@ -61,8 +61,8 @@ namespace GXPEngine
             fishListPerScene = new List<Fish>();
             DisplayFishInScene fishes = new DisplayFishInScene(scene, foodList, fishListPerScene);
             sponge = new Sponge(this);
-            shop = new Shop(fishListPerScene, level);
             inv = new Inventory();
+            shop = new Shop(fishListPerScene, level, inv);
             clickToBuy = new Sprite("checkers.png");
             clickToBuy.width = 200;
             clickToBuy.height = 200;
@@ -123,28 +123,15 @@ namespace GXPEngine
                 makeFoodSound.Play();
             }
         }
-        int tutorialIndex = 2;
         void Update()
         {
-            //if (_tutorial != null)
-            //{
-            //    _tutorial.visible = true;
-            //}
-            //if (_tutorial != null)
-            //{
-            //    Console.WriteLine("this is scene " + (_tutorial.visible));
-            //}
-
+           
             if (isActive)
             {
                 if (isBought == true)
                 {
-                    //makeTutorialAppear();
-                    // ChangeTutorialMaxFrame(4);
                     canMakeFood = true;
                     addFish();
-                    //if (_tutorial == null)
-                    //{
                         switch (inv.id)
                         {
                             case Inventory.Food:
@@ -161,10 +148,6 @@ namespace GXPEngine
                                 displaySponge();
                                 RemoveShop();
                                 RemoveFoodCan();
-                                if(scene == 1 && _tutorial.isVisible && _tutorial.count == 3)
-                                {
-                                    _tutorial.count = 4;
-                                }
                                 break;
                             case Inventory.Shop:
                                 displayShop();
@@ -187,60 +170,17 @@ namespace GXPEngine
                 }
                 else
                 {
-                    //makeTutorialAppear();
-                    // ChangeTutorialMaxFrame();
                     goBack();
                     buyAquarium();
                 }
 
 
             }
-            //if (isBought == true)
-            //{
-            //    if (isOneFishShown == true)
-            //    {
-            //        makeDirt();
-            //    }
-            //}
-            //if (_tutorial != null)
-            //{
-            //    Console.WriteLine("this is scene" + (_tutorial.visible));
-            //}
         }
-        //void makeTutorialDissapear()
-        //{
-        //    if (_tutorial != null)
-        //    {
-        //        _tutorial.BecomeInvisible();
-        //    }
-        //}
-        //void makeTutorialAppear()
-        //{
-        //    if (_tutorial != null)
-        //    {
-        //        _tutorial.BecomeVisible();
-        //      //  _tutorial.maxFrameToChange++;
-        //    }
-        //}
-        //void ChangeTutorialMaxFrame()
-        //{
-        //    if (_tutorial != null)
-        //    {
-        //        _tutorial.maxFrameToChange=tutorialIndex;
-        //    }
-        //}
-        //void ChangeTutorialFrame()
-        //{
-        //    if (_tutorial != null)
-        //    {
-        //        _tutorial.currentFrame++;
-        //    }
-        //}
 
         void buyAquarium()
         {
 
-            //Console.WriteLine(_tutorial.visible);
             if (MyGame.CheckMouseInRectClick(clickToBuy))
             {
                 if (level.currencySystem.money >= priceOfAquarium)
@@ -250,21 +190,9 @@ namespace GXPEngine
                     AddChild(inv);
                     level.currencySystem.RemoveMoney(priceOfAquarium);
                     repairAquarium.Play();
-                    //if (_tutorial.visible == true)
-                    //{
-                    //    ChangeTutorialFrame();
-                    //}
-
-                    //tutorialIndex += 1;
-                    //ChangeTutorialMaxFrame();
                 }
 
             }
-        }
-
-        void DoTutorialThings()
-        {
-
         }
 
         void handleMoney()
@@ -320,7 +248,6 @@ namespace GXPEngine
                 {
                     RemoveChild(shop);
                 }
-                // makeTutorialDissapear();
             }
         }
 

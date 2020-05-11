@@ -13,7 +13,7 @@ namespace GXPEngine
         public Dirt(ref int meter) : base("dirt.png")
         {
 
-            _position.SetXY(x,y);
+            
             int type = Utils.Random(1, 100);
             if (type <= 50)
             {
@@ -31,6 +31,7 @@ namespace GXPEngine
             _radius = width / 2;
             x = Utils.Random(width, game.width - width);
             y = Utils.Random(height, game.height - height);
+            _position.SetXY(x, y);
 
         }
     }

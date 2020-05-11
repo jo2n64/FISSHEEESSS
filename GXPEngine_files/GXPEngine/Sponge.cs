@@ -49,6 +49,7 @@ namespace GXPEngine
                 Vec2 relativePosition = _position - mover._position;
                 if (relativePosition.Magnitude() < _radius + mover._radius)
                 {
+                    Console.WriteLine("col");
                     _currentScene.removeDirtConsequence(mover);
                     removeDirt(mover);
                     mover.LateDestroy();

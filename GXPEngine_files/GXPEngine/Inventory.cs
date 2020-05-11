@@ -12,7 +12,7 @@ namespace GXPEngine
         public const int Shop = 3;
         Item food;
         Item sponge;
-        Item shop;
+        public Item shop;
         Journal journal;
         Sprite emptySpace1;
         Sprite emptySpace2;

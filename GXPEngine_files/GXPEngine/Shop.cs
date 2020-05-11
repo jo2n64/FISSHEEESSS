@@ -10,14 +10,17 @@ namespace GXPEngine
         List<Fish> fishList;
         Level _level;
         Sound buyFish;
-        public Shop(List<Fish> fishListOfTank,Level level)
+        Sprite close;
+        Inventory inv;
+        public Shop(List<Fish> fishListOfTank,Level level, Inventory inventory)
         {
-
+            close = new Sprite("checkers.png");
             _level = level;
             fishList = fishListOfTank;
             buyFish = new Sound("buying_fish_sound.mp3", false, true);
             makeShop();
-            
+            inv = inventory;
+            AddChild(close);
         }
         void makeShop()
         {
@@ -62,6 +65,8 @@ namespace GXPEngine
             backgroundShop.height = game.height - game.height / 5;
             backgroundShop.x = game.width / 10;
             backgroundShop.y = game.height / 10;
+            close.x = backgroundShop.width+ game.width / 10-close.width;
+            close.y = game.height / 10;
         }
 
         void Update()
@@ -88,6 +93,13 @@ namespace GXPEngine
                         }
                     }
 
+                }
+
+                if (MyGame.CheckMouseInRectClick(close))
+                {
+                    visible = false;
+                    inv.id = 0;
+                    inv.shop.selected = false;
                 }
             }
         }
