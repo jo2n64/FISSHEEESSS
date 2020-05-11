@@ -75,12 +75,27 @@ public class Journal : GameObject
         descriptionCanvas.SetXY(journal.x + 500, journal.y + 450);
         if (!inWindow)
         {
+            switch (category)
+            {
+                case 0:
+                    listToShow = freshFish;
+                    buttonsToShow = freshButtons;
+                    break;
+                case 1:
+                    listToShow = seaFish;
+                    buttonsToShow = seaButtons;
+                    break;
+                case 2:
+                    listToShow = deepFish;
+                    buttonsToShow = deepButtons;
+                    break;
+            }
             if (MyGame.CheckMouseInRectClick(journalButton))
             {
                 journal.alpha = 1f;
                 close.alpha = 1f;
                 inWindow = true;
-                category = 0;
+                category = 1;
                 for(int i = 0; i < buttonsToShow.Count; i++)
                 {
                     Button button = buttonsToShow[i];
@@ -113,6 +128,7 @@ public class Journal : GameObject
                 case 1:
                     listToShow = seaFish;
                     buttonsToShow = seaButtons;
+                    Console.WriteLine(listToShow == seaFish);
                     break;
                 case 2:
                     listToShow = deepFish;
@@ -136,8 +152,13 @@ public class Journal : GameObject
 
             for(int i = 0; i < listToShow.Count; i++)
             {
+                if (MyGame.CheckMouseInRect(buttonsToShow[i]))
+                {
+                    buttonsToShow[i].SetScaleXY(1.1f);
+                }
+                else buttonsToShow[i].SetScaleXY(1f);
                 if (MyGame.CheckMouseInRectClick(buttonsToShow[i]))
-                { 
+                {
                     if(i >= 1)
                     {
                         fishSprites[i - 1].alpha = 0f;
@@ -150,6 +171,7 @@ public class Journal : GameObject
                     descriptionCanvas.graphics.Clear(Color.Transparent);
                     descriptionCanvas.graphics.DrawString(listToShow[i].GetFishDescription(), textFont, Brushes.Black, 0, 0);
                 }
+                
             }
             if (MyGame.CheckMouseInRectClick(close))
             {

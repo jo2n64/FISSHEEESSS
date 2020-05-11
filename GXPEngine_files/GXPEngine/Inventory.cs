@@ -23,7 +23,7 @@ namespace GXPEngine
         public Inventory()
         {
             listOfItemsInInventory = new List<Item>();
-            food = new Item("fish_food.png",Food);
+            food = new Item("fish_food_can.png", Food);
             sponge = new Item("sponge.png",Sponge);
             shop = new Item("shop.png",Shop);
             emptySpace1 = new Sprite("checkers.png");

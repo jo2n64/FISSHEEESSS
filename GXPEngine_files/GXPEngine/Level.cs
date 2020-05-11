@@ -5,17 +5,19 @@ using System.Text;
 using System.Drawing;
 using GXPEngine;
 
-public class Level : Sprite
+public class Level : GameObject
 {
     List<Button> buttons;
     List<Scene> scenes;
     public Journal journal;
     public CurrencySystem currencySystem;
     public bool isInScene;
-    //Tutorial tutorial;
-    public Level() : base("aquariums.png")
+    Sprite hub;
+    public Level() : base()
     {
-        //tutorial = new Tutorial();
+        hub = new Sprite("aquariums.png");
+        hub.SetScaleXY(0.7f);
+        AddChild(hub);
         isInScene = false;
         buttons = new List<Button>();
         scenes = new List<Scene>();
@@ -28,7 +30,6 @@ public class Level : Sprite
         AddScene(new Scene("empty_tank2.jpg", currencySystem, this, 2,300));
         AddScene(new Scene("fishtank3.jpg", currencySystem, this, 3,400));
         AddChild(journal);
-        //AddChild(tutorial);
     }
 
     void Update()

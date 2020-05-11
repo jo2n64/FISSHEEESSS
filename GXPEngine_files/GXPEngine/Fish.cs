@@ -191,7 +191,6 @@ namespace GXPEngine
 
         void Update()
         {
-            Console.WriteLine(currentPoint);
             isFishHungry -= Time.deltaTime;
             handleAnimation();
             move();
