@@ -34,7 +34,7 @@ namespace GXPEngine
         Sound openShop;
         SoundChannel openShopSoundChannel;
 
-        public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400,Tutorial tutorial=null) : base()
+        public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400, Tutorial tutorial = null) : base()
         {
             if (scene == 1)
             {
@@ -89,6 +89,7 @@ namespace GXPEngine
             {
                 AddChild(_tutorial);
             }
+
             // openShopSoundChannel = openShop.Play();
 
         }
@@ -120,7 +121,7 @@ namespace GXPEngine
                 makeFoodSound.Play();
             }
         }
-        int tutorialIndex=2;
+        int tutorialIndex = 2;
         void Update()
         {
             //if (_tutorial != null)
@@ -137,7 +138,7 @@ namespace GXPEngine
                 if (isBought == true)
                 {
                     //makeTutorialAppear();
-                   // ChangeTutorialMaxFrame(4);
+                    // ChangeTutorialMaxFrame(4);
                     canMakeFood = true;
                     addFish();
                     //if (_tutorial == null)
@@ -273,11 +274,11 @@ namespace GXPEngine
                 else
                 {
                     //makeTutorialAppear();
-                   // ChangeTutorialMaxFrame();
+                    // ChangeTutorialMaxFrame();
                     goBack();
                     buyAquarium();
                 }
-   
+
 
             }
             //if (isBought == true)
@@ -405,7 +406,7 @@ namespace GXPEngine
                 {
                     RemoveChild(shop);
                 }
-               // makeTutorialDissapear();
+                // makeTutorialDissapear();
             }
         }
 
@@ -414,7 +415,7 @@ namespace GXPEngine
         {
             if (spongeOnScreen == false)
             {
-                spongeClean=cleanDirtWithSponge.Play();
+                spongeClean = cleanDirtWithSponge.Play();
                 AddChild(sponge);
                 spongeOnScreen = true;
             }
