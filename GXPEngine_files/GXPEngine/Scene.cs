@@ -171,7 +171,7 @@ namespace GXPEngine
                             goBack();
                             break;
                     }
-                    if(sponge.dirtList.Count <= 0 && !isOneFishShown && _tutorial.count == 4)
+                    if(scene == 1 && sponge.dirtList.Count <= 0 && !isOneFishShown && _tutorial.count == 4)
                     {
                         _tutorial.count = 5;
                     }
@@ -205,7 +205,7 @@ namespace GXPEngine
                     AddChild(inv);
                     level.currencySystem.RemoveMoney(priceOfAquarium);
                     repairAquarium.Play();
-                    if(_tutorial.isVisible && scene == 1 && _tutorial.count == 1)
+                    if(scene == 1 && _tutorial.isVisible && _tutorial.count == 1)
                     {
                         _tutorial.count = 2;
                     }
