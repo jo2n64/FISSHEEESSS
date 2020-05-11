@@ -122,6 +122,11 @@ public class Journal : GameObject
 
             for(int i = 0; i < categories.Count; i++)
             {
+                if (MyGame.CheckMouseInRect(categories[i]))
+                {
+                    categories[i].SetScaleXY(1.1f);
+                }
+                else categories[i].SetScaleXY(1.0f);
                 if (MyGame.CheckMouseInRectClick(categories[i]))
                 {
                     category = i;

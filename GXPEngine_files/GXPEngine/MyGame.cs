@@ -4,7 +4,7 @@ using System.Drawing;
 
 public class MyGame : Game
 {
-    Button test;
+    Button play, options, exit;
     Level level;
     Sound music;
     bool isPlaying;
@@ -14,20 +14,32 @@ public class MyGame : Game
     {
         
         isPlaying = false;
-        test = new Button(new Vec2(width / 2, height / 2 - 100), 300, 200, "Welcome");
+        play = new Button(new Vec2(width / 2, height / 2 - 100), 200, 100, "Welcome");
+        options = new Button(new Vec2(width / 2, height / 2), 200, 100, "Options");
+        exit = new Button(new Vec2(width / 2, height / 2 + 100), 200, 100, "Exit");
         music = new Sound("music.mp3");
-        AddChild(test);
+        AddChild(play);
+        AddChild(options);
+        AddChild(exit);
 
     }
 
     void Update()
     {
-        if (CheckMouseInRectClick(test) && !isPlaying)
+        if (CheckMouseInRectClick(play) && !isPlaying)
         {
             level = new Level();
             music.Play();
             AddChild(level);
             isPlaying = true;
+        }
+        if (CheckMouseInRectClick(options) && !isPlaying)
+        {
+
+        }
+        if (CheckMouseInRectClick(exit) && !isPlaying)
+        {
+            Environment.Exit(0);
         }
 
     }
