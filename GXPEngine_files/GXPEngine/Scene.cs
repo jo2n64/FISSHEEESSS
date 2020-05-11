@@ -69,7 +69,7 @@ namespace GXPEngine
             clickToBuy.y += 300;
             AddChild(clickToBuy);
 
-            foodCan = new Sprite("fish_food.png");
+            foodCan = new Sprite("fish_food_can.png");
             foodCan.SetOrigin(foodCan.width / 4, 0);
             foodCan.width /= 5;
             foodCan.height /= 5;
@@ -128,7 +128,10 @@ namespace GXPEngine
                 {
                     canMakeFood = true;
                     addFish();
-
+                    if (isOneFishShown == true)
+                    {
+                        makeDirt();
+                    }
                     switch (inv.id)
                     {
                         case Inventory.Food:
@@ -178,10 +181,7 @@ namespace GXPEngine
                     {
 
                     }
-                    if (isOneFishShown == true)
-                    {
-                        makeDirt();
-                    }
+
                 }
                 else
                 {
