@@ -12,8 +12,7 @@ namespace GXPEngine
         public int cleanImpact;
         public Dirt(ref int meter) : base("dirt.png")
         {
-            x = Utils.Random(200, game.width - 250);
-            y = Utils.Random(200, game.height - 250);
+
             _position.SetXY(x,y);
             int type = Utils.Random(1, 100);
             if (type <= 50)
@@ -30,7 +29,9 @@ namespace GXPEngine
             }
             meter += cleanImpact;
             _radius = width / 2;
-           
+            x = Utils.Random(width, game.width - width);
+            y = Utils.Random(height, game.height - height);
+
         }
     }
 }

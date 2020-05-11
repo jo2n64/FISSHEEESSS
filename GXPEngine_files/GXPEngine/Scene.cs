@@ -45,6 +45,8 @@ namespace GXPEngine
             isActive = false;
             canMakeFood = true;
             tank = new Sprite(path);
+            tank.width = game.width;
+            tank.height = game.height;
             downArrow = new Sprite("downarrow.png");
 
             downArrow.SetXY(game.width / 2, game.height - 200);

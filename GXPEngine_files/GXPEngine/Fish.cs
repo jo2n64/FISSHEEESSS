@@ -38,7 +38,7 @@ namespace GXPEngine
             this.description = description;
             _frames = frames;
             SetOrigin(width / 2, height / 2);
-            _position = new Vec2(Utils.Random(250, game.width - 200), Utils.Random(250, game.height - 200));
+            _position = new Vec2(Utils.Random(width, game.width - 200), Utils.Random(height, game.height - 200));
             ChangePosition();
             _radius = width / 2;
             hungerIcon = new Sprite("square.png");
@@ -124,17 +124,17 @@ namespace GXPEngine
             }
             else
             {
-                if (_position.y + offset >= game.height - 200)
+                if (_position.y + offset >= game.height - height)
                 {
-                    currentPoint.SetXY(Utils.Random(200, game.width - 250), Utils.Random(_position.y - offset, _position.y));
+                    currentPoint.SetXY(Utils.Random(width, game.width - width), Utils.Random(_position.y - offset, _position.y));
                 }
-                else if(_position.y - offset <= 200)
+                else if(_position.y - offset <= height)
                 {
-                    currentPoint.SetXY(Utils.Random(200, game.width - 250), Utils.Random(_position.y, _position.y + offset));
+                    currentPoint.SetXY(Utils.Random(width, game.width - width), Utils.Random(_position.y, _position.y + offset));
                 }
                 else
                 {
-                    currentPoint.SetXY(Utils.Random(200, game.width - 250), Utils.Random(_position.y - offset, _position.y + offset));
+                    currentPoint.SetXY(Utils.Random(width, game.width - width), Utils.Random(_position.y - offset, _position.y + offset));
                 }
                 
                 if (isFoodPresent())

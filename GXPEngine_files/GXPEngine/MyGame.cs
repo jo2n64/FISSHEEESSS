@@ -10,7 +10,7 @@ public class MyGame : Game
     bool isPlaying;
     
 
-    public MyGame() : base(1920, 1080, false)        // Create a window that's 800x600 and NOT fullscreen
+    public MyGame() : base(1200, 700, false)        // Create a window that's 800x600 and NOT fullscreen
     {
         
         isPlaying = false;
