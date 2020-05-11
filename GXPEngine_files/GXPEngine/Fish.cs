@@ -38,13 +38,14 @@ namespace GXPEngine
             this.description = description;
             _frames = frames;
             SetOrigin(width / 2, height / 2);
-            _position = new Vec2(Utils.Random(50, game.width - 200), Utils.Random(50, game.height - 200));
+            _position = new Vec2(Utils.Random(250, game.width - 200), Utils.Random(250, game.height - 200));
+            ChangePosition();
             _radius = width / 2;
             hungerIcon = new Sprite("square.png");
             timer = 100;
             buyToUnlock = new Sprite("square.png");
-            this.x = Utils.Random(50, game.width - 50);
-            this.y= Utils.Random(_position.y - 100, _position.y + 100);
+            //this.x = Utils.Random(50, game.width - 50);
+            //this.y= Utils.Random(_position.y - 100, _position.y + 100);
         }
         public void Unlock()
         {
@@ -66,14 +67,25 @@ namespace GXPEngine
         }
         void UpdateScreenPosition()
         {
-            x = _position.x;
-            y = _position.y;
+            ChangePosition();
+            MirrorIfNeded();
+        }
+
+        private void MirrorIfNeded()
+        {
             if (velocity.x < 0)
             {
                 Mirror(true, false);
             }
             else Mirror(false, false);
         }
+
+        private void ChangePosition()
+        {
+            x = _position.x;
+            y = _position.y;
+        }
+
         void calcDistToPoint()
         {
             if (currentPoint.x != 0 && currentPoint.y != 0)
@@ -112,7 +124,19 @@ namespace GXPEngine
             }
             else
             {
-                currentPoint.SetXY(Utils.Random(50, game.width - 50), Utils.Random(_position.y - 100, _position.y + 100));
+                if (_position.y + offset >= game.height - 200)
+                {
+                    currentPoint.SetXY(Utils.Random(200, game.width - 250), Utils.Random(_position.y - offset, _position.y));
+                }
+                else if(_position.y - offset <= 200)
+                {
+                    currentPoint.SetXY(Utils.Random(200, game.width - 250), Utils.Random(_position.y, _position.y + offset));
+                }
+                else
+                {
+                    currentPoint.SetXY(Utils.Random(200, game.width - 250), Utils.Random(_position.y - offset, _position.y + offset));
+                }
+                
                 if (isFoodPresent())
                 {
                     if (isFishHungry <= 3000)
@@ -122,7 +146,7 @@ namespace GXPEngine
                 }
             }
         }
-
+        int offset = 100;
         void CheckBoundaries()
         {
             if (_position.x + width / 2 > game.width || _position.x - width / 2 < 0)
@@ -169,6 +193,7 @@ namespace GXPEngine
 
         void Update()
         {
+            Console.WriteLine(currentPoint);
             isFishHungry -= Time.deltaTime;
             handleAnimation();
             move();
