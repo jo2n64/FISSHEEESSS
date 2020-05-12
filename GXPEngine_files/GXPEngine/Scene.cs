@@ -33,6 +33,7 @@ namespace GXPEngine
         bool isBought = false;
         bool isOneFishShown = false;
         bool isPlayingMusic;
+        public bool passedTutorial = false;
         bool spongeSoundsPlaying;
         Sprite clickToBuy;
         Tutorial _tutorial;
@@ -48,7 +49,7 @@ namespace GXPEngine
 
         public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400) : base()
         {
-            if (scene == 1)
+            if (scene == 1 && !passedTutorial)
             {
                 _tutorial = new Tutorial(new Vec2(game.width / 2 - 300, game.height / 2), this);
             }
@@ -56,6 +57,7 @@ namespace GXPEngine
             {
                 sceneMusic = new Sound("seaTank.mp3");
             }
+            
             this.scene = scene;
             _currency = currency;
             visible = false;
@@ -148,102 +150,101 @@ namespace GXPEngine
         }
         void Update()
         {
-            Console.WriteLine(isActive);
-            if (isActive)
-            {
-                if (scene == 2)
+            if (level.myGame.isPlaying) { 
+                if (isActive)
                 {
-                    level.myGame.musicChannel.Volume -= 0.02f;
-                    if (level.myGame.musicChannel.Volume <= 0f)
+                    if (scene == 2)
                     {
-                        level.myGame.musicChannel.Stop();
-                        if (!isPlayingMusic)
+                        level.myGame.musicChannel.Volume -= 0.02f;
+                        if (level.myGame.musicChannel.Volume <= 0f)
                         {
-                            sceneChannel = sceneMusic.Play();
-                            sceneChannel.Volume = 0f;
-                            isPlayingMusic = true;
+                            level.myGame.musicChannel.Stop();
+                            if (!isPlayingMusic)
+                            {
+                                sceneChannel = sceneMusic.Play();
+                                sceneChannel.Volume = 0f;
+                                isPlayingMusic = true;
+                            }
+                            sceneChannel.Volume += 0.02f;
+                            if (sceneChannel.Volume >= 1f)
+                            {
+                                sceneChannel.Volume = 1f;
+                            }
                         }
-                        sceneChannel.Volume += 0.02f;
-                        if(sceneChannel.Volume >= 1f)
+
+                    }
+                    if (isBought == true)
+                    {
+                        canMakeFood = true;
+                        addFish();
+                        if (isOneFishShown == true)
                         {
-                            sceneChannel.Volume = 1f;
+                            makeDirt();
                         }
-                    }
-                    
-                }
-                if (isBought == true)
-                {
-                    canMakeFood = true;
-                    addFish();
-                    if (isOneFishShown == true)
-                    {
-                        makeDirt();
-                    }
-                    switch (inv.id)
-                    {
-                        case Inventory.Food:
-                            if (inv.checkIfItemIsOverlapped() == false)
-                            {
-                                makeFood();
-                            }
-                            displayFoodCan();
-                            moveFoodCan();
-                            RemoveShop();
-                            RemoveSponge();
-                            if(scene == 1 && _tutorial.isVisible && _tutorial.count == 6)
-                            {
-                                _tutorial.count = 7;
-                            }
-                            break;
-                        case Inventory.Sponge:
-                            displaySponge();
-                            RemoveShop();
-                            RemoveFoodCan();
-                            if (scene == 1 && _tutorial.isVisible && _tutorial.count == 3)
-                            {
-                                _tutorial.count = 4;
-                            }
-                            break;
-                        case Inventory.Shop:
-                            displayShop();
-                            RemoveSponge();
-                            RemoveFoodCan();
-                            if(scene == 1 && _tutorial.isVisible && _tutorial.count == 5)
-                            {
-                                _tutorial.count = 6;
-                            }
-                            break;
-                        case 0:
-                            RemoveShop();
-                            RemoveSponge();
-                            handleMoney();
-                            RemoveFoodCan();
-                            goBack();
-                            break;
-                    }
-                    if(scene == 1 && sponge.dirtList.Count <= 0 && !isOneFishShown && _tutorial.count == 4)
-                    {
-                        _tutorial.count = 5;
-                    }
-                    if (spongeSoundsPlaying)
-                    {
-                        int rand = soundRand.Next(0, spongeSounds.Length - 1);
-                        spongeTimer -= Time.deltaTime;
-                        if (spongeTimer <= 0)
+                        switch (inv.id)
                         {
-                            spongeClean = spongeSounds[rand].Play();
-                            spongeTimer = 791;
+                            case Inventory.Food:
+                                if (inv.checkIfItemIsOverlapped() == false)
+                                {
+                                    makeFood();
+                                }
+                                displayFoodCan();
+                                moveFoodCan();
+                                RemoveShop();
+                                RemoveSponge();
+                                if (scene == 1 && _tutorial.isVisible && _tutorial.count == 6)
+                                {
+                                    _tutorial.count = 7;
+                                }
+                                break;
+                            case Inventory.Sponge:
+                                displaySponge();
+                                RemoveShop();
+                                RemoveFoodCan();
+                                if (scene == 1 && _tutorial.isVisible && _tutorial.count == 3)
+                                {
+                                    _tutorial.count = 4;
+                                }
+                                break;
+                            case Inventory.Shop:
+                                displayShop();
+                                RemoveSponge();
+                                RemoveFoodCan();
+                                if (scene == 1 && _tutorial.isVisible && _tutorial.count == 5)
+                                {
+                                    _tutorial.count = 6;
+                                }
+                                break;
+                            case 0:
+                                RemoveShop();
+                                RemoveSponge();
+                                handleMoney();
+                                RemoveFoodCan();
+                                goBack();
+                                break;
                         }
+                        if (scene == 1 && sponge.dirtList.Count <= 0 && !isOneFishShown && _tutorial.count == 4)
+                        {
+                            _tutorial.count = 5;
+                        }
+                        if (spongeSoundsPlaying)
+                        {
+                            int rand = soundRand.Next(0, spongeSounds.Length - 1);
+                            spongeTimer -= Time.deltaTime;
+                            if (spongeTimer <= 0)
+                            {
+                                spongeClean = spongeSounds[rand].Play();
+                                spongeTimer = 791;
+                            }
+                        }
+
                     }
-
+                    else
+                    {
+                        goBack();
+                        buyAquarium();
+                    }
                 }
-                else
-                {
-                    goBack();
-                    buyAquarium();
-                }
-
-
             }
         }
 

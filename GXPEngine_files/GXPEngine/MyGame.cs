@@ -5,20 +5,21 @@ using System.Drawing;
 public class MyGame : Game
 {
     Button play, options, exit;
+    Sprite bg;
     Level level;
     public SoundChannel musicChannel;
     public Sound music;
-    bool isPlaying;
-    
-
+    public bool isPlaying;
+    bool hasStarted;
     public MyGame() : base(1600, 900, false)        // Create a window that's 800x600 and NOT fullscreen
     {
-        
         isPlaying = false;
-        play = new Button(new Vec2(width / 2, height / 2 - 100), 200, 100, "Welcome");
-        options = new Button(new Vec2(width / 2, height / 2), 200, 100, "Options");
-        exit = new Button(new Vec2(width / 2, height / 2 + 100), 200, 100, "Exit");
+        bg = new Sprite("mainmenu.png");
+        play = new Button(new Vec2(width / 2 - 150, height / 2 - 50), 250, 100, "Welcome");
+        options = new Button(new Vec2(width / 2 - 120, height / 2 + 70), 200, 80, "Options");
+        exit = new Button(new Vec2(width / 2 - 100, height / 2 + 170), 170, 80, "Exit");
         music = new Sound("freshTank.mp3");
+        AddChild(bg);
         AddChild(play);
         AddChild(options);
         AddChild(exit);
@@ -30,7 +31,11 @@ public class MyGame : Game
         if (CheckMouseInRectClick(play) && !isPlaying)
         {
             level = new Level(this);
-            musicChannel = music.Play();
+            if (!hasStarted)
+            {
+                musicChannel = music.Play();
+                hasStarted = true;
+            }
             AddChild(level);
             isPlaying = true;
         }
