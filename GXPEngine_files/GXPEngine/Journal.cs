@@ -108,26 +108,15 @@ public class Journal : GameObject
                     button.SetScaleXY(1.1f);
                     if (Input.GetMouseButtonDown(0))
                     {
-                        buttonsToShow.Clear();
-                        category = i;
-                        switch (category)
+                        foreach(Button catButton in buttonsToShow)
                         {
-                            case 0:
-                                buttonsToShow = freshButtons;
-                                listToShow = freshFish;
-                                spritesToShow = freshSprites;
-                                break;
-                            case 1:
-                                buttonsToShow = seaButtons;
-                                listToShow = seaFish;
-                                spritesToShow = seaSprites;
-                                break;
-                            case 2:
-                                buttonsToShow = deepButtons;
-                                listToShow = deepFish;
-                                spritesToShow = deepSprites;
-                                break;
+                            RemoveChild(catButton);
                         }
+                        foreach(Fish f in listToShow)
+                        {
+                            RemoveChild(f);
+                        }
+                        category = i;
                     }
                 }
                 else button.SetScaleXY(1f);
