@@ -46,7 +46,7 @@ namespace GXPEngine
         Sound sceneMusic;
         SoundChannel sceneChannel;
 
-        public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400, Tutorial tutorial = null) : base()
+        public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400) : base()
         {
             if (scene == 1)
             {
