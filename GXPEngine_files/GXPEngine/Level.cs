@@ -15,9 +15,10 @@ public class Level : GameObject
     bool isInHub;
     Sprite hub;
     public MyGame myGame;
+    Options _options;
     public Level(MyGame myGame,Options options) : base()
-
     {
+        _options = options;
         this.myGame = myGame;
         hub = new Sprite("aquariums.png");
         hub.SetScaleXY(0.9f);
@@ -40,7 +41,6 @@ public class Level : GameObject
 
     void Update()
     {
-
         if ((!isInScene && !journal.inWindow))
         {
             for (int i = 0; i < buttons.Count; i++)

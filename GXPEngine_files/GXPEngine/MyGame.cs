@@ -47,7 +47,7 @@ public class MyGame : Game
         }
         if (CheckMouseInRectClick(options) && !isPlaying)
         {
-
+            option.visible = true;
         }
         if (CheckMouseInRectClick(exit) && !isPlaying)
         {
