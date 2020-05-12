@@ -18,7 +18,7 @@ public class Level : GameObject
     {
         this.myGame = myGame;
         hub = new Sprite("aquariums.png");
-        hub.SetScaleXY(0.7f);
+        hub.SetScaleXY(0.9f);
         AddChild(hub);
         isInScene = false;
         buttons = new List<Button>();

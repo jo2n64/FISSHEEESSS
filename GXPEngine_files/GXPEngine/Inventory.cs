@@ -25,14 +25,14 @@ namespace GXPEngine
             listOfItemsInInventory = new List<Item>();
             food = new Item("fish_food_can.png", Food);
             sponge = new Item("sponge.png",Sponge);
-            shop = new Item("shop.png",Shop);
+            shop = new Item("shop_icon_idea.png", Shop);
             emptySpace1 = new Sprite("checkers.png");
             emptySpace2 = new Sprite("checkers.png");
             emptySpace3 = new Sprite("checkers.png");
 
-            emptySpace1.x = game.width - 100;
-            emptySpace2.x = game.width - 100;
-            emptySpace3.x = game.width - 100;
+            emptySpace1.x = game.width - 150;
+            emptySpace2.x = game.width - 150;
+            emptySpace3.x = game.width - 150;
             emptySpace1.y = 150;
             emptySpace2.y = 300;
             emptySpace3.y = 450;
@@ -49,8 +49,8 @@ namespace GXPEngine
 
             food.x = emptySpace1.x;
             food.y = emptySpace1.y;
-            food.width /= 6;
-            food.height /= 6;
+            food.width /= 4;
+            food.height /= 4;
            // AddChild(food);
 
             sponge.x = emptySpace2.x;

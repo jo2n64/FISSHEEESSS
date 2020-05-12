@@ -11,7 +11,7 @@ public class MyGame : Game
     bool isPlaying;
     
 
-    public MyGame() : base(1200, 700, false)        // Create a window that's 800x600 and NOT fullscreen
+    public MyGame() : base(1600, 900, false)        // Create a window that's 800x600 and NOT fullscreen
     {
         
         isPlaying = false;
@@ -30,7 +30,7 @@ public class MyGame : Game
         if (CheckMouseInRectClick(play) && !isPlaying)
         {
             level = new Level(this);
-           // musicChannel = music.Play();
+            musicChannel = music.Play();
             AddChild(level);
             isPlaying = true;
         }
