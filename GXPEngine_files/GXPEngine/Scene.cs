@@ -132,18 +132,23 @@ namespace GXPEngine
                 }
             }
         }
+
         void makeFood()
         {
             if (Input.GetMouseButtonDown(button: 0) && canMakeFood)
             {
-                Food food = new Food();
-                AddChildAt(food, 1);
-                foodList.Add(food);
-                makeFoodSound.Play();
+                if (foodList.Count < 5)
+                {
+                    Food food = new Food();
+                    AddChildAt(food, 1);
+                    foodList.Add(food);
+                    makeFoodSound.Play();
+                }
             }
         }
         void Update()
         {
+            Console.WriteLine(isActive);
             if (isActive)
             {
                 if (scene == 2)

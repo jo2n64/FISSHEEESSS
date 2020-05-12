@@ -15,8 +15,8 @@ namespace GXPEngine
         {
             SetOrigin(width / 2, height / 2);
 
-            //width /= 20;
-            //height /= 20;
+            width /= 5;
+            height /= 5;
             _radius = width / 2;
             dirtList = new List<Dirt>();
             _currentScene = currentScene;

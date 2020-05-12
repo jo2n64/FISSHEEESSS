@@ -49,14 +49,14 @@ namespace GXPEngine
 
             food.x = emptySpace1.x;
             food.y = emptySpace1.y;
-            food.width /= 4;
-            food.height /= 4;
+            food.width /= 6;
+            food.height /= 6;
            // AddChild(food);
 
             sponge.x = emptySpace2.x;
             sponge.y = emptySpace2.y;
-            sponge.width -= sponge.width/3;
-            sponge.height -= sponge.height /3;
+            sponge.width /= 7;
+            sponge.height /= 7;
            // AddChild(sponge);
 
             shop.x = emptySpace3.x;
