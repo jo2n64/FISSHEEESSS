@@ -332,7 +332,10 @@ namespace GXPEngine
         {
             if (spongeOnScreen == true)
             {
-                spongeClean.Stop();
+                if (spongeClean != null)
+                {
+                    spongeClean.Stop();
+                }
                 RemoveChild(sponge);
                 spongeOnScreen = false;
                 spongeSoundsPlaying = false;

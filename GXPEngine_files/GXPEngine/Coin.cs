@@ -7,13 +7,13 @@ namespace GXPEngine
 {
     public class Coin: Sprite
     {
-        public int value;
+        public int value;//=200;
         Level _level;
         Sound colectCoin;
         public Coin(Fish fish, Level level) : base("coin.png")
         {
-            x = fish.x;
-            y = fish.y;
+            x = Utils.Random(fish.x - fish.width, fish.x + fish.width);
+            y = Utils.Random(fish.y - fish.height, fish.y + fish.height);
             value = fish.coinValue;
             width /= 17;
             height /= 17;
