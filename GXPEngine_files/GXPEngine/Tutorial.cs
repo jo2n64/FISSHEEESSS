@@ -12,6 +12,7 @@ namespace GXPEngine
         Scene scene;
         Button skip, next;
         Font font;
+        Sprite image;
         string text;
         public bool isVisible;
         public int count;
@@ -19,11 +20,15 @@ namespace GXPEngine
         {
             canvas = new Canvas(500, 400);
             canvas.SetXY(position.x, position.y);
+            image = new Sprite("tutorial_background.png");
+            image.SetScaleXY(0.4f);
+            image.SetXY(canvas.x, canvas.y);
             isVisible = true;
             skip = new Button(new Vec2(canvas.x, canvas.y), 100, 100, "SKIP");
             next = new Button(new Vec2(canvas.x + canvas.width - 100, canvas.y), 100, 100, "NEXT");
             count = 0;
             font = new Font("Comic Sans", 16);
+            AddChild(image);
             AddChild(canvas);
             AddChild(skip);
             AddChild(next);
@@ -36,14 +41,13 @@ namespace GXPEngine
             canvas.graphics.Clear(Color.Transparent);
             if (isVisible)
             {
-                
-                canvas.graphics.FillRectangle(Brushes.Blue, new Rectangle(0, 0, canvas.width, canvas.height));
                 canvas.graphics.DrawString(text, font, Brushes.Black, canvas.width / 2 - 200, canvas.height/2);
                 if (MyGame.CheckMouseInRectClick(skip))
                 {
                     isVisible = false;
                     RemoveChild(skip);
                     RemoveChild(next);
+                    RemoveChild(image);
                 }
                 if (MyGame.CheckMouseInRectClick(next))
                 {
@@ -53,6 +57,7 @@ namespace GXPEngine
                         isVisible = false;
                         RemoveChild(skip);
                         RemoveChild(next);
+                        RemoveChild(image);
                     }
                 }
 

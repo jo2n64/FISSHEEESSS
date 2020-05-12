@@ -8,6 +8,8 @@ namespace GXPEngine
 
     public class Scene : GameObject
     {
+        Random soundRand;
+
         Sprite tank, downArrow;
         Level level;
         int timer = 1000;
@@ -23,16 +25,22 @@ namespace GXPEngine
         int cleanMeter = 0;
         int scene;
         int priceOfAquarium;
+        int spongeTimer;
         bool isBought = false;
         bool isOneFishShown = false;
+        bool isPlayingMusic;
+        bool spongeSoundsPlaying;
         Sprite clickToBuy;
         Tutorial _tutorial;
-        Sound cleanDirtWithSponge;
+        //Sound cleanDirtWithSponge;
+        Sound[] spongeSounds;
         SoundChannel spongeClean;
         Sound repairAquarium;
         Sound makeFoodSound;
         Sound openShop;
         SoundChannel openShopSoundChannel;
+        Sound sceneMusic;
+        SoundChannel sceneChannel;
 
         public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400, Tutorial tutorial = null) : base()
         {
@@ -40,9 +48,14 @@ namespace GXPEngine
             {
                 _tutorial = new Tutorial(new Vec2(game.width / 2 - 300, game.height / 2), this);
             }
+            if(scene == 2)
+            {
+                sceneMusic = new Sound("seaTank.mp3");
+            }
             this.scene = scene;
             _currency = currency;
             visible = false;
+            spongeSoundsPlaying = false;
             this.level = level;
             isActive = false;
             canMakeFood = true;
@@ -50,14 +63,14 @@ namespace GXPEngine
             tank.width = game.width;
             tank.height = game.height;
             downArrow = new Sprite("downarrow.png");
-
+            isPlayingMusic = false;
             downArrow.SetXY(game.width / 2, game.height - 200);
             downArrow.SetScaleXY(0.2f);
             foodList = new List<Food>();
             AddChildAt(tank, 0);
             AddChild(downArrow);
             priceOfAquarium = price;
-
+            soundRand = new Random();
             fishListPerScene = new List<Fish>();
             DisplayFishInScene fishes = new DisplayFishInScene(scene, foodList, fishListPerScene);
             sponge = new Sponge(this);
@@ -68,7 +81,7 @@ namespace GXPEngine
             clickToBuy.height = 200;
             clickToBuy.y += 300;
             AddChild(clickToBuy);
-
+            spongeTimer = 791;
             foodCan = new Sprite("fish_food_can.png");
             foodCan.SetOrigin(foodCan.width / 4, 0);
             foodCan.width /= 5;
@@ -81,7 +94,11 @@ namespace GXPEngine
             }
             AddChild(shop);
             shop.visible = false;
-            cleanDirtWithSponge = new Sound("sponge_use_sound.wav", true, true);
+            spongeSounds = new Sound[3];
+            spongeSounds[0] = new Sound("sponge_use_sound.wav", false, true);
+            spongeSounds[1] = new Sound("sponge_use_sound_high.wav", false, true);
+            spongeSounds[2] = new Sound("sponge_use_sound_low.wav", false, true);
+            //cleanDirtWithSponge = new Sound("sponge_use_sound.wav", true, true);
 
             repairAquarium = new Sound("repair_aquarium_sound.wav", false, true);
             makeFoodSound = new Sound("fish_food_pick_sound.wav", false, true);
@@ -89,6 +106,7 @@ namespace GXPEngine
             if (_tutorial != null)
             {
                 AddChild(_tutorial);
+                Console.WriteLine(_tutorial.Index);
             }
 
         }
@@ -124,6 +142,26 @@ namespace GXPEngine
         {
             if (isActive)
             {
+                if (scene == 2)
+                {
+                    level.myGame.musicChannel.Volume -= 0.02f;
+                    if (level.myGame.musicChannel.Volume <= 0f)
+                    {
+                        level.myGame.musicChannel.Stop();
+                        if (!isPlayingMusic)
+                        {
+                            sceneChannel = sceneMusic.Play();
+                            sceneChannel.Volume = 0f;
+                            isPlayingMusic = true;
+                        }
+                        sceneChannel.Volume += 0.02f;
+                        if(sceneChannel.Volume >= 1f)
+                        {
+                            sceneChannel.Volume = 1f;
+                        }
+                    }
+                    
+                }
                 if (isBought == true)
                 {
                     canMakeFood = true;
@@ -178,8 +216,15 @@ namespace GXPEngine
                     {
                         _tutorial.count = 5;
                     }
+                    if (spongeSoundsPlaying)
                     {
-
+                        int rand = soundRand.Next(0, spongeSounds.Length - 1);
+                        spongeTimer -= Time.deltaTime;
+                        if (spongeTimer <= 0)
+                        {
+                            spongeClean = spongeSounds[rand].Play();
+                            spongeTimer = 791;
+                        }
                     }
 
                 }
@@ -248,6 +293,7 @@ namespace GXPEngine
                 Dirt dirt = new Dirt(ref cleanMeter);
                 sponge.addDirt(dirt);
                 AddChild(dirt);
+                SetChildIndex(dirt, 2);
                 timer = 1000;
             }
         }
@@ -276,7 +322,8 @@ namespace GXPEngine
         {
             if (spongeOnScreen == false)
             {
-                spongeClean = cleanDirtWithSponge.Play();
+
+                spongeSoundsPlaying = true;
                 AddChild(sponge);
                 spongeOnScreen = true;
             }
@@ -288,6 +335,7 @@ namespace GXPEngine
                 spongeClean.Stop();
                 RemoveChild(sponge);
                 spongeOnScreen = false;
+                spongeSoundsPlaying = false;
             }
 
 
@@ -338,6 +386,11 @@ namespace GXPEngine
                 shop.visible = false;
                 isShopDisplayed = false;
             }
+        }
+
+        public int GetScene()
+        {
+            return scene;
         }
     }
 }
