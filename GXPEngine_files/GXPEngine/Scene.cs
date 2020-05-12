@@ -8,6 +8,8 @@ namespace GXPEngine
 
     public class Scene : GameObject
     {
+        Random soundRand;
+
         Sprite tank, downArrow;
         Level level;
         int timer = 1000;
@@ -23,12 +25,15 @@ namespace GXPEngine
         int cleanMeter = 0;
         int scene;
         int priceOfAquarium;
+        int spongeTimer;
         bool isBought = false;
         bool isOneFishShown = false;
         bool isPlayingMusic;
+        bool spongeSoundsPlaying;
         Sprite clickToBuy;
         Tutorial _tutorial;
-        Sound cleanDirtWithSponge;
+        //Sound cleanDirtWithSponge;
+        Sound[] spongeSounds;
         SoundChannel spongeClean;
         Sound repairAquarium;
         Sound makeFoodSound;
@@ -50,6 +55,7 @@ namespace GXPEngine
             this.scene = scene;
             _currency = currency;
             visible = false;
+            spongeSoundsPlaying = false;
             this.level = level;
             isActive = false;
             canMakeFood = true;
@@ -64,7 +70,7 @@ namespace GXPEngine
             AddChildAt(tank, 0);
             AddChild(downArrow);
             priceOfAquarium = price;
-
+            soundRand = new Random();
             fishListPerScene = new List<Fish>();
             DisplayFishInScene fishes = new DisplayFishInScene(scene, foodList, fishListPerScene);
             sponge = new Sponge(this);
@@ -75,7 +81,7 @@ namespace GXPEngine
             clickToBuy.height = 200;
             clickToBuy.y += 300;
             AddChild(clickToBuy);
-
+            spongeTimer = 791;
             foodCan = new Sprite("fish_food_can.png");
             foodCan.SetOrigin(foodCan.width / 4, 0);
             foodCan.width /= 5;
@@ -88,7 +94,11 @@ namespace GXPEngine
             }
             AddChild(shop);
             shop.visible = false;
-            cleanDirtWithSponge = new Sound("sponge_use_sound.wav", true, true);
+            spongeSounds = new Sound[3];
+            spongeSounds[0] = new Sound("sponge_use_sound.wav", false, true);
+            spongeSounds[1] = new Sound("sponge_use_sound_high.wav", false, true);
+            spongeSounds[2] = new Sound("sponge_use_sound_low.wav", false, true);
+            //cleanDirtWithSponge = new Sound("sponge_use_sound.wav", true, true);
 
             repairAquarium = new Sound("repair_aquarium_sound.wav", false, true);
             makeFoodSound = new Sound("fish_food_pick_sound.wav", false, true);
@@ -206,8 +216,15 @@ namespace GXPEngine
                     {
                         _tutorial.count = 5;
                     }
+                    if (spongeSoundsPlaying)
                     {
-
+                        int rand = soundRand.Next(0, spongeSounds.Length - 1);
+                        spongeTimer -= Time.deltaTime;
+                        if (spongeTimer <= 0)
+                        {
+                            spongeClean = spongeSounds[rand].Play();
+                            spongeTimer = 791;
+                        }
                     }
 
                 }
@@ -305,7 +322,8 @@ namespace GXPEngine
         {
             if (spongeOnScreen == false)
             {
-                spongeClean = cleanDirtWithSponge.Play();
+
+                spongeSoundsPlaying = true;
                 AddChild(sponge);
                 spongeOnScreen = true;
             }
@@ -317,6 +335,7 @@ namespace GXPEngine
                 spongeClean.Stop();
                 RemoveChild(sponge);
                 spongeOnScreen = false;
+                spongeSoundsPlaying = false;
             }
 
 
