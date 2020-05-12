@@ -45,6 +45,7 @@ namespace GXPEngine
                 if (MyGame.CheckMouseInRectClick(skip))
                 {
                     isVisible = false;
+                    scene.passedTutorial = true;
                     RemoveChild(skip);
                     RemoveChild(next);
                     RemoveChild(image);
@@ -55,6 +56,7 @@ namespace GXPEngine
                     if(count >= 9)
                     {
                         isVisible = false;
+                        scene.passedTutorial = true;
                         RemoveChild(skip);
                         RemoveChild(next);
                         RemoveChild(image);

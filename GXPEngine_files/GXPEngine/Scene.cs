@@ -8,7 +8,7 @@ namespace GXPEngine
 
     public class Scene : GameObject
     {
-        int tankIsDirty=75;
+        int tankIsDirty = 75;
         int dirtTimer = 2000;
 
 
@@ -33,6 +33,7 @@ namespace GXPEngine
         bool isBought = false;
         bool isOneFishShown = false;
         bool isPlayingMusic;
+        public bool passedTutorial = false;
         bool spongeSoundsPlaying;
         Sprite clickToBuy;
         Tutorial _tutorial;
@@ -48,14 +49,15 @@ namespace GXPEngine
 
         public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400) : base()
         {
-            if (scene == 1)
+            if (scene == 1 && !passedTutorial)
             {
                 _tutorial = new Tutorial(new Vec2(game.width / 2 - 300, game.height / 2), this);
             }
-            if(scene == 2)
+            if (scene == 2)
             {
                 sceneMusic = new Sound("seaTank.mp3");
             }
+
             this.scene = scene;
             _currency = currency;
             visible = false;
@@ -148,273 +150,339 @@ namespace GXPEngine
         }
         void Update()
         {
-            if (isActive)
+            //<<<<<<< HEAD
+            if (level.myGame.isPlaying)
             {
-                if (scene == 2)
+                if (isActive)
                 {
-                    level.myGame.musicChannel.Volume -= 0.02f;
-                    if (level.myGame.musicChannel.Volume <= 0f)
+                    //if (scene == 2)
+                    //=======
+
+                    // if (isActive)
+                    //>>>>>>> 2c066e1d0e40a1765345cc21bb6975c47cf58915
+
+                    if (scene == 2)
                     {
-                        level.myGame.musicChannel.Stop();
-                        if (!isPlayingMusic)
+                        level.myGame.musicChannel.Volume -= 0.02f;
+                        if (level.myGame.musicChannel.Volume <= 0f)
                         {
-                            sceneChannel = sceneMusic.Play();
-                            sceneChannel.Volume = 0f;
-                            isPlayingMusic = true;
-                        }
-                        sceneChannel.Volume += 0.02f;
-                        if(sceneChannel.Volume >= 1f)
-                        {
+                            //<<<<<<< HEAD
                             sceneChannel.Volume = 1f;
                         }
                     }
-                    
+
+
+                    if (isBought == true)
+                    {
+                        canMakeFood = true;
+                        addFish();
+                        handleMoney();
+                        if (isOneFishShown == true)
+                        {
+                            makeDirt();
+                        }
+                        switch (inv.id)
+                        {
+                            case Inventory.Food:
+                                if (inv.checkIfItemIsOverlapped() == false)
+                                {
+                                    makeFood();
+                                }
+                                displayFoodCan();
+                                moveFoodCan();
+                                RemoveShop();
+                                RemoveSponge();
+                                if (scene == 1 && _tutorial.isVisible && _tutorial.count == 6)
+                                {
+                                    _tutorial.count = 7;
+                                }
+                                break;
+                            case Inventory.Sponge:
+                                displaySponge();
+                                RemoveShop();
+                                RemoveFoodCan();
+                                if (scene == 1 && _tutorial.isVisible && _tutorial.count == 3)
+                                {
+                                    _tutorial.count = 4;
+                                }
+                                //=======
+                                //                            level.myGame.musicChannel.Stop();
+                                //                            if (!isPlayingMusic)
+                                //>>>>>>> 2c066e1d0e40a1765345cc21bb6975c47cf58915
+                                //                                {
+                                //                                    sceneChannel = sceneMusic.Play();
+                                //                                    sceneChannel.Volume = 0f;
+                                //                                    isPlayingMusic = true;
+                                //                                }
+                                //                                sceneChannel.Volume += 0.02f;
+                                //                                if (sceneChannel.Volume >= 1f)
+                                //                                {
+                                //                                    sceneChannel.Volume = 1f;
+                                //                                }
+                                //<<<<<<< HEAD
+                                break;
+                            case 0:
+                                RemoveShop();
+                                RemoveSponge();
+
+                                RemoveFoodCan();
+                                goBack();
+                                break;
+                        }
+                        if (scene == 1 && sponge.dirtList.Count <= 0 && !isOneFishShown && _tutorial.count == 4)
+                        {
+                            _tutorial.count = 5;
+                            //=======
+                            //}
+
+                            //>>>>>>> 2c066e1d0e40a1765345cc21bb6975c47cf58915
+                        }
+                        if (isBought == true)
+                        {
+                            canMakeFood = true;
+                            addFish();
+                            if (isOneFishShown == true)
+                            {
+                                makeDirt();
+                            }
+                            switch (inv.id)
+                            {
+                                case Inventory.Food:
+                                    if (inv.checkIfItemIsOverlapped() == false)
+                                    {
+                                        makeFood();
+                                    }
+                                    displayFoodCan();
+                                    moveFoodCan();
+                                    RemoveShop();
+                                    RemoveSponge();
+                                    if (scene == 1 && _tutorial.isVisible && _tutorial.count == 6)
+                                    {
+                                        _tutorial.count = 7;
+                                    }
+                                    break;
+                                case Inventory.Sponge:
+                                    displaySponge();
+                                    RemoveShop();
+                                    RemoveFoodCan();
+                                    if (scene == 1 && _tutorial.isVisible && _tutorial.count == 3)
+                                    {
+                                        _tutorial.count = 4;
+                                    }
+                                    break;
+                                case Inventory.Shop:
+                                    displayShop();
+                                    RemoveSponge();
+                                    RemoveFoodCan();
+                                    if (scene == 1 && _tutorial.isVisible && _tutorial.count == 5)
+                                    {
+                                        _tutorial.count = 6;
+                                    }
+                                    break;
+                                case 0:
+                                    RemoveShop();
+                                    RemoveSponge();
+                                    handleMoney();
+                                    RemoveFoodCan();
+                                    goBack();
+                                    break;
+                            }
+                            if (scene == 1 && sponge.dirtList.Count <= 0 && !isOneFishShown && _tutorial.count == 4)
+                            {
+                                _tutorial.count = 5;
+                            }
+                            if (spongeSoundsPlaying)
+                            {
+                                int rand = soundRand.Next(0, spongeSounds.Length - 1);
+                                spongeTimer -= Time.deltaTime;
+                                if (spongeTimer <= 0)
+                                {
+                                    spongeClean = spongeSounds[rand].Play();
+                                    spongeTimer = 791;
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            goBack();
+                            buyAquarium();
+                        }
+                    }
                 }
-                if (isBought == true)
+                else
                 {
-                    canMakeFood = true;
-                    addFish();
-                    handleMoney();
                     if (isOneFishShown == true)
                     {
                         makeDirt();
                     }
-                    switch (inv.id)
-                    {
-                        case Inventory.Food:
-                            if (inv.checkIfItemIsOverlapped() == false)
-                            {
-                                makeFood();
-                            }
-                            displayFoodCan();
-                            moveFoodCan();
-                            RemoveShop();
-                            RemoveSponge();
-                            if(scene == 1 && _tutorial.isVisible && _tutorial.count == 6)
-                            {
-                                _tutorial.count = 7;
-                            }
-                            break;
-                        case Inventory.Sponge:
-                            displaySponge();
-                            RemoveShop();
-                            RemoveFoodCan();
-                            if (scene == 1 && _tutorial.isVisible && _tutorial.count == 3)
-                            {
-                                _tutorial.count = 4;
-                            }
-                            break;
-                        case Inventory.Shop:
-                            displayShop();
-                            RemoveSponge();
-                            RemoveFoodCan();
-                            if(scene == 1 && _tutorial.isVisible && _tutorial.count == 5)
-                            {
-                                _tutorial.count = 6;
-                            }
-                            break;
-                        case 0:
-                            RemoveShop();
-                            RemoveSponge();
-                            
-                            RemoveFoodCan();
-                            goBack();
-                            break;
-                    }
-                    if(scene == 1 && sponge.dirtList.Count <= 0 && !isOneFishShown && _tutorial.count == 4)
-                    {
-                        _tutorial.count = 5;
-                    }
-                    if (spongeSoundsPlaying)
-                    {
-                        int rand = soundRand.Next(0, spongeSounds.Length - 1);
-                        spongeTimer -= Time.deltaTime;
-                        if (spongeTimer <= 0)
-                        {
-                            spongeClean = spongeSounds[rand].Play();
-                            spongeTimer = 791;
-                        }
-                    }
-
-                }
-                else
-                {
-                    goBack();
-                    buyAquarium();
-                }
-
-
-            }
-            else
-            {
-                if (isOneFishShown == true)
-                {
-                    makeDirt();
                 }
             }
         }
 
-        void buyAquarium()
-        {
-
-            if (MyGame.CheckMouseInRectClick(clickToBuy))
+            void buyAquarium()
             {
-                if (level.currencySystem.money >= priceOfAquarium)
+
+                if (MyGame.CheckMouseInRectClick(clickToBuy))
                 {
-                    clickToBuy.LateDestroy();
-                    isBought = true;
-                    AddChild(inv);
-                    level.currencySystem.RemoveMoney(priceOfAquarium);
-                    repairAquarium.Play();
-                    if(scene == 1 && _tutorial.isVisible && _tutorial.count == 1)
+                    if (level.currencySystem.money >= priceOfAquarium)
                     {
-                        _tutorial.count = 2;
+                        clickToBuy.LateDestroy();
+                        isBought = true;
+                        AddChild(inv);
+                        level.currencySystem.RemoveMoney(priceOfAquarium);
+                        repairAquarium.Play();
+                        if (scene == 1 && _tutorial.isVisible && _tutorial.count == 1)
+                        {
+                            _tutorial.count = 2;
+                        }
+
                     }
 
                 }
-
             }
-        }
 
-        void handleMoney()
-        {
-            foreach (Fish fish in fishListPerScene)
+            void handleMoney()
             {
-                if (fish.isUnlocked == true)
+                foreach (Fish fish in fishListPerScene)
                 {
-
-                    if (fish.hungerMeterForFish > fish.isFishHungry && cleanMeter < tankIsDirty)
+                    if (fish.isUnlocked == true)
                     {
-                        //Console.WriteLine(fish.FishProgrss+"        "+ fish.maxProgress);
-                        if (fish.FishProgrss >= fish.maxProgress)
+
+                        if (fish.hungerMeterForFish > fish.isFishHungry && cleanMeter < tankIsDirty)
                         {
-                            
-                            for (int i = 0; i < fish.HowManyCoins; i++)
+                            //Console.WriteLine(fish.FishProgrss+"        "+ fish.maxProgress);
+                            if (fish.FishProgrss >= fish.maxProgress)
                             {
-                                Coin coin = new Coin(fish, level);
-                                AddChildAt(coin, 1);
+
+                                for (int i = 0; i < fish.HowManyCoins; i++)
+                                {
+                                    Coin coin = new Coin(fish, level);
+                                    AddChildAt(coin, 1);
+                                }
+                                fish.FishProgrss = 0;
                             }
-                            fish.FishProgrss = 0;
-                        }
-                        else
-                        {
-                            fish.FishProgrss += Time.deltaTime;
+                            else
+                            {
+                                fish.FishProgrss += Time.deltaTime;
+                            }
                         }
                     }
                 }
+
+            }
+            void makeDirt()
+            {
+                timer -= Time.deltaTime;
+
+                if (timer <= 0)
+                {
+                    Dirt dirt = new Dirt(ref cleanMeter);
+                    sponge.addDirt(dirt);
+                    AddChild(dirt);
+                    SetChildIndex(dirt, 2);
+                    timer = dirtTimer;
+                }
             }
 
-        }
-        void makeDirt()
-        {
-            timer -= Time.deltaTime;
-
-            if (timer <= 0)
+            public void removeDirtConsequence(Dirt dirt)
             {
-                Dirt dirt = new Dirt(ref cleanMeter);
-                sponge.addDirt(dirt);
-                AddChild(dirt);
-                SetChildIndex(dirt, 2);
-                timer = dirtTimer;
+                cleanMeter -= dirt.cleanImpact;
             }
-        }
 
-        public void removeDirtConsequence(Dirt dirt)
-        {
-            cleanMeter -= dirt.cleanImpact;
-        }
-
-        void goBack()
-        {
-            if (MyGame.CheckMouseInRectClick(downArrow))
+            void goBack()
             {
-                isActive = false;
-                level.isInScene = false;
-                visible = false;
-                if (HasChild(shop))
+                if (MyGame.CheckMouseInRectClick(downArrow))
+                {
+                    isActive = false;
+                    level.isInScene = false;
+                    visible = false;
+                    if (HasChild(shop))
+                    {
+                        RemoveChild(shop);
+                    }
+                }
+            }
+
+            bool spongeOnScreen = false;
+            void displaySponge()
+            {
+                if (spongeOnScreen == false)
+                {
+
+                    spongeSoundsPlaying = true;
+                    AddChild(sponge);
+                    spongeOnScreen = true;
+                }
+            }
+            void RemoveSponge()
+            {
+                if (spongeOnScreen == true)
+                {
+                    if (spongeClean != null)
+                    {
+                        spongeClean.Stop();
+                    }
+                    RemoveChild(sponge);
+                    spongeOnScreen = false;
+                    spongeSoundsPlaying = false;
+                }
+
+
+            }
+            void moveFoodCan()
+            {
+                foodCan.x = Input.mouseX;
+                foodCan.y = Input.mouseY;
+            }
+            void displayFoodCan()
+            {
+                if (isFoodDisplayed == false)
+                {
+                    AddChild(foodCan);
+                    isFoodDisplayed = true;
+                }
+            }
+            void RemoveFoodCan()
+            {
+                if (isFoodDisplayed == true)
+                {
+                    RemoveChild(foodCan);
+                    isFoodDisplayed = false;
+                }
+
+
+            }
+            bool isShopDisplayed = false;
+            bool isFoodDisplayed = false;
+            void displayShop()
+            {
+                AddChild(shop);
+
+                if (isShopDisplayed == false)
+                {
+                    openShopSoundChannel = openShop.Play();
+                    shop.visible = true;
+                    isShopDisplayed = true;
+                }
+
+            }
+            void RemoveShop()
+            {
+                if (isShopDisplayed == true)
                 {
                     RemoveChild(shop);
+                    openShopSoundChannel.Stop();
+                    shop.visible = false;
+                    isShopDisplayed = false;
                 }
             }
-        }
 
-        bool spongeOnScreen = false;
-        void displaySponge()
-        {
-            if (spongeOnScreen == false)
+            public int GetScene()
             {
-
-                spongeSoundsPlaying = true;
-                AddChild(sponge);
-                spongeOnScreen = true;
+                return scene;
             }
-        }
-        void RemoveSponge()
-        {
-            if (spongeOnScreen == true)
-            {
-                if (spongeClean != null)
-                {
-                    spongeClean.Stop();
-                }
-                RemoveChild(sponge);
-                spongeOnScreen = false;
-                spongeSoundsPlaying = false;
-            }
-
-
-        }
-        void moveFoodCan()
-        {
-            foodCan.x = Input.mouseX;
-            foodCan.y = Input.mouseY;
-        }
-        void displayFoodCan()
-        {
-            if (isFoodDisplayed == false)
-            {
-                AddChild(foodCan);
-                isFoodDisplayed = true;
-            }
-        }
-        void RemoveFoodCan()
-        {
-            if (isFoodDisplayed == true)
-            {
-                RemoveChild(foodCan);
-                isFoodDisplayed = false;
-            }
-
-
-        }
-        bool isShopDisplayed = false;
-        bool isFoodDisplayed = false;
-        void displayShop()
-        {
-            AddChild(shop);
-
-            if (isShopDisplayed == false)
-            {
-                openShopSoundChannel = openShop.Play();
-                shop.visible = true;
-                isShopDisplayed = true;
-            }
-
-        }
-        void RemoveShop()
-        {
-            if (isShopDisplayed == true)
-            {
-                RemoveChild(shop);
-                openShopSoundChannel.Stop();
-                shop.visible = false;
-                isShopDisplayed = false;
-            }
-        }
-
-        public int GetScene()
-        {
-            return scene;
-        }
+        
     }
+
 }

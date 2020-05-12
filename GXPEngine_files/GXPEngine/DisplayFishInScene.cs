@@ -21,9 +21,9 @@ namespace GXPEngine
                 case 2:
                     loadScene2(foodList, fishListPerScene);
                     break;
-                //case 3:
-                //    loadScene3(foodList, fishListPerScene);
-                //    break;
+                case 3:
+                    loadScene3(foodList, fishListPerScene);
+                    break;
             }
 
         }
@@ -35,6 +35,7 @@ namespace GXPEngine
             scene1Fishes[2] = new Fish(foodList, 6, "Fresh water", "Walleye", "It is related to the Northern pike which can also be found\nin this aquarium. It is native to most of the United States\nof America and Canada. Walleyes are largely olive and\ngold in color and their unique name comes from the\nposition of their eyes which point outwards as if they are\nlooking at the walls. Their diet mostly consists of smaller fish", 20000, 3000, 5, 1,5);
             scene1Fishes[3] = new Fish(foodList, 7, "Fresh water", "Tench", "It is known for being a quiet enduring fish with it is mostly\nfound in muddy and overgrown lakes in Europe and\neastern Russia where it can survive even with low oxygen concentration.\nIts maximum size is at 70cm and it can be recognized\nby its darker olive-green skin and\nits almost golden color below.", 20000, 3000, 20, 2,5);
             scene1Fishes[4] = new Fish(foodList, 5, "Fresh water", "Sturgeon", "It is quite a rare sight these days as it is considered an\nalmost extinct species. Their unique look has not\nchanged since their earliest fossil record earning it the name of “living fossil”.\nThey can grow up to be between 2 and 3 ½ meters\nand are hunted for their meat and caviar.\nThe Sturgeons range is from subtropical\nto subarctic waters in North America and Eurasia.", 20000, 3000, 50, 2,10);
+
             fishListPerScene.Add(scene1Fishes[0]);
             fishListPerScene.Add(scene1Fishes[1]);
             fishListPerScene.Add(scene1Fishes[2]);
@@ -57,11 +58,11 @@ namespace GXPEngine
 
         void loadScene3(List<Food> foodList, List<Fish> fishListPerScene)
         {
-            scene3Fishes[0] = new Fish(foodList, 1, "Deep water", "Black Swallower", "is a species of deep sea fish with the ability to swallow fish larger than itself by extending his stomach.Black swallowers have been found to have swallowed fish so large that they could not be digested before decomposition set in, and the resulting release of gases forced the swallower to the ocean surface. The fish has a maximum known length of 25 cm and it is very common and widespread at depths of 700–2,745 m in most of the Atlantic Ocean.");
-            scene3Fishes[1] = new Fish(foodList, 1, "Deep water", "Pelican Eel", "pingas");
-            scene3Fishes[2] = new Fish(foodList, 1, "Deep water", "Sloane's Viperfish", "pingas");
-            scene3Fishes[3] = new Fish(foodList, 1, "Deep water", "Humpback Anglerfish", "pingas");
-            scene3Fishes[4] = new Fish(foodList, 1, "Deep water", "Vampire Squid", "pingas");
+            scene3Fishes[0] = new Fish(foodList, 4, "Deep water", "Black Swallower", "is a species of deep sea fish with the ability to swallow fish larger than itself by extending his stomach.Black swallowers have been found to have swallowed fish so large that they could not be digested before decomposition set in, and the resulting release of gases forced the swallower to the ocean surface. The fish has a maximum known length of 25 cm and it is very common and widespread at depths of 700–2,745 m in most of the Atlantic Ocean.");
+            scene3Fishes[1] = new Fish(foodList, 5, "Deep water", "Pelican Eel", "pingas");
+            scene3Fishes[2] = new Fish(foodList, 4, "Deep water", "Sloane's Viperfish", "pingas");
+            scene3Fishes[3] = new Fish(foodList, 4, "Deep water", "Humpback Anglerfish", "pingas");
+            scene3Fishes[4] = new Fish(foodList, 7, "Deep water", "Vampire Squid", "pingas");
             fishListPerScene.Add(scene3Fishes[0]);
             fishListPerScene.Add(scene3Fishes[1]);
             fishListPerScene.Add(scene3Fishes[2]);

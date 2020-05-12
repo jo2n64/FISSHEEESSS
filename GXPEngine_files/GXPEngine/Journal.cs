@@ -112,9 +112,10 @@ public class Journal : GameObject
                         {
                             RemoveChild(catButton);
                         }
-                        foreach(Fish f in listToShow)
+                        descriptionCanvas.graphics.Clear(Color.Transparent);
+                        foreach(Sprite spr in spritesToShow)
                         {
-                            RemoveChild(f);
+                            spr.alpha = 0f;
                         }
                         category = i;
                     }
