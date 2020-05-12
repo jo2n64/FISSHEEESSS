@@ -5,7 +5,6 @@ using System.Text;
 
 namespace GXPEngine
 {
-
     public class Fish : AnimationSprite
 
     {
@@ -17,7 +16,8 @@ namespace GXPEngine
         Vec2 currentPoint = new Vec2(0, 0);
         Vec2 foodPoint = new Vec2(0, 0);
         float _radius;
-        public int hungerMeterForFish = 10000;
+        public int hungerMeterForFish = 0;
+        int increaseFood = 30000;
         public int isFishHungry;
         Sprite hungerIcon;
         public int FishProgrss = 0;
@@ -115,7 +115,7 @@ namespace GXPEngine
                         {
                             RemoveFood(currentFood);
                             currentFood.LateDestroy();
-                            hungerMeterForFish += 10000;
+                            hungerMeterForFish = increaseFood;
                         }
 
                     }
@@ -199,7 +199,10 @@ namespace GXPEngine
 
         void Update()
         {
-            hungerMeterForFish -= Time.deltaTime;
+            if (hungerMeterForFish > 0)
+            {
+                hungerMeterForFish -= Time.deltaTime;
+            }
             handleAnimation();
             move();
             displayHungerIcon();

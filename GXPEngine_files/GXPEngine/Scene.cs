@@ -148,7 +148,6 @@ namespace GXPEngine
         }
         void Update()
         {
-            Console.WriteLine(isActive);
             if (isActive)
             {
                 if (scene == 2)
@@ -175,6 +174,7 @@ namespace GXPEngine
                 {
                     canMakeFood = true;
                     addFish();
+                    handleMoney();
                     if (isOneFishShown == true)
                     {
                         makeDirt();
@@ -216,7 +216,7 @@ namespace GXPEngine
                         case 0:
                             RemoveShop();
                             RemoveSponge();
-                            handleMoney();
+                            
                             RemoveFoodCan();
                             goBack();
                             break;
@@ -244,6 +244,13 @@ namespace GXPEngine
                 }
 
 
+            }
+            else
+            {
+                if (isOneFishShown == true)
+                {
+                    makeDirt();
+                }
             }
         }
 
@@ -278,9 +285,11 @@ namespace GXPEngine
 
                     if (fish.hungerMeterForFish > fish.isFishHungry && cleanMeter < tankIsDirty)
                     {
+                        //Console.WriteLine(fish.FishProgrss+"        "+ fish.maxProgress);
                         if (fish.FishProgrss >= fish.maxProgress)
                         {
-                            for (int i = 0; i <= fish.HowManyCoins; i++)
+                            
+                            for (int i = 0; i < fish.HowManyCoins; i++)
                             {
                                 Coin coin = new Coin(fish, level);
                                 AddChildAt(coin, 1);

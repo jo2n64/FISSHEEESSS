@@ -6,6 +6,7 @@ public class MyGame : Game
 {
     Button play, options, exit;
     Level level;
+    Options option;
     public SoundChannel musicChannel;
     public Sound music;
     bool isPlaying;
@@ -19,9 +20,12 @@ public class MyGame : Game
         options = new Button(new Vec2(width / 2, height / 2), 200, 100, "Options");
         exit = new Button(new Vec2(width / 2, height / 2 + 100), 200, 100, "Exit");
         music = new Sound("freshTank.mp3");
+        option = new Options();
         AddChild(play);
         AddChild(options);
         AddChild(exit);
+        AddChild(option);
+        option.visible = false;
 
     }
 
@@ -29,7 +33,7 @@ public class MyGame : Game
     {
         if (CheckMouseInRectClick(play) && !isPlaying)
         {
-            level = new Level(this);
+            level = new Level(this,option);
             musicChannel = music.Play();
             AddChild(level);
             isPlaying = true;
