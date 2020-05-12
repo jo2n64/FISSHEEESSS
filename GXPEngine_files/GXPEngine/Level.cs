@@ -13,8 +13,10 @@ public class Level : GameObject
     public CurrencySystem currencySystem;
     public bool isInScene;
     Sprite hub;
-    public Level() : base()
+    public MyGame myGame;
+    public Level(MyGame myGame) : base()
     {
+        this.myGame = myGame;
         hub = new Sprite("aquariums.png");
         hub.SetScaleXY(0.7f);
         AddChild(hub);

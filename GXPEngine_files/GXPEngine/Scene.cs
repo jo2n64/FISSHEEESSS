@@ -25,6 +25,7 @@ namespace GXPEngine
         int priceOfAquarium;
         bool isBought = false;
         bool isOneFishShown = false;
+        bool isPlayingMusic;
         Sprite clickToBuy;
         Tutorial _tutorial;
         Sound cleanDirtWithSponge;
@@ -33,12 +34,18 @@ namespace GXPEngine
         Sound makeFoodSound;
         Sound openShop;
         SoundChannel openShopSoundChannel;
+        Sound sceneMusic;
+        SoundChannel sceneChannel;
 
         public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400, Tutorial tutorial = null) : base()
         {
             if (scene == 1)
             {
                 _tutorial = new Tutorial(new Vec2(game.width / 2 - 300, game.height / 2), this);
+            }
+            if(scene == 2)
+            {
+                sceneMusic = new Sound("seaTank.mp3");
             }
             this.scene = scene;
             _currency = currency;
@@ -50,7 +57,7 @@ namespace GXPEngine
             tank.width = game.width;
             tank.height = game.height;
             downArrow = new Sprite("downarrow.png");
-
+            isPlayingMusic = false;
             downArrow.SetXY(game.width / 2, game.height - 200);
             downArrow.SetScaleXY(0.2f);
             foodList = new List<Food>();
@@ -125,6 +132,26 @@ namespace GXPEngine
         {
             if (isActive)
             {
+                if (scene == 2)
+                {
+                    level.myGame.musicChannel.Volume -= 0.02f;
+                    if (level.myGame.musicChannel.Volume <= 0f)
+                    {
+                        level.myGame.musicChannel.Stop();
+                        if (!isPlayingMusic)
+                        {
+                            sceneChannel = sceneMusic.Play();
+                            sceneChannel.Volume = 0f;
+                            isPlayingMusic = true;
+                        }
+                        sceneChannel.Volume += 0.02f;
+                        if(sceneChannel.Volume >= 1f)
+                        {
+                            sceneChannel.Volume = 1f;
+                        }
+                    }
+                    
+                }
                 if (isBought == true)
                 {
                     canMakeFood = true;

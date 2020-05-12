@@ -11,7 +11,7 @@ public class Journal : GameObject
     Font titleFont, textFont;
     List<Fish> freshFish, seaFish, deepFish, listToShow;
     List<Sprite> freshSprites, seaSprites, deepSprites, spritesToShow, fishSprites;
-    List<Button> freshButtons, seaButtons, deepButtons, categories, buttonsToShow;
+    List<Button> freshButtons, seaButtons, deepButtons, categories, buttonsToShow, buttons;
     Canvas canvas, descriptionCanvas;
     Level level;
     int category;
@@ -23,6 +23,7 @@ public class Journal : GameObject
         freshFish = new List<Fish>();
         seaFish = new List<Fish>();
         deepFish = new List<Fish>();
+        buttons = new List<Button>();
         freshButtons = new List<Button>();
         seaButtons = new List<Button>();
         deepButtons = new List<Button>();
@@ -154,15 +155,7 @@ public class Journal : GameObject
                 {
                     RemoveChild(button);
                 }
-                foreach(Button button in freshButtons)
-                {
-                    RemoveChild(button);
-                }
-                foreach (Button button in seaButtons)
-                {
-                    RemoveChild(button);
-                }
-                foreach (Button button in deepButtons)
+                foreach(Button button in buttons)
                 {
                     RemoveChild(button);
                 }
@@ -177,6 +170,7 @@ public class Journal : GameObject
         spr.SetXY(journal.x + 500, journal.y + 150);
         spr.SetScaleXY(0.2f);
         spr.alpha = 0f;
+        buttons.Add(button);
         fishSprites.Add(spr);
         AddChild(spr);
         switch (fish.GetFishType())
