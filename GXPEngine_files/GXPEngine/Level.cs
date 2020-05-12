@@ -52,7 +52,6 @@ public class Level : GameObject
                         scenes[i].visible = true;
                         scenes[i].isActive = true;
                         isInScene = true;
-                        Console.WriteLine(currencySystem.money);
                     }
                     if(i == 3 && isInHub) {
                         foreach(Scene scene in scenes)
