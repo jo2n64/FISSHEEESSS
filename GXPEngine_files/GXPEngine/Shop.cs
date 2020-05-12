@@ -78,13 +78,13 @@ namespace GXPEngine
 
                     if (MyGame.CheckMouseInRectClick(fish.buyToUnlock))
                     {
-                        if (_level.currencySystem.money >= fish.coinValue)
+                        if (_level.currencySystem.money >= fish.FishPrice)
                         {
 
                             if (fish.isUnlocked == false)
                             {
                                 buyFish.Play();
-                                _level.currencySystem.RemoveMoney(fish.coinValue);
+                                _level.currencySystem.RemoveMoney(fish.FishPrice);
                                 fish.Unlock();
                                 _level.journal.AddFish(fish);
 

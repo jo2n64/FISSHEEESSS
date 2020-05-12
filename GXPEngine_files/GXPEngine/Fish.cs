@@ -17,21 +17,29 @@ namespace GXPEngine
         Vec2 currentPoint = new Vec2(0, 0);
         Vec2 foodPoint = new Vec2(0, 0);
         float _radius;
-        public int isFishHungry = 10000;
+        public int hungerMeterForFish = 10000;
+        public int isFishHungry;
         Sprite hungerIcon;
         public int FishProgrss = 0;
-
-        public int coinValue = 200;
+        public int maxProgress;
+        public int FishPrice;// = 200;
+        public int HowManyCoins;
+        public int coinValue;
         int timer;
 
         public string fishName;
         public int _frames;
-            string description, type;
+        string description, type;
 
         public Sprite buyToUnlock;
 
-        public Fish(List<Food> _foodList, int frames, string type, string fishName, string description) : base(fishName + ".png", frames, 1, frames)
+        public Fish(List<Food> _foodList, int frames, string type, string fishName, string description, int fishMaxProgress=3000, int hungerMeter=3000, int fishPrice=200, int amountOfCoins=3, int ValueOfCoin=20) : base(fishName + ".png", frames, 1, frames)
         {
+            coinValue = ValueOfCoin;
+            HowManyCoins = amountOfCoins;
+            FishPrice = fishPrice;
+            isFishHungry = hungerMeter;
+            maxProgress = fishMaxProgress;
             foodList = _foodList;
             this.type = type;
             this.fishName = fishName;
@@ -89,7 +97,7 @@ namespace GXPEngine
             if (currentPoint.x != 0 && currentPoint.y != 0)
             {
                 velocity.SetXY(0, 0);
-                if (isFishHungry <= 3000)
+                if (hungerMeterForFish <= isFishHungry)
                 {
                     if (isFoodPresent())
                     {
@@ -103,11 +111,11 @@ namespace GXPEngine
                     currentPoint.SetXY(0, 0);
                     if (isFoodPresent())
                     {
-                        if (currentFood != null && isFishHungry <= 3000)
+                        if (currentFood != null && hungerMeterForFish <= isFishHungry)
                         {
                             RemoveFood(currentFood);
                             currentFood.LateDestroy();
-                            isFishHungry += 4000;
+                            hungerMeterForFish += 10000;
                         }
 
                     }
@@ -137,7 +145,7 @@ namespace GXPEngine
                 
                 if (isFoodPresent())
                 {
-                    if (isFishHungry <= 3000)
+                    if (hungerMeterForFish <= isFishHungry)
                     {
                         calcNearestFood();
                     }
@@ -191,7 +199,7 @@ namespace GXPEngine
 
         void Update()
         {
-            isFishHungry -= Time.deltaTime;
+            hungerMeterForFish -= Time.deltaTime;
             handleAnimation();
             move();
             displayHungerIcon();
@@ -200,7 +208,7 @@ namespace GXPEngine
 
         void displayHungerIcon()
         {
-            if (isFishHungry <= 3000)
+            if (hungerMeterForFish <= isFishHungry)
             {
                 AddChild(hungerIcon);
             }
