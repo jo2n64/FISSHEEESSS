@@ -8,11 +8,15 @@ namespace GXPEngine
 
     public class Scene : GameObject
     {
+        int tankIsDirty=75;
+        int dirtTimer = 2000;
+
+
         Random soundRand;
 
         Sprite tank, downArrow;
         Level level;
-        int timer = 1000;
+        int timer = 2000;
         public bool isActive;
         bool canMakeFood;
         Sponge sponge;
@@ -267,12 +271,15 @@ namespace GXPEngine
                 if (fish.isUnlocked == true)
                 {
 
-                    if (fish.isFishHungry > 3000 && cleanMeter < 75)
+                    if (fish.hungerMeterForFish > fish.isFishHungry && cleanMeter < tankIsDirty)
                     {
-                        if (fish.FishProgrss >= 3000)
+                        if (fish.FishProgrss >= fish.maxProgress)
                         {
-                            Coin coin = new Coin(fish, level);
-                            AddChildAt(coin, 1);
+                            for (int i = 0; i <= fish.HowManyCoins; i++)
+                            {
+                                Coin coin = new Coin(fish, level);
+                                AddChildAt(coin, 1);
+                            }
                             fish.FishProgrss = 0;
                         }
                         else
@@ -294,7 +301,7 @@ namespace GXPEngine
                 sponge.addDirt(dirt);
                 AddChild(dirt);
                 SetChildIndex(dirt, 2);
-                timer = 1000;
+                timer = dirtTimer;
             }
         }
 
