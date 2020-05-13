@@ -48,6 +48,9 @@ namespace GXPEngine
         SoundChannel openShopSoundChannel;
         Sound sceneMusic;
         SoundChannel sceneChannel;
+        Sprite notEnoughMoney;
+        Sound notEnpughMoneyToBuyFish;
+
 
         public Scene(string path, CurrencySystem currency, Level level, int scene,Options option, int price = 400) : base()
         {
@@ -60,7 +63,8 @@ namespace GXPEngine
             {
                 sceneMusic = new Sound("seaTank.mp3");
             }
-
+            notEnoughMoney = new Sprite("no_money.png");
+            notEnpughMoneyToBuyFish = new Sound("no_money_sound.wav", false, true);
             isActivated = false;
             this.scene = scene;
             _currency = currency;
@@ -278,6 +282,18 @@ namespace GXPEngine
                         _tutorial.count = 2;
                     }
 
+                }
+                else
+                {
+                    if (_option.isSoundPlaying)
+                    {
+                        notEnpughMoneyToBuyFish.Play();
+                    }
+                    AddChild(notEnoughMoney);
+                    notEnoughMoney.x = clickToBuy.x;
+                    notEnoughMoney.y = clickToBuy.y;
+                    notEnoughMoney.width = clickToBuy.width;
+                    notEnoughMoney.height = clickToBuy.height;
                 }
 
             }

@@ -33,7 +33,7 @@ namespace GXPEngine
 
         public Sprite buyToUnlock;
         public Sprite soldOut;
-
+        public Sprite fishNameAndPrice;
         public Fish(List<Food> _foodList, int frames, string type, string fishName, string description, int fishMaxProgress=3000, int hungerMeter=3000, int fishPrice=200, int amountOfCoins=3, int ValueOfCoin=20) : base(fishName + ".png", frames, 1, frames)
         {
             coinValue = ValueOfCoin;
@@ -59,6 +59,14 @@ namespace GXPEngine
             soldOut = new Sprite("sold_out.png");
             soldOut.width /= 6;
             soldOut.height /= 6;
+
+            fishNameAndPrice = new Sprite(fishName + "-name.png");
+            //AddChild(fishNameAndPrice);
+            //fishNameAndPrice.SetOrigin(fishNameAndPrice.width / 2, fishNameAndPrice.height / 2);
+            fishNameAndPrice.SetScaleXY(0.4f);
+            //fishNameAndPrice.width /= 3;
+            //fishNameAndPrice.height /= 3;
+
         }
         public void Unlock()
         {
