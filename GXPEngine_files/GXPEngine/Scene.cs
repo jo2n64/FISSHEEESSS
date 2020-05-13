@@ -359,6 +359,10 @@ namespace GXPEngine
                 {
                     RemoveChild(shop);
                 }
+                if (HasChild(notEnoughMoney))
+                {
+                    RemoveChild(notEnoughMoney);
+                }
             }
         }
 

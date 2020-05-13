@@ -16,6 +16,7 @@ public class MyGame : Game
     {
         isPlaying = false;
         bg = new Sprite("mainmenu.png");
+        bg.SetScaleXY(1.05f);
         play = new Button(new Vec2(width / 2 - 130, height / 2-10), 250, 100, "Welcome");
         options = new Button(new Vec2(width / 2 - 100, height / 2 + 100), 210, 90, "Options");
         exit = new Button(new Vec2(width / 2 - 60, height / 2 + 200), 160, 60, "Exit");
@@ -23,9 +24,9 @@ public class MyGame : Game
         option = new Options();
 
         AddChild(bg);
-        AddChild(play);
-        AddChild(options);
-        AddChild(exit);
+        //AddChild(play);
+        //AddChild(options);
+        //AddChild(exit);
         AddChild(option);
         option.visible = false;
 
