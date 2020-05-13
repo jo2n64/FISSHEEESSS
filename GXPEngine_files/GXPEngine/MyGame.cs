@@ -45,6 +45,19 @@ public class MyGame : Game
             AddChild(level);
             isPlaying = true;
         }
+
+        if (musicChannel != null)
+        {
+            if (!option.isMusicPlaying)
+            {
+                musicChannel.Volume = 0f;
+            }
+            if (option.isMusicPlaying)
+            {
+                musicChannel.Volume = 1f;
+            }
+        }
+
         if (CheckMouseInRectClick(options) && !isPlaying)
         {
             option.visible = true;
