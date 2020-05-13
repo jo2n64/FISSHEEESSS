@@ -19,7 +19,9 @@ namespace GXPEngine
         {
             _option = option;
             close = new Sprite("close_button.png");
-            notEnoughMoney = new Sprite("checkers.png");
+            notEnoughMoney = new Sprite("no_money.png");
+            notEnoughMoney.width /= 10;
+            notEnoughMoney.height /= 10;
             close.width /= 5;
             close.height /= 5;
             _level = level;
@@ -41,7 +43,7 @@ namespace GXPEngine
                 {
                     AddChild(fish.buyToUnlock);
                     fish.buyToUnlock.x = i * game.width / 4 - fish.buyToUnlock.width / 2;
-                    fish.buyToUnlock.y = j * game.height / 3;
+                    fish.buyToUnlock.y = j * game.height / 3+80;
 
                     makeIconsForFish(i, j, fish);
                     i++;
@@ -62,7 +64,7 @@ namespace GXPEngine
             fishIcon.width /= 8;
             fishIcon.height /= 8;
             fishIcon.x = i * game.width / 4;
-            fishIcon.y = j * game.height / 3 - fishIcon.height / 2;
+            fishIcon.y = j * game.height / 3 - fishIcon.height / 2+20;
         }
 
         private void makeBackground()
@@ -113,7 +115,7 @@ namespace GXPEngine
                             }
                             AddChild(notEnoughMoney);
                             notEnoughMoney.x = fish.buyToUnlock.x;
-                            notEnoughMoney.y = fish.buyToUnlock.y+50;
+                            notEnoughMoney.y = fish.buyToUnlock.y;
                         }
                     }
 

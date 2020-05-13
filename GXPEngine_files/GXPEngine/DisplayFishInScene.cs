@@ -58,7 +58,7 @@ namespace GXPEngine
 
         void loadScene3(List<Food> foodList, List<Fish> fishListPerScene)
         {
-            scene3Fishes[0] = new Fish(foodList, 4, "Deep water", "Black Swallower", "is a species of deep sea fish with the ability to swallow fish larger than itself by extending his stomach.Black swallowers have been found to have swallowed fish so large that they could not be digested before decomposition set in, and the resulting release of gases forced the swallower to the ocean surface. The fish has a maximum known length of 25 cm and it is very common and widespread at depths of 700–2,745 m in most of the Atlantic Ocean.",60000,3000,100,1,500);
+            scene3Fishes[0] = new Fish(foodList, 4, "Deep water", "Black Swallower", "is a species of deep sea fish with the ability to swallow fish larger than itself by extending his stomach.Black swallowers have been found to have swallowed fish so large that they could not be digested before decomposition set in, and the resulting release of gases forced the swallower to the ocean surface. The fish has a maximum known length of 25 cm and it is very common and widespread at depths of 700–2,745 m in most of the Atlantic Ocean.",60000,3000,1000,1,500);
             scene3Fishes[1] = new Fish(foodList, 5, "Deep water", "Pelican Eel", "pingas",60000,3000,2000,3,200);
             scene3Fishes[2] = new Fish(foodList, 4, "Deep water", "Sloane's Viperfish", "pingas",60000,3000,4000,2,500);
             scene3Fishes[3] = new Fish(foodList, 4, "Deep water", "Humpback Anglerfish", "pingas",60000,3000,8000,3,500);
