@@ -97,7 +97,7 @@ namespace GXPEngine
                 AddChild(dirt);
             }
             clickToBuy = new Sprite("buy_button.png");
-            clickToBuy.SetXY(game.width / 2 - clickToBuy.width / 2, game.height / 2 - clickToBuy.height / 2);
+            clickToBuy.SetXY(game.width / 2 - clickToBuy.width / 2, game.height / 2 - clickToBuy.height);
 
             AddChild(clickToBuy);
             spongeTimer = 791;
@@ -281,7 +281,8 @@ namespace GXPEngine
                     {
                         _tutorial.count = 2;
                     }
-
+                    level.AddChild(level.journal);
+                    level.journal.isDisplayed = true;
                 }
                 else
                 {
@@ -348,10 +349,11 @@ namespace GXPEngine
 
         void goBack()
         {
-            if (MyGame.CheckMouseInRectClick(downArrow))
+            if (MyGame.CheckMouseInRectClick(downArrow) && !level.journal.inWindow)
             {
                 isActive = false;
                 level.isInScene = false;
+                level.RemoveChild(level.journal);
                 visible = false;
                 if (HasChild(shop))
                 {
