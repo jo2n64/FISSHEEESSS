@@ -33,6 +33,7 @@ namespace GXPEngine
         bool isBought = false;
         bool isOneFishShown = false;
         bool isPlayingMusic;
+        bool isActivated;
         public bool passedTutorial = false;
         bool spongeSoundsPlaying;
         Sprite clickToBuy;
@@ -60,6 +61,7 @@ namespace GXPEngine
                 sceneMusic = new Sound("seaTank.mp3");
             }
 
+            isActivated = false;
             this.scene = scene;
             _currency = currency;
             visible = false;
@@ -157,7 +159,7 @@ namespace GXPEngine
         {
             if (level.myGame.isPlaying)
             {
-                if (isActive)
+                if (isActivated)
                 {
                     //Console.WriteLine(timer);
                     if (isBought == true)
@@ -245,6 +247,10 @@ namespace GXPEngine
                         makeDirt();
                     }
                 }
+            }
+            if (isActive)
+            {
+                isActivated = true;
             }
         }
 
