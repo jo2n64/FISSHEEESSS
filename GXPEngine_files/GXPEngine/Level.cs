@@ -15,9 +15,12 @@ public class Level : GameObject
     bool isInHub;
     Sprite hub;
     public MyGame myGame;
+    Canvas canvas;
     Options _options;
     public Level(MyGame myGame,Options options) : base()
     {
+        canvas = new Canvas(200, 100);
+        canvas.SetXY(game.width - 200, game.height - 100);
         _options = options;
         this.myGame = myGame;
         hub = new Sprite("aquariums.png");
@@ -37,10 +40,12 @@ public class Level : GameObject
         AddScene(new Scene("bottom_2.png", currencySystem, this, 2, _options, 100));
         AddScene(new Scene("fishtank3.jpg", currencySystem, this, 3, _options, 1000));
         AddChild(journal);
+        AddChild(canvas);
     }
 
     void Update()
     {
+        canvas.graphics.DrawString(currencySystem.money.ToString(), SystemFonts.DefaultFont, Brushes.Yellow, 0, 0);
         if ((!isInScene && !journal.inWindow))
         {
             for (int i = 0; i < buttons.Count; i++)

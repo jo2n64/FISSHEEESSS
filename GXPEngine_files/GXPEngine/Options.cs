@@ -14,8 +14,8 @@ namespace GXPEngine
         Button backToMainMenu;
         public Options()
         {
-            music = new Button(new Vec2(300, 200), 100, 50, "");
-            sound = new Button(new Vec2(300, 400), 100, 50, "");
+            music = new Button(new Vec2(300, 200), 100, 50, "MUSIC");
+            sound = new Button(new Vec2(300, 400), 100, 50, "SOUNDS");
             backToMainMenu = new Button(new Vec2(300, 600), 100, 50, "Bach to main menu");
             AddChild(music);
             AddChild(sound);
