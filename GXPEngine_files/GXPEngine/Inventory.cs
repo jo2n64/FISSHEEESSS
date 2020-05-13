@@ -34,11 +34,12 @@ namespace GXPEngine
             emptySpace1.x = game.width - 150;
             emptySpace2.x = game.width - 150;
             emptySpace3.x = game.width - 150;
-            inventoryBackground.SetXY(game.width - 190, 100);
+           // inventoryBackground.x = game.width - 150;
+            inventoryBackground.SetXY(game.width - 150, 50);
             emptySpace1.y = 150;
             emptySpace2.y = 300;
             emptySpace3.y = 450;
-            inventoryBackground.SetScaleXY(0.7f);
+            inventoryBackground.SetScaleXY(0.75f);
             // emptySpace2.width /= 5;
             //emptySpace2.height /= 5;
             // emptySpace3.width /= 5;

@@ -16,7 +16,7 @@ namespace GXPEngine
 
         Sprite tank, downArrow;
         Level level;
-        int timer = 2000;
+        int timer = 20000;
         public bool isActive;
         bool canMakeFood;
         Sponge sponge;
