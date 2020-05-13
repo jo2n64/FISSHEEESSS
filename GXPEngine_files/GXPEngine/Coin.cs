@@ -12,7 +12,7 @@ namespace GXPEngine
         Sound colectCoin;
         Options _option;
 
-        public Coin(Fish fish, Level level, Options option) : base("coin.png")
+        public Coin(Fish fish, Level level, Options option,string s="coin.png") : base(s)
         {
             _option = option;
 

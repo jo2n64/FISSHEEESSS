@@ -32,6 +32,7 @@ namespace GXPEngine
         string description, type;
 
         public Sprite buyToUnlock;
+        public Sprite soldOut;
 
         public Fish(List<Food> _foodList, int frames, string type, string fishName, string description, int fishMaxProgress=3000, int hungerMeter=3000, int fishPrice=200, int amountOfCoins=3, int ValueOfCoin=20) : base(fishName + ".png", frames, 1, frames)
         {
@@ -54,6 +55,10 @@ namespace GXPEngine
             buyToUnlock = new Sprite("buy_button.png");
             buyToUnlock.width /= 5;
             buyToUnlock.height /= 5;
+
+            soldOut = new Sprite("sold_out.png");
+            soldOut.width /= 6;
+            soldOut.height /= 6;
         }
         public void Unlock()
         {

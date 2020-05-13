@@ -17,6 +17,7 @@ namespace GXPEngine
         Sprite emptySpace1;
         Sprite emptySpace2;
         Sprite emptySpace3;
+        Sprite inventoryBackground;
         List<Item> listOfItemsInInventory;
         public int id=0;
         //Sprite emptySpace4;
@@ -29,20 +30,21 @@ namespace GXPEngine
             emptySpace1 = new Sprite("checkers.png");
             emptySpace2 = new Sprite("checkers.png");
             emptySpace3 = new Sprite("checkers.png");
-
+            inventoryBackground = new Sprite("inventory.png");
             emptySpace1.x = game.width - 150;
             emptySpace2.x = game.width - 150;
             emptySpace3.x = game.width - 150;
+            inventoryBackground.x = game.width - 150;
             emptySpace1.y = 150;
             emptySpace2.y = 300;
             emptySpace3.y = 450;
-            //emptySpace1.width /= 5;
-            //emptySpace1.height /= 5;
-           // emptySpace2.width /= 5;
+            inventoryBackground.width /= 2;
+            inventoryBackground.height /= 2;
+            // emptySpace2.width /= 5;
             //emptySpace2.height /= 5;
-           // emptySpace3.width /= 5;
-           // emptySpace3.height /= 5;
-
+            // emptySpace3.width /= 5;
+            // emptySpace3.height /= 5;
+            AddChild(inventoryBackground);
             AddChild(emptySpace1);
             AddChild(emptySpace2);
             AddChild(emptySpace3);

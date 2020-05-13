@@ -10,18 +10,22 @@ namespace GXPEngine
         List<Fish> fishList;
         Level _level;
         Sound buyFish;
+        Sound notEnpughMoneyToBuyFish;
         Sprite close;
+        Sprite notEnoughMoney;
         Inventory inv;
         Options _option;
         public Shop(List<Fish> fishListOfTank,Level level, Inventory inventory,Options option)
         {
             _option = option;
             close = new Sprite("close_button.png");
+            notEnoughMoney = new Sprite("checkers.png");
             close.width /= 5;
             close.height /= 5;
             _level = level;
             fishList = fishListOfTank;
             buyFish = new Sound("buying_fish_sound.mp3", false, true);
+            notEnpughMoneyToBuyFish = new Sound("no_money_sound.wav", false, true);
             makeShop();
             inv = inventory;
             AddChild(close);
@@ -94,9 +98,22 @@ namespace GXPEngine
                                 _level.currencySystem.RemoveMoney(fish.FishPrice);
                                 fish.Unlock();
                                 _level.journal.AddFish(fish);
-
+                                AddChild(fish.soldOut);
+                                fish.soldOut.x = fish.buyToUnlock.x;
+                                fish.soldOut.y = fish.buyToUnlock.y;
+                                RemoveChild(fish.buyToUnlock);
                             }
 
+                        }
+                        else
+                        {
+                            if (_option.isSoundPlaying)
+                            {
+                                notEnpughMoneyToBuyFish.Play();
+                            }
+                            AddChild(notEnoughMoney);
+                            notEnoughMoney.x = fish.buyToUnlock.x;
+                            notEnoughMoney.y = fish.buyToUnlock.y+50;
                         }
                     }
 

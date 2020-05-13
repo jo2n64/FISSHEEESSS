@@ -16,9 +16,9 @@ public class MyGame : Game
     {
         isPlaying = false;
         bg = new Sprite("mainmenu.png");
-        play = new Button(new Vec2(width / 2 - 150, height / 2 - 50), 250, 100, "Welcome");
-        options = new Button(new Vec2(width / 2 - 120, height / 2 + 70), 200, 80, "Options");
-        exit = new Button(new Vec2(width / 2 - 100, height / 2 + 170), 170, 80, "Exit");
+        play = new Button(new Vec2(width / 2 - 130, height / 2-10), 250, 100, "Welcome");
+        options = new Button(new Vec2(width / 2 - 100, height / 2 + 100), 210, 90, "Options");
+        exit = new Button(new Vec2(width / 2 - 60, height / 2 + 200), 160, 60, "Exit");
         music = new Sound("freshTank.mp3");
         option = new Options();
 
