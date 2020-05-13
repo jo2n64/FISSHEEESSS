@@ -15,11 +15,13 @@ public class Journal : GameObject
     Canvas canvas, descriptionCanvas;
     Level level;
     int category;
+    public bool isDisplayed;
 
     public bool inWindow;
     public Journal(Level level) : base()
     {
         this.level = level;
+        isDisplayed = false;
         freshFish = new List<Fish>();
         seaFish = new List<Fish>();
         deepFish = new List<Fish>();
@@ -34,7 +36,7 @@ public class Journal : GameObject
         deepSprites = new List<Sprite>();
         journalButton = new Sprite("journal_icon.png");
         journalButton.SetScaleXY(0.25f);
-        journalButton.SetXY(game.width - 100, game.height - 250);
+        journalButton.SetXY(game.width - 130, game.height - 400);
         close = new Sprite("jurnalClose.png");
         journal = new Sprite("journalitself.png");
         journal.SetScaleXY(1.8f);
@@ -55,8 +57,8 @@ public class Journal : GameObject
         AddChild(window);
         journal.alpha = 0f;
         close.alpha = 0f;
-        titleFont = new Font("Times New Roman", 24);
-        textFont = new Font("Times New Roman", 16);
+        titleFont = new Font("Fast Action", 24);
+        textFont = new Font("Fast Action", 16);
         inWindow = false;
         for (int i = 0; i < 3; i++)
         {
@@ -82,7 +84,7 @@ public class Journal : GameObject
     {
         canvas.SetXY(journal.x, journal.y);
         descriptionCanvas.SetXY(journal.x + 670, journal.y + 450);
-        if (!inWindow)
+        if (!inWindow && isDisplayed)
         {
             if (MyGame.CheckMouseInRectClick(journalButton))
             {

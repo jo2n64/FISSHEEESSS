@@ -13,7 +13,6 @@ public class Level : GameObject
     public Journal journal;
     public CurrencySystem currencySystem;
     public bool isInScene;
-    bool activated;
     bool isInHub;
     Sprite hub;
     public MyGame myGame;
@@ -21,7 +20,7 @@ public class Level : GameObject
     Options _options;
     public Level(MyGame myGame,Options options) : base()
     {
-        font = new Font("Times New Roman", 24);
+        font = new Font("Fast Action", 24);
         canvas = new Canvas(200, 100);
         canvas.SetXY(game.width - 200, 100);
         _options = options;
@@ -42,7 +41,7 @@ public class Level : GameObject
         AddScene(new Scene("bottom_1.png", currencySystem, this, 1,_options,10));
         AddScene(new Scene("bottom_2.png", currencySystem, this, 2, _options, 100));
         AddScene(new Scene("fishtank3.jpg", currencySystem, this, 3, _options, 1000));
-        AddChild(journal);
+        
         AddChild(canvas);
     }
 

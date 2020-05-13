@@ -27,7 +27,7 @@ namespace GXPEngine
             skip = new Button(new Vec2(canvas.x, canvas.y), 100, 100, "SKIP");
             next = new Button(new Vec2(canvas.x + canvas.width - 100, canvas.y), 100, 100, "NEXT");
             count = 0;
-            font = new Font("Comic Sans", 16);
+            font = new Font("Fast Action", 16);
             AddChild(image);
             AddChild(canvas);
             AddChild(skip);
