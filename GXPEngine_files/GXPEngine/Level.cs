@@ -8,6 +8,7 @@ using GXPEngine;
 public class Level : GameObject
 {
     List<Button> buttons;
+    Font font;
     public List<Scene> scenes;
     public Journal journal;
     public CurrencySystem currencySystem;
@@ -20,8 +21,9 @@ public class Level : GameObject
     Options _options;
     public Level(MyGame myGame,Options options) : base()
     {
+        font = new Font("Times New Roman", 24);
         canvas = new Canvas(200, 100);
-        canvas.SetXY(game.width - 200, game.height - 100);
+        canvas.SetXY(game.width - 200, 100);
         _options = options;
         this.myGame = myGame;
         hub = new Sprite("aquariums.png");
@@ -47,7 +49,7 @@ public class Level : GameObject
     void Update()
     {
         canvas.graphics.Clear(Color.Transparent);
-        canvas.graphics.DrawString(currencySystem.money.ToString(), SystemFonts.DefaultFont, Brushes.Yellow, 0, 0);
+        canvas.graphics.DrawString(currencySystem.money.ToString(), font, Brushes.Yellow, 0, 0);
         if ((!isInScene && !journal.inWindow))
         {
             for (int i = 0; i < buttons.Count; i++)

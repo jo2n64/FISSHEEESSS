@@ -34,7 +34,7 @@ public class Journal : GameObject
         deepSprites = new List<Sprite>();
         journalButton = new Sprite("journal_icon.png");
         journalButton.SetScaleXY(0.25f);
-        journalButton.SetXY(game.width - 150, game.height - 250);
+        journalButton.SetXY(game.width - 100, game.height - 250);
         close = new Sprite("jurnalClose.png");
         journal = new Sprite("journalitself.png");
         journal.SetScaleXY(1.8f);
