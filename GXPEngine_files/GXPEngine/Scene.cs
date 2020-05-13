@@ -141,7 +141,7 @@ namespace GXPEngine
         {
             if (Input.GetMouseButtonDown(button: 0) && canMakeFood)
             {
-                if (foodList.Count < 5)
+                if (foodList.Count < 10)
                 {
                     Food food = new Food();
                     AddChildAt(food, 1);
