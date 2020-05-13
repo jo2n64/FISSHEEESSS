@@ -8,7 +8,7 @@ namespace GXPEngine
 
     public class Scene : GameObject
     {
-        int tankIsDirty=75;
+        int tankIsDirty = 75;
         int dirtTimer = 2000;
 
 
@@ -53,11 +53,11 @@ namespace GXPEngine
             {
                 _tutorial = new Tutorial(new Vec2(game.width / 2 - 300, game.height / 2), this);
             }
-            if(scene == 2)
+            if (scene == 2)
             {
                 sceneMusic = new Sound("seaTank.mp3");
             }
-            
+
             this.scene = scene;
             _currency = currency;
             visible = false;
@@ -150,33 +150,32 @@ namespace GXPEngine
         }
         void Update()
         {
-            if (level.myGame.isPlaying) { 
+            //<<<<<<< HEAD
+            if (level.myGame.isPlaying)
+            {
                 if (isActive)
                 {
+
                     if (scene == 2)
                     {
-                        level.myGame.musicChannel.Volume -= 0.02f;
-                        if (level.myGame.musicChannel.Volume <= 0f)
-                        {
-                            level.myGame.musicChannel.Stop();
-                            if (!isPlayingMusic)
-                            {
-                                sceneChannel = sceneMusic.Play();
-                                sceneChannel.Volume = 0f;
-                                isPlayingMusic = true;
-                            }
-                            sceneChannel.Volume += 0.02f;
-                            if (sceneChannel.Volume >= 1f)
-                            {
-                                sceneChannel.Volume = 1f;
-                            }
-                        }
-
+                        //level.myGame.musicChannel.Volume -= 0.02f;
+                        //if (level.myGame.musicChannel.Volume <= 0f)
+                        //{
+                        //    //<<<<<<< HEAD
+                        //    sceneChannel.Volume = 1f;
+                        //}
                     }
                     if (isBought == true)
                     {
                         canMakeFood = true;
                         addFish();
+                        handleMoney();
+                        if (isOneFishShown == true)
+                        {
+                            makeDirt();
+                        }
+                        //canMakeFood = true;
+                        //addFish();
                         if (isOneFishShown == true)
                         {
                             makeDirt();
@@ -244,6 +243,14 @@ namespace GXPEngine
                         goBack();
                         buyAquarium();
                     }
+
+                }
+                else
+                {
+                    if (isOneFishShown == true)
+                    {
+                        makeDirt();
+                    }
                 }
             }
         }
@@ -260,7 +267,7 @@ namespace GXPEngine
                     AddChild(inv);
                     level.currencySystem.RemoveMoney(priceOfAquarium);
                     repairAquarium.Play();
-                    if(scene == 1 && _tutorial.isVisible && _tutorial.count == 1)
+                    if (scene == 1 && _tutorial.isVisible && _tutorial.count == 1)
                     {
                         _tutorial.count = 2;
                     }
@@ -279,9 +286,11 @@ namespace GXPEngine
 
                     if (fish.hungerMeterForFish > fish.isFishHungry && cleanMeter < tankIsDirty)
                     {
+                        //Console.WriteLine(fish.FishProgrss+"        "+ fish.maxProgress);
                         if (fish.FishProgrss >= fish.maxProgress)
                         {
-                            for (int i = 0; i <= fish.HowManyCoins; i++)
+
+                            for (int i = 0; i < fish.HowManyCoins; i++)
                             {
                                 Coin coin = new Coin(fish, level);
                                 AddChildAt(coin, 1);
@@ -408,5 +417,7 @@ namespace GXPEngine
         {
             return scene;
         }
+
     }
+
 }
