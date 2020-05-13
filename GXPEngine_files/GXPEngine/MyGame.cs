@@ -35,10 +35,10 @@ public class MyGame : Game
     {
         if (CheckMouseInRectClick(play) && !isPlaying)
         {
-            level = new Level(this,option);
-            musicChannel = music.Play();
+            
             if (!hasStarted)
             {
+                level = new Level(this, option);
                 musicChannel = music.Play();
                 hasStarted = true;
             }

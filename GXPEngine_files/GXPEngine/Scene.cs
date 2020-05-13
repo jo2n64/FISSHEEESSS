@@ -83,7 +83,7 @@ namespace GXPEngine
             DisplayFishInScene fishes = new DisplayFishInScene(scene, foodList, fishListPerScene);
             sponge = new Sponge(this);
             inv = new Inventory();
-            shop = new Shop(fishListPerScene, level, inv,_option);
+            shop = new Shop(fishListPerScene, level, inv, _option);
             clickToBuy = new Sprite("checkers.png");
             clickToBuy.width = 200;
             clickToBuy.height = 200;
