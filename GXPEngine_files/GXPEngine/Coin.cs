@@ -7,11 +7,15 @@ namespace GXPEngine
 {
     public class Coin: Sprite
     {
-        public int value;//=200;
+        public int value;
         Level _level;
         Sound colectCoin;
-        public Coin(Fish fish, Level level) : base("coin.png")
+        Options _option;
+
+        public Coin(Fish fish, Level level, Options option) : base("coin.png")
         {
+            _option = option;
+
             x = Utils.Random(fish.x - fish.width, fish.x + fish.width);
             y = Utils.Random(fish.y - fish.height, fish.y + fish.height);
             value = fish.coinValue;
@@ -36,7 +40,10 @@ namespace GXPEngine
                         Input.mouseY > this.y &&
                         Input.mouseY < this.y + this.height)
                     {
-                        colectCoin.Play();
+                        if (_option.isSoundPlaying)
+                        {
+                            colectCoin.Play();
+                        }
                         colected = true;
                         _level.currencySystem.AddMoney(value);
                         this.LateDestroy();

@@ -258,7 +258,10 @@ namespace GXPEngine
                     isBought = true;
                     AddChild(inv);
                     level.currencySystem.RemoveMoney(priceOfAquarium);
-                    repairAquarium.Play();
+                    if (_option.isSoundPlaying)
+                    {
+                        repairAquarium.Play();
+                    }
                     if (scene == 1 && _tutorial.isVisible && _tutorial.count == 1)
                     {
                         _tutorial.count = 2;
@@ -388,7 +391,10 @@ namespace GXPEngine
 
             if (isShopDisplayed == false)
             {
-                openShopSoundChannel = openShop.Play();
+                if (_option.isSoundPlaying)
+                {
+                    openShopSoundChannel = openShop.Play();
+                }
                 shop.visible = true;
                 isShopDisplayed = true;
             }

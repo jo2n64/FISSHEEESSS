@@ -12,8 +12,10 @@ namespace GXPEngine
         Sound buyFish;
         Sprite close;
         Inventory inv;
-        public Shop(List<Fish> fishListOfTank,Level level, Inventory inventory)
+        Options _option;
+        public Shop(List<Fish> fishListOfTank,Level level, Inventory inventory,Options option)
         {
+            _option = option;
             close = new Sprite("checkers.png");
             _level = level;
             fishList = fishListOfTank;
@@ -83,7 +85,10 @@ namespace GXPEngine
 
                             if (fish.isUnlocked == false)
                             {
-                                buyFish.Play();
+                                if (_option.isSoundPlaying)
+                                {
+                                    buyFish.Play();
+                                }
                                 _level.currencySystem.RemoveMoney(fish.FishPrice);
                                 fish.Unlock();
                                 _level.journal.AddFish(fish);
