@@ -155,16 +155,6 @@ namespace GXPEngine
             {
                 if (isActive)
                 {
-
-                    if (scene == 2)
-                    {
-                        //level.myGame.musicChannel.Volume -= 0.02f;
-                        //if (level.myGame.musicChannel.Volume <= 0f)
-                        //{
-                        //    //<<<<<<< HEAD
-                        //    sceneChannel.Volume = 1f;
-                        //}
-                    }
                     if (isBought == true)
                     {
                         canMakeFood = true;
@@ -174,8 +164,6 @@ namespace GXPEngine
                         {
                             makeDirt();
                         }
-                        //canMakeFood = true;
-                        //addFish();
                         if (isOneFishShown == true)
                         {
                             makeDirt();
