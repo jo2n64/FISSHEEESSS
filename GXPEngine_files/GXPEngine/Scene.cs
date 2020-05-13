@@ -152,6 +152,10 @@ namespace GXPEngine
                     {
                         makeFoodSound.Play();
                     }
+                    if(_tutorial != null && _tutorial.count == 7)
+                    {
+                        _tutorial.count = 8;
+                    }
                 }
             }
         }

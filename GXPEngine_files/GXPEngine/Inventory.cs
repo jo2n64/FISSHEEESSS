@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GXPEngine
 {
-    public class Inventory:GameObject
+    public class Inventory : GameObject
     {
         public const int Food = 1;
         public const int Sponge = 2;
@@ -19,51 +19,57 @@ namespace GXPEngine
         Sprite emptySpace3;
         Sprite inventoryBackground;
         List<Item> listOfItemsInInventory;
-        public int id=0;
+        public int id = 0;
         //Sprite emptySpace4;
         public Inventory()
         {
             listOfItemsInInventory = new List<Item>();
             food = new Item("fish_food_can.png", Food);
-            sponge = new Item("sponge.png",Sponge);
+            sponge = new Item("sponge.png", Sponge);
             shop = new Item("shop_icon_idea.png", Shop);
             emptySpace1 = new Sprite("checkers.png");
             emptySpace2 = new Sprite("checkers.png");
             emptySpace3 = new Sprite("checkers.png");
             inventoryBackground = new Sprite("inventory.png");
-            emptySpace1.x = game.width - 150;
-            emptySpace2.x = game.width - 150;
-            emptySpace3.x = game.width - 150;
-            inventoryBackground.SetXY(game.width - 190, 100);
-            emptySpace1.y = 150;
-            emptySpace2.y = 300;
-            emptySpace3.y = 450;
-            inventoryBackground.SetScaleXY(0.7f);
-            // emptySpace2.width /= 5;
-            //emptySpace2.height /= 5;
-            // emptySpace3.width /= 5;
-            // emptySpace3.height /= 5;
+            emptySpace1.x = game.width - 130;
+            emptySpace2.x = game.width - 130;
+            emptySpace3.x = game.width - 130;
+            // inventoryBackground.x = game.width - 150;
+            inventoryBackground.SetXY(game.width - 150, 100);
+            emptySpace1.y = 140;
+            emptySpace2.y = 270;
+            emptySpace3.y = 400;
+            inventoryBackground.SetScaleXY(0.75f);
+            emptySpace1.width += 40;
+            emptySpace1.height += 30;
+            emptySpace2.width += 40;
+            emptySpace2.height += 30;
+            emptySpace3.width += 40;
+            emptySpace3.height += 30;
+            emptySpace1.alpha = 0;
+            emptySpace2.alpha = 0;
+            emptySpace3.alpha = 0;
             AddChild(inventoryBackground);
             AddChild(emptySpace1);
             AddChild(emptySpace2);
             AddChild(emptySpace3);
 
-            food.x = emptySpace1.x;
+            food.x = emptySpace1.x+emptySpace1.width/6;
             food.y = emptySpace1.y;
-            food.width /= 6;
-            food.height /= 6;
-           // AddChild(food);
+            food.width /= 5;
+            food.height /= 5;
+            // AddChild(food);
 
             sponge.x = emptySpace2.x;
-            sponge.y = emptySpace2.y;
+            sponge.y = emptySpace2.y-5;
             sponge.width /= 7;
             sponge.height /= 7;
-           // AddChild(sponge);
+            // AddChild(sponge);
 
             shop.x = emptySpace3.x;
-            shop.y = emptySpace3.y;
-            shop.width /= 6;
-            shop.height /= 6;
+            shop.y = emptySpace3.y-5;
+            shop.width /= 4;
+            shop.height /= 4;
             //AddChild(shop);
             listOfItemsInInventory.Add(food);
             listOfItemsInInventory.Add(sponge);
@@ -80,7 +86,7 @@ namespace GXPEngine
         }
         void checkIfItemIsPressed()
         {
-            foreach(Item item in listOfItemsInInventory)
+            foreach (Item item in listOfItemsInInventory)
             {
                 if (MyGame.CheckMouseInRectClick(item))
                 {
@@ -101,7 +107,7 @@ namespace GXPEngine
                         item.selected = false;
                         id = 0;
                     }
-                    
+
                 }
             }
         }
@@ -135,7 +141,7 @@ namespace GXPEngine
                     //AddChild(shop);
                     food.visible = true;
                     sponge.visible = false;
-                   // shop.visible = true;
+                    // shop.visible = true;
                     break;
                 case Shop:
                     ////RemoveChild(shop);

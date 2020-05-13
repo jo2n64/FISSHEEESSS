@@ -21,6 +21,7 @@ namespace GXPEngine
         Sprite TextMusic;
         Sprite TextSound;
         Sprite bg;
+        Sprite home;
 
 
         public Options()
@@ -74,19 +75,23 @@ namespace GXPEngine
 
             TextMusic = new Sprite("music_icon.png");
             TextMusic.SetOrigin(TextMusic.width / 2, TextMusic.height / 2);
-            TextMusic.x = game.width / 2;
-            TextMusic.y = game.height / 3;
+            TextMusic.SetXY(game.width / 2, game.height / 3);
             TextMusic.width /= 3;
             TextMusic.height /= 3;
 
             TextSound = new Sprite("sound_icon.png");
             TextSound.SetOrigin(TextSound.width / 2, TextSound.height / 2);
-            TextSound.x = game.width / 2;
-            TextSound.y = game.height / 3 * 2;
+            TextSound.SetXY(game.width / 2, game.height / 3 * 2);
             TextSound.width /= 3;
             TextSound.height /= 3;
 
-            music = new Button(new Vec2(Box1.x - Box1.width / 2, Box1.y - Box1.height / 2), Box1.width, Box1.height, "MUSIC");
+            home = new Sprite("home_icon.png");
+            home.SetOrigin(home.width / 2, home.height / 2);
+            home.SetXY(game.width / 13, game.height -150);
+            home.width /= 3;
+            home.height /= 3;
+
+            music = new Button(new Vec2(Box1.x - Box1.width / 2, 0), Box1.width, Box1.height, "MUSIC");
             sound = new Button(new Vec2(Box2.x- Box2.width/2, Box2.y - Box2.height / 2), Box2.width, Box2.height, "SOUNDS");
             AddChild(bg);
             AddChild(MusicIcon);
@@ -101,6 +106,7 @@ namespace GXPEngine
             AddChild(SoundIcon);
             AddChild(TextMusic);
             AddChild(TextSound);
+            AddChild(home);
             AddChild(music);
             AddChild(sound);
             AddChild(backToMainMenu);

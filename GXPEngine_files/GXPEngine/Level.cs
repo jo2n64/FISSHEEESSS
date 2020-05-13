@@ -12,6 +12,7 @@ public class Level : GameObject
     public Journal journal;
     public CurrencySystem currencySystem;
     public bool isInScene;
+    bool activated;
     bool isInHub;
     Sprite hub;
     public MyGame myGame;
