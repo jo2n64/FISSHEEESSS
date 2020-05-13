@@ -45,6 +45,7 @@ public class Level : GameObject
 
     void Update()
     {
+        canvas.graphics.Clear(Color.Transparent);
         canvas.graphics.DrawString(currencySystem.money.ToString(), SystemFonts.DefaultFont, Brushes.Yellow, 0, 0);
         if ((!isInScene && !journal.inWindow))
         {
