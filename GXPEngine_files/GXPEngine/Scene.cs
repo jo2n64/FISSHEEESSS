@@ -83,7 +83,7 @@ namespace GXPEngine
             DisplayFishInScene fishes = new DisplayFishInScene(scene, foodList, fishListPerScene);
             sponge = new Sponge(this);
             inv = new Inventory();
-            shop = new Shop(fishListPerScene, level, inv);
+            shop = new Shop(fishListPerScene, level, inv, _option);
             clickToBuy = new Sprite("checkers.png");
             clickToBuy.width = 200;
             clickToBuy.height = 200;
@@ -287,7 +287,7 @@ namespace GXPEngine
 
                             for (int i = 0; i < fish.HowManyCoins; i++)
                             {
-                                Coin coin = new Coin(fish, level);
+                                Coin coin = new Coin(fish, level, _option);
                                 AddChildAt(coin, 1);
                             }
                             fish.FishProgrss = 0;

@@ -54,17 +54,10 @@ public class Level : GameObject
                         isInScene = true;
                     }
                     if(i == 3 && isInHub) {
-                        foreach(Scene scene in scenes)
-                        {
-                            RemoveChild(scene);
-                        }
-                        foreach(Button button in buttons)
-                        {
-                            RemoveChild(button);
-                        }
-                        RemoveChild(hub);
                         isInHub = false;
                         myGame.isPlaying = false;
+                        myGame.RemoveChild(this);
+                        Console.WriteLine(myGame.isPlaying);
                     }
                 }
             }
