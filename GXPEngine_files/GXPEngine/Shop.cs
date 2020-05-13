@@ -16,7 +16,9 @@ namespace GXPEngine
         public Shop(List<Fish> fishListOfTank,Level level, Inventory inventory,Options option)
         {
             _option = option;
-            close = new Sprite("checkers.png");
+            close = new Sprite("close_button.png");
+            close.width /= 5;
+            close.height /= 5;
             _level = level;
             fishList = fishListOfTank;
             buyFish = new Sound("buying_fish_sound.mp3", false, true);
