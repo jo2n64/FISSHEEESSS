@@ -9,7 +9,7 @@ namespace GXPEngine
     public class Scene : GameObject
     {
         int tankIsDirty = 75;
-        int dirtTimer = 2000;
+        int dirtTimer = 20000;
 
 
         Random soundRand;
@@ -218,7 +218,7 @@ namespace GXPEngine
                         {
                             _tutorial.count = 5;
                         }
-                        if (spongeSoundsPlaying)
+                        if (spongeSoundsPlaying&&_option.isSoundPlaying)
                         {
                             int rand = soundRand.Next(0, spongeSounds.Length - 1);
                             spongeTimer -= Time.deltaTime;
@@ -281,7 +281,6 @@ namespace GXPEngine
 
                     if (fish.hungerMeterForFish > fish.isFishHungry && cleanMeter < tankIsDirty)
                     {
-                        //Console.WriteLine(fish.FishProgrss+"        "+ fish.maxProgress);
                         if (fish.FishProgrss >= fish.maxProgress)
                         {
 
@@ -349,7 +348,7 @@ namespace GXPEngine
         {
             if (spongeOnScreen == true)
             {
-                if (spongeClean != null)
+                if (spongeClean != null&&_option.isSoundPlaying)
                 {
                     spongeClean.Stop();
                 }
@@ -405,7 +404,10 @@ namespace GXPEngine
             if (isShopDisplayed == true)
             {
                 RemoveChild(shop);
-                openShopSoundChannel.Stop();
+                if (_option.isSoundPlaying)
+                {
+                    openShopSoundChannel.Stop();
+                }
                 shop.visible = false;
                 isShopDisplayed = false;
             }
