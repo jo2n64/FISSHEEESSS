@@ -67,7 +67,7 @@ namespace GXPEngine
 
         private void makeBackground()
         {
-            Sprite backgroundShop = new Sprite("backgroundShop.png");
+            Sprite backgroundShop = new Sprite("shop_shelf.png");
             AddChild(backgroundShop);
             backgroundShop.width = game.width - game.width / 5;
             backgroundShop.height = game.height - game.height / 5;
