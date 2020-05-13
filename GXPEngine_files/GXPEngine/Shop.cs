@@ -43,9 +43,14 @@ namespace GXPEngine
                 {
                     AddChild(fish.buyToUnlock);
                     fish.buyToUnlock.x = i * game.width / 4 - fish.buyToUnlock.width / 2;
-                    fish.buyToUnlock.y = j * game.height / 3+80;
+                    fish.buyToUnlock.y = j * game.height / 3+100;
+
+                    AddChild(fish.fishNameAndPrice);
+                    fish.fishNameAndPrice.x = i * game.width / 4 - fish.fishNameAndPrice.width / 2;
+                    fish.fishNameAndPrice.y = j * game.height / 3 + 10;
 
                     makeIconsForFish(i, j, fish);
+
                     i++;
                     if (i >= 4)
                     {
@@ -104,6 +109,7 @@ namespace GXPEngine
                                 fish.soldOut.x = fish.buyToUnlock.x;
                                 fish.soldOut.y = fish.buyToUnlock.y;
                                 RemoveChild(fish.buyToUnlock);
+                                RemoveChild(fish.fishNameAndPrice);
                             }
 
                         }
@@ -116,6 +122,7 @@ namespace GXPEngine
                             AddChild(notEnoughMoney);
                             notEnoughMoney.x = fish.buyToUnlock.x;
                             notEnoughMoney.y = fish.buyToUnlock.y;
+
                         }
                     }
 
