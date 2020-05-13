@@ -159,6 +159,7 @@ namespace GXPEngine
             {
                 if (isActive)
                 {
+                    //Console.WriteLine(timer);
                     if (isBought == true)
                     {
                         canMakeFood = true;

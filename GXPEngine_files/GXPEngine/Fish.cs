@@ -51,7 +51,9 @@ namespace GXPEngine
             _radius = width / 2;
             hungerIcon = new Sprite("square.png");
             timer = 100;
-            buyToUnlock = new Sprite("square.png");
+            buyToUnlock = new Sprite("buy_button.png");
+            buyToUnlock.width /= 5;
+            buyToUnlock.height /= 5;
         }
         public void Unlock()
         {
