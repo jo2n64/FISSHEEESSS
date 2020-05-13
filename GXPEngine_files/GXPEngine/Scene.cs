@@ -16,7 +16,7 @@ namespace GXPEngine
 
         Sprite tank, downArrow;
         Level level;
-        int timer = 2000;
+        int timer = 20000;
         public bool isActive;
         bool canMakeFood;
         Sponge sponge;
@@ -86,22 +86,22 @@ namespace GXPEngine
             sponge = new Sponge(this);
             inv = new Inventory();
             shop = new Shop(fishListPerScene, level, inv, _option);
-            clickToBuy = new Sprite("checkers.png");
-            clickToBuy.width = 200;
-            clickToBuy.height = 200;
-            clickToBuy.y += 300;
-            AddChild(clickToBuy);
-            spongeTimer = 791;
-            foodCan = new Sprite("fish_food_can.png");
-            foodCan.SetOrigin(foodCan.width / 4, 0);
-            foodCan.width /= 5;
-            foodCan.height /= 5;
             for (int i = 0; i < 30; i++)
             {
                 Dirt dirt = new Dirt(ref cleanMeter);
                 sponge.addDirt(dirt);
                 AddChild(dirt);
             }
+            clickToBuy = new Sprite("buy_button.png");
+            clickToBuy.SetXY(game.width / 2 - clickToBuy.width / 2, game.height / 2 - clickToBuy.height / 2);
+
+            AddChild(clickToBuy);
+            spongeTimer = 791;
+            foodCan = new Sprite("fish_food_can.png");
+            foodCan.SetOrigin(foodCan.width / 4, 0);
+            foodCan.width /= 5;
+            foodCan.height /= 5;
+
             AddChild(shop);
             shop.visible = false;
             spongeSounds = new Sound[3];
