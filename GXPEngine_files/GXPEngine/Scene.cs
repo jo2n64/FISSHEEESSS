@@ -37,6 +37,7 @@ namespace GXPEngine
         bool spongeSoundsPlaying;
         Sprite clickToBuy;
         Tutorial _tutorial;
+        Options _option;
         //Sound cleanDirtWithSponge;
         Sound[] spongeSounds;
         SoundChannel spongeClean;
@@ -47,8 +48,9 @@ namespace GXPEngine
         Sound sceneMusic;
         SoundChannel sceneChannel;
 
-        public Scene(string path, CurrencySystem currency, Level level, int scene, int price = 400) : base()
+        public Scene(string path, CurrencySystem currency, Level level, int scene,Options option, int price = 400) : base()
         {
+            _option = option;
             if (scene == 1 && !passedTutorial)
             {
                 _tutorial = new Tutorial(new Vec2(game.width / 2 - 300, game.height / 2), this);
@@ -144,13 +146,15 @@ namespace GXPEngine
                     Food food = new Food();
                     AddChildAt(food, 1);
                     foodList.Add(food);
-                    makeFoodSound.Play();
+                    if (_option.isSoundPlaying)
+                    {
+                        makeFoodSound.Play();
+                    }
                 }
             }
         }
         void Update()
         {
-            //<<<<<<< HEAD
             if (level.myGame.isPlaying)
             {
                 if (isActive)
