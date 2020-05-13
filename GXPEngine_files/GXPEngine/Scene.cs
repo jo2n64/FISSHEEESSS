@@ -9,7 +9,7 @@ namespace GXPEngine
     public class Scene : GameObject
     {
         int tankIsDirty = 75;
-        int dirtTimer = 2000;
+        int dirtTimer = 20000;
 
 
         Random soundRand;
@@ -83,7 +83,7 @@ namespace GXPEngine
             DisplayFishInScene fishes = new DisplayFishInScene(scene, foodList, fishListPerScene);
             sponge = new Sponge(this);
             inv = new Inventory();
-            shop = new Shop(fishListPerScene, level, inv);
+            shop = new Shop(fishListPerScene, level, inv,_option);
             clickToBuy = new Sprite("checkers.png");
             clickToBuy.width = 200;
             clickToBuy.height = 200;
@@ -218,7 +218,7 @@ namespace GXPEngine
                         {
                             _tutorial.count = 5;
                         }
-                        if (spongeSoundsPlaying)
+                        if (spongeSoundsPlaying&&_option.isSoundPlaying)
                         {
                             int rand = soundRand.Next(0, spongeSounds.Length - 1);
                             spongeTimer -= Time.deltaTime;
@@ -281,13 +281,12 @@ namespace GXPEngine
 
                     if (fish.hungerMeterForFish > fish.isFishHungry && cleanMeter < tankIsDirty)
                     {
-                        //Console.WriteLine(fish.FishProgrss+"        "+ fish.maxProgress);
                         if (fish.FishProgrss >= fish.maxProgress)
                         {
 
                             for (int i = 0; i < fish.HowManyCoins; i++)
                             {
-                                Coin coin = new Coin(fish, level);
+                                Coin coin = new Coin(fish, level, _option);
                                 AddChildAt(coin, 1);
                             }
                             fish.FishProgrss = 0;
@@ -349,7 +348,7 @@ namespace GXPEngine
         {
             if (spongeOnScreen == true)
             {
-                if (spongeClean != null)
+                if (spongeClean != null&&_option.isSoundPlaying)
                 {
                     spongeClean.Stop();
                 }
@@ -405,7 +404,10 @@ namespace GXPEngine
             if (isShopDisplayed == true)
             {
                 RemoveChild(shop);
-                openShopSoundChannel.Stop();
+                if (_option.isSoundPlaying)
+                {
+                    openShopSoundChannel.Stop();
+                }
                 shop.visible = false;
                 isShopDisplayed = false;
             }
