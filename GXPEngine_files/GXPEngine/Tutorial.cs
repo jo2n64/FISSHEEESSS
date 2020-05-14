@@ -46,9 +46,7 @@ namespace GXPEngine
                 {
                     isVisible = false;
                     level.isInTutorial = false;
-                    RemoveChild(skip);
-                    RemoveChild(next);
-                    RemoveChild(image);
+                    parent.RemoveChild(this);
                 }
                 if (MyGame.CheckMouseInRectClick(next) && HasChild(next))
                 {
@@ -57,9 +55,7 @@ namespace GXPEngine
                     {
                         isVisible = false;
                         level.isInTutorial = false;
-                        RemoveChild(skip);
-                        RemoveChild(next);
-                        RemoveChild(image);
+                        parent.RemoveChild(this);
                     }
                 }
 

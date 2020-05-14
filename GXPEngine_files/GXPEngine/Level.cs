@@ -16,16 +16,21 @@ public class Level : GameObject
     public CurrencySystem currencySystem;
     public bool isInScene;
     bool isInHub;
-    Sprite hub, moneyIcon;
+    bool inTutorial;
+    Sprite hub, moneyIcon, home;
     public MyGame myGame;
     Canvas canvas;
     Options _options;
     public Level(MyGame myGame,Options options) : base()
     {
-        tutorial = new Tutorial(new Vec2(game.width / 2 - 100, game.height - 400), this);
+        inTutorial = false;
+        tutorial = new Tutorial(new Vec2(game.width / 2 - 150, game.height - 400), this);
         font = new Font("Fast Action", 24);
         moneyIcon = new Sprite("coin.png");
         moneyIcon.SetScaleXY(0.06f);
+        home = new Sprite("home_icon.png");
+        home.SetScaleXY(0.2f);
+        home.SetXY(game.width / 2, game.height - home.height);
         moneyIcon.SetXY(game.width - 200, 30);
         canvas = new Canvas(200, 100);
         canvas.SetXY(game.width - 140, 50);
@@ -43,13 +48,13 @@ public class Level : GameObject
         AddButton(new Button(new Vec2(0, 300), 500, 400, "dis de first tenk"));
         AddButton(new Button(new Vec2(game.width / 2  - 260, game.height / 2 - 140), 650, 300, "dis de second denk"));
         AddButton(new Button(new Vec2(game.width - 310, 300), 320, 400, "und diese ist die dritte Aquarium"));
-        AddButton(new Button(new Vec2(game.width / 2, game.height - 100), 200, 100, "MAIN MENU"));
         AddScene(new Scene("bottom_1", currencySystem, this, 1,_options,10));
         AddScene(new Scene("bottom_2", currencySystem, this, 2, _options, 100));
         AddScene(new Scene("bottom_3", currencySystem, this, 3, _options, 1000));
         AddChild(canvas);
         AddChild(moneyIcon);
         AddChild(journal);
+        AddChild(home);
         AddChildAt(tutorial, 100);
         SetChildIndex(journal, 100);
     }
@@ -74,15 +79,22 @@ public class Level : GameObject
                             tutorial.count = 2;
                         }
                     }
-                    if(i == 3 && isInHub) {
-                        isInHub = false;
-                        myGame.isPlaying = false;
-                        myGame.RemoveChild(this);
-                        //Console.WriteLine(myGame.isPlaying);
-                    }
                 }
             }
         }
+        if (HasChild(tutorial)){
+            inTutorial = true;
+        }
+        if (!HasChild(tutorial))
+        {
+            inTutorial = false;
+        }
+        if(MyGame.CheckMouseInRectClick(home) && !inTutorial)
+        {
+            parent.RemoveChild(this);
+            myGame.isPlaying = false;
+        }
+
     }
 
     void AddScene(Scene scene)

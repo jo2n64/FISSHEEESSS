@@ -13,6 +13,7 @@ public class MyGame : Game
     public bool isPlaying;
     int timer;
     bool hasStarted, inEasterEgg;
+    //nigr
     public MyGame() : base(1600, 900, false)        // Create a window that's 800x600 and NOT fullscreen
     {
         timer = 8216;
