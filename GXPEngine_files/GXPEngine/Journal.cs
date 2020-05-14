@@ -6,7 +6,7 @@ using System.Drawing;
 using GXPEngine;
 public class Journal : GameObject
 {
-    Sprite journalButton, close;
+    public Sprite journalButton, close;
     Sprite journal, window;
     Font titleFont, textFont;
     List<Fish> freshFish, seaFish, deepFish, listToShow;
@@ -15,13 +15,11 @@ public class Journal : GameObject
     Canvas canvas, descriptionCanvas;
     Level level;
     int category;
-    public bool isDisplayed;
 
     public bool inWindow;
     public Journal(Level level) : base()
     {
         this.level = level;
-        isDisplayed = false;
         freshFish = new List<Fish>();
         seaFish = new List<Fish>();
         deepFish = new List<Fish>();
@@ -57,7 +55,7 @@ public class Journal : GameObject
         AddChild(window);
         journal.alpha = 0f;
         close.alpha = 0f;
-        titleFont = new Font("Fast Action", 24);
+        titleFont = new Font("Fast Action", 48);
         textFont = new Font("Fast Action", 16);
         inWindow = false;
         for (int i = 0; i < 3; i++)
@@ -75,7 +73,7 @@ public class Journal : GameObject
                     text = "Deep Water";
                     break;
             }
-            Button button = new Button(new Vec2(journal.x + 50 + 110 * i, journal.y + 50), 100, 50, text);
+            Button button = new Button(new Vec2(journal.x + 50 + 180 * i, journal.y + 50), 150, 75, text);
             categories.Add(button);
         }
     }
@@ -84,7 +82,7 @@ public class Journal : GameObject
     {
         canvas.SetXY(journal.x, journal.y);
         descriptionCanvas.SetXY(journal.x + 670, journal.y + 450);
-        if (!inWindow && isDisplayed)
+        if (!inWindow)
         {
             if (MyGame.CheckMouseInRectClick(journalButton))
             {
