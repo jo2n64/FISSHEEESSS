@@ -94,7 +94,10 @@ public class Journal : GameObject
                 close.alpha = 1f;
                 window.alpha = 1f;
                 inWindow = true;
-                channel = open.Play();
+                if (level._options.isSoundPlaying)
+                {
+                    channel = open.Play();
+                }
                 foreach(Button button in categories)
                 {
                     AddChild(button);

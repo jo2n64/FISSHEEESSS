@@ -76,7 +76,10 @@ public class Level : GameObject
                         scenes[i].visible = true;
                         scenes[i].isActive = true;
                         isInScene = true;
-                        clicks.Play();
+                        if (_options.isSoundPlaying)
+                        {
+                            clicks.Play();
+                        }
                         if(tutorial.count == 1 && i == 0)
                         {
                             tutorial.count = 2;
