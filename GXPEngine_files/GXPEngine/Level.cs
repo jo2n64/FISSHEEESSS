@@ -43,7 +43,7 @@ public class Level : GameObject
         AddButton(new Button(new Vec2(game.width / 2, game.height - 100), 200, 100, "MAIN MENU"));
         AddScene(new Scene("bottom_1", currencySystem, this, 1,_options,10));
         AddScene(new Scene("bottom_2", currencySystem, this, 2, _options, 100));
-        AddScene(new Scene("bottom_2", currencySystem, this, 3, _options, 1000));
+        AddScene(new Scene("bottom_3", currencySystem, this, 3, _options, 1000));
         AddChild(canvas);
         AddChild(moneyIcon);
         AddChild(journal);
