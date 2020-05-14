@@ -117,12 +117,12 @@ namespace GXPEngine
         {
             foreach (Fish fish in fishListPerScene)
             {
-                if (fish.isUnlocked == true)
+                if (fish.GetIsUnlocked() == true)
                 {
-                    if (fish.isAdded == false)
+                    if (fish.GetIsAdded() == false)
                     {
                         AddChildAt(fish, 1);
-                        fish.isAdded = true;
+                        fish.SetIsAddedToTrue();
                         if (isOneFishShown == false)
                         {
                             isOneFishShown = true;
@@ -285,24 +285,24 @@ namespace GXPEngine
         {
             foreach (Fish fish in fishListPerScene)
             {
-                if (fish.isUnlocked == true)
+                if (fish.GetIsUnlocked() == true)
                 {
 
-                    if (fish.hungerMeterForFish > fish.isFishHungry && cleanMeter < tankIsDirty)
+                    if (fish.GetHungerMeter() > fish.GetIsFishHungry() && cleanMeter < tankIsDirty)
                     {
-                        if (fish.FishProgrss >= fish.maxProgress)
+                        if (fish.GetFishProgress() >= fish.GetMaxProgress())
                         {
 
-                            for (int i = 0; i < fish.HowManyCoins; i++)
+                            for (int i = 0; i < fish.GetNumberOfCoinsProduced(); i++)
                             {
                                 Coin coin = new Coin(fish, level, _option, fish.fishName+"-money.png");
                                 AddChildAt(coin, 1);
                             }
-                            fish.FishProgrss = 0;
+                            fish.SetFishProgressToZero();
                         }
                         else
                         {
-                            fish.FishProgrss += Time.deltaTime;
+                            fish.IncreaseFishProgress();
                         }
                     }
                 }

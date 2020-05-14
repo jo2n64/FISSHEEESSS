@@ -52,7 +52,6 @@ class Shop : GameObject
         close = new Sprite("close_button.png");
         close.width /= 5;
         close.height /= 5;
-        AddChild(close);
     }
     //------------------------------------------------------------------------
     //                          makeShop
@@ -61,9 +60,9 @@ class Shop : GameObject
     {
         int i = 1;
         int j = 1;
+        makeCloseButton();
         makeBackground();
         makeandDisplayFishIconsAndButtons(ref i, ref j);
-        makeCloseButton();
     }
     //------------------------------------------------------------------------
     //                          makeandDisplayFishIconsAndButtons
@@ -72,7 +71,7 @@ class Shop : GameObject
     {
         foreach (Fish fish in fishList)
         {
-            if (fish.isUnlocked == false)
+            if (fish.GetIsUnlocked() == false)
             {
                 makeBuyButton(i, j, fish);
                 makeFishNameAndPrice(i, j, fish);
@@ -131,6 +130,8 @@ class Shop : GameObject
         backgroundShop.y = game.height / 10 - 20;
         close.x = backgroundShop.width + game.width / 10 - close.width - 20;
         close.y = game.height / 10;
+        AddChild(close);
+
     }
     //------------------------------------------------------------------------
     //                          Update
@@ -159,7 +160,7 @@ class Shop : GameObject
         {
             if (MyGame.CheckMouseInRectClick(fish.buyToUnlock))
             {
-                if (_level.currencySystem.getMoney() >= fish.FishPrice)
+                if (_level.currencySystem.getMoney() >= fish.GetFishPrice())
                 {
                     buyFish(fish);
                 }
@@ -186,7 +187,7 @@ class Shop : GameObject
     //------------------------------------------------------------------------
     private void cannotBuyFish(Fish fish)
     {
-        if (fish.isUnlocked == false)
+        if (fish.GetIsUnlocked() == false)
         {
             if (_option.isSoundPlaying)
             {
@@ -202,13 +203,13 @@ class Shop : GameObject
     //------------------------------------------------------------------------
     private void buyFish(Fish fish)
     {
-        if (fish.isUnlocked == false)
+        if (fish.GetIsUnlocked() == false)
         {
             if (_option.isSoundPlaying)
             {
                 buyFishSound.Play();
             }
-            _level.currencySystem.RemoveMoney(fish.FishPrice);
+            _level.currencySystem.RemoveMoney(fish.GetFishPrice());
             fish.Unlock();
             _level.journal.AddFish(fish);
             AddChild(fish.soldOut);

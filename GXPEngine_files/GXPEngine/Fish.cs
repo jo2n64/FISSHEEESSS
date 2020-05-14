@@ -2,258 +2,402 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GXPEngine;
 
-namespace GXPEngine
+
+public class Fish : AnimationSprite
 {
-    public class Fish : AnimationSprite
+    public string fishName;
+    public Sprite buyToUnlock;
+    public Sprite soldOut;
+    public Sprite fishNameAndPrice;
 
+    private List<Food> foodList;
+    private bool isAdded = false;
+    private bool isUnlocked = false;
+
+    private int hungerMeterForFish = 0;
+    private int isFishHungry;
+    private int FishProgrss = 0;
+    private int maxProgress;
+    private int FishPrice;
+    private int HowManyCoins;
+    private int coinValue;
+
+    private Sprite hungerIcon;
+    private Food currentFood;
+    private Vec2 _position;
+    private Vec2 velocity;
+    private Vec2 currentPoint = new Vec2(0, 0);
+    private int increaseFood = 30000;
+    private int frameTimer;
+    private int offset = 100;
+    private string description, type;
+
+    //------------------------------------------------------------------------
+    //                          Counstructor
+    //------------------------------------------------------------------------
+    public Fish(List<Food> _foodList, int frames, string type, string fishName, string description, int fishMaxProgress = 3000, int hungerMeter = 3000, int fishPrice = 200, int amountOfCoins = 3, int ValueOfCoin = 20) : base(fishName + ".png", frames, 1, frames)
     {
-        public List<Food> foodList;
-        public bool isAdded = false;
-        public bool isUnlocked = false;
-        Vec2 _position;
-        Vec2 velocity;
-        Vec2 currentPoint = new Vec2(0, 0);
-        Vec2 foodPoint = new Vec2(0, 0);
-        float _radius;
-        public int hungerMeterForFish = 0;
-        int increaseFood = 30000;
-        public int isFishHungry;
-        Sprite hungerIcon;
-        public int FishProgrss = 0;
-        public int maxProgress;
-        public int FishPrice;// = 200;
-        public int HowManyCoins;
-        public int coinValue;
-        int timer;
-
-        public string fishName;
-        public int _frames;
-        string description, type;
-        public Sprite buyToUnlock;
-        public Sprite soldOut;
-        public Sprite fishNameAndPrice;
-        public Fish(List<Food> _foodList, int frames, string type, string fishName, string description, int fishMaxProgress=3000, int hungerMeter=3000, int fishPrice=200, int amountOfCoins=3, int ValueOfCoin=20) : base(fishName + ".png", frames, 1, frames)
+        coinValue = ValueOfCoin;
+        HowManyCoins = amountOfCoins;
+        FishPrice = fishPrice;
+        isFishHungry = hungerMeter;
+        maxProgress = fishMaxProgress;
+        foodList = _foodList;
+        this.type = type;
+        this.fishName = fishName;
+        this.description = description;
+        SetOrigin(width / 2, height / 2);
+        _position = new Vec2(Utils.Random(width, game.width - 200), Utils.Random(height, game.height - 200));
+        ChangePosition();
+        frameTimer = 100;
+        makeIconsAndButtonsForFishAndShop(fishName);
+    }
+    //------------------------------------------------------------------------
+    //                          makeIconsAndButtonsForFishAndShop
+    //------------------------------------------------------------------------
+    private void makeIconsAndButtonsForFishAndShop(string fishName)
+    {
+        makeHungerIcon();
+        makeBuyButtonForShop();
+        makeSoldOutButtonForShop();
+        makeFishNameAndPriceIconForTheShop(fishName);
+    }
+    //------------------------------------------------------------------------
+    //                          makeFishNameAndPriceIconForTheShop
+    //------------------------------------------------------------------------
+    private void makeFishNameAndPriceIconForTheShop(string fishName)
+    {
+        fishNameAndPrice = new Sprite(fishName + "-name.png");
+        fishNameAndPrice.SetScaleXY(0.4f);
+    }
+    //------------------------------------------------------------------------
+    //                          makeSoldOutButtonForShop
+    //------------------------------------------------------------------------
+    private void makeSoldOutButtonForShop()
+    {
+        soldOut = new Sprite("sold_out.png");
+        soldOut.width /= 6;
+        soldOut.height /= 6;
+    }
+    //------------------------------------------------------------------------
+    //                          makeBuyButtonForShop
+    //------------------------------------------------------------------------
+    private void makeBuyButtonForShop()
+    {
+        buyToUnlock = new Sprite("buy_button.png");
+        buyToUnlock.width /= 5;
+        buyToUnlock.height /= 5;
+    }
+    //------------------------------------------------------------------------
+    //                          makeHungerIcon
+    //------------------------------------------------------------------------
+    private void makeHungerIcon()
+    {
+        hungerIcon = new Sprite("hunger_icon.png");
+        hungerIcon.width /= 3;
+        hungerIcon.height /= 3;
+        hungerIcon.x += 100;
+        hungerIcon.y -= 100;
+    }
+    //------------------------------------------------------------------------
+    //                          Unlock
+    //------------------------------------------------------------------------
+    public void Unlock()
+    {
+        isUnlocked = true;
+    }
+    //------------------------------------------------------------------------
+    //                          isFoodPresent
+    //------------------------------------------------------------------------
+    private bool isFoodPresent()
+    {
+        if (foodList.Count == 0) return false;
+        else return true;
+    }
+    //------------------------------------------------------------------------
+    //                          UpdateScreenPosition
+    //------------------------------------------------------------------------
+    void UpdateScreenPosition()
+    {
+        ChangePosition();
+        MirrorIfNeded();
+    }
+    //------------------------------------------------------------------------
+    //                          MirrorIfNeded
+    //------------------------------------------------------------------------
+    private void MirrorIfNeded()
+    {
+        if (velocity.x < 0)
         {
-            coinValue = ValueOfCoin;
-            HowManyCoins = amountOfCoins;
-            FishPrice = fishPrice;
-            isFishHungry = hungerMeter;
-            maxProgress = fishMaxProgress;
-            foodList = _foodList;
-            this.type = type;
-            this.fishName = fishName;
-            this.description = description;
-            _frames = frames;
-            SetOrigin(width / 2, height / 2);
-            _position = new Vec2(Utils.Random(width, game.width - 200), Utils.Random(height, game.height - 200));
-            ChangePosition();
-            _radius = width / 2;
-            hungerIcon = new Sprite("hunger_icon.png");
-            hungerIcon.width /= 3;
-            hungerIcon.height /= 3;
-            //hungerIcon.SetXY()
-            hungerIcon.x += 100;
-            hungerIcon.y -= 100;
-            timer = 100;
-            buyToUnlock = new Sprite("buy_button.png");
-            buyToUnlock.width /= 5;
-            buyToUnlock.height /= 5;
-
-            soldOut = new Sprite("sold_out.png");
-            soldOut.width /= 6;
-            soldOut.height /= 6;
-
-            fishNameAndPrice = new Sprite(fishName + "-name.png");
-            //AddChild(fishNameAndPrice);
-            //fishNameAndPrice.SetOrigin(fishNameAndPrice.width / 2, fishNameAndPrice.height / 2);
-            fishNameAndPrice.SetScaleXY(0.4f);
-            //fishNameAndPrice.width /= 3;
-            //fishNameAndPrice.height /= 3;
-
+            Mirror(true, false);
         }
-        public void Unlock()
+        else
         {
-            isUnlocked = true;
+            Mirror(false, false);
         }
-
-        public void AddFood(Food food)
+    }
+    //------------------------------------------------------------------------
+    //                          ChangePosition
+    //------------------------------------------------------------------------
+    private void ChangePosition()
+    {
+        x = _position.x;
+        y = _position.y;
+    }
+    //------------------------------------------------------------------------
+    //                          calcDistToPoint
+    //------------------------------------------------------------------------
+    void calcDistToPoint()
+    {
+        if (currentPoint.x != 0 && currentPoint.y != 0)
         {
-            foodList.Add(food);
+            velocity.SetXY(0, 0);
+            makeFoodPoint();
+            Vec2 deltaVector = currentPoint - _position;
+            handleDistanceFisoToPoint(deltaVector);
         }
-        public void RemoveFood(Food food)
+        else
         {
-            foodList.Remove(food);
+            makeNewPoint();
         }
-        private bool isFoodPresent()
+    }
+    //------------------------------------------------------------------------
+    //                          handleDistanceFisoToPoint
+    //------------------------------------------------------------------------
+    private void handleDistanceFisoToPoint(Vec2 deltaVector)
+    {
+        if (deltaVector.Magnitude() <= 0.5f)
         {
-            if (foodList.Count == 0) return false;
-            else return true;
+            currentPoint.SetXY(0, 0);
+            handleFishEatingTheFood();
         }
-        void UpdateScreenPosition()
+        else
         {
-            ChangePosition();
-            MirrorIfNeded();
+            deltaVector.Normalize();
+            velocity += deltaVector;
         }
-        bool flipped = true;
-        private void MirrorIfNeded()
+    }
+    //------------------------------------------------------------------------
+    //                          handleFishEatingTheFood
+    //------------------------------------------------------------------------
+    private void handleFishEatingTheFood()
+    {
+        if (isFoodPresent())
         {
-            if (velocity.x < 0)
+            if (currentFood != null && hungerMeterForFish <= isFishHungry)
             {
-                Mirror(true, false);
-            }
-            else
-            {
-                Mirror(false, false);
-            }
-        }
-
-        private void ChangePosition()
-        {
-            x = _position.x;
-            y = _position.y;
-        }
-
-        void calcDistToPoint()
-        {
-            if (currentPoint.x != 0 && currentPoint.y != 0)
-            {
-                velocity.SetXY(0, 0);
-                if (hungerMeterForFish <= isFishHungry)
-                {
-                    if (isFoodPresent())
-                    {
-                        calcNearestFood();
-                    }
-                }
-                Vec2 deltaVector = currentPoint - _position;
-
-                if (deltaVector.Magnitude() <= 0.5f)
-                {
-                    currentPoint.SetXY(0, 0);
-                    if (isFoodPresent())
-                    {
-                        if (currentFood != null && hungerMeterForFish <= isFishHungry)
-                        {
-                            RemoveFood(currentFood);
-                            currentFood.LateDestroy();
-                            hungerMeterForFish = increaseFood;
-                        }
-
-                    }
-                }
-                else
-                {
-                    deltaVector.Normalize();
-                    //deltaVector *= 0.2f;
-                    velocity += deltaVector;
-                }
-
-            }
-            else
-            {
-                if (_position.y + offset >= game.height - height)
-                {
-                    currentPoint.SetXY(Utils.Random(width, game.width - width), Utils.Random(_position.y - offset, _position.y));
-                }
-                else if(_position.y - offset <= height)
-                {
-                    currentPoint.SetXY(Utils.Random(width, game.width - width), Utils.Random(_position.y, _position.y + offset));
-                }
-                else
-                {
-                    currentPoint.SetXY(Utils.Random(width, game.width - width), Utils.Random(_position.y - offset, _position.y + offset));
-                }
-                
-                if (isFoodPresent())
-                {
-                    if (hungerMeterForFish <= isFishHungry)
-                    {
-                        calcNearestFood();
-                    }
-                }
+                foodList.Remove(currentFood);
+                currentFood.LateDestroy();
+                hungerMeterForFish = increaseFood;
             }
         }
-        int offset = 100;
-        void CheckBoundaries()
-        {
-            if (_position.x + width / 2 > game.width || _position.x - width / 2 < 0)
-            {
-                velocity.x = -velocity.x;
-            }
-            if (_position.y - width / 2 < 0 || _position.y + width / 2 > game.height)
-            {
-                velocity.y = -velocity.y;
-            }
-        }
-
-        private void calcNearestFood()
-        {
-            float minDist = game.width;
-            foreach (Food food in foodList)
-            {
-                if ((food._position - _position).Magnitude() < minDist)
-                {
-                    minDist = (food._position - _position).Magnitude();
-                    currentPoint = food._position;
-                    currentFood = food as Food;
-                }
-            }
-        }
-
-        Food currentFood;
-        void move()
-        {
-            calcDistToPoint();
-            _position += velocity;
-            UpdateScreenPosition();
-        }
-
-        void handleAnimation()
-        {
-            timer -= Time.deltaTime;
-            if (timer < 0)
-            {
-                NextFrame();
-                timer = 100;
-            }
-        }
-
-        void Update()
-        {
-            if (hungerMeterForFish > 0)
-            {
-                hungerMeterForFish -= Time.deltaTime;
-            }
-            handleAnimation();
-            move();
-            displayHungerIcon();
-
-        }
-
-        void displayHungerIcon()
+    }
+    //------------------------------------------------------------------------
+    //                          makeNewPoint
+    //------------------------------------------------------------------------
+    private void makeNewPoint()
+    {
+        makeRandomPoint();
+        makeFoodPoint();
+    }
+    //------------------------------------------------------------------------
+    //                          makeFoodPointmakeFoodPoint
+    //------------------------------------------------------------------------
+    private void makeFoodPoint()
+    {
+        if (isFoodPresent())
         {
             if (hungerMeterForFish <= isFishHungry)
             {
-                AddChild(hungerIcon);
+                calcNearestFood();
             }
-            else RemoveChild(hungerIcon);
         }
-        public string GetFishType()
+    }
+    //------------------------------------------------------------------------
+    //                          makeRandomPoint
+    //------------------------------------------------------------------------
+    private void makeRandomPoint()
+    {
+        if (_position.y + offset >= game.height - height)
         {
-            return type;
+            currentPoint.SetXY(Utils.Random(width, game.width - width), Utils.Random(_position.y - offset, _position.y));
         }
-
-        public string GetFishName()
+        else if (_position.y - offset <= height)
         {
-            return fishName;
+            currentPoint.SetXY(Utils.Random(width, game.width - width), Utils.Random(_position.y, _position.y + offset));
         }
-
-        public string GetFishDescription()
+        else
         {
-            return description;
+            currentPoint.SetXY(Utils.Random(width, game.width - width), Utils.Random(_position.y - offset, _position.y + offset));
         }
+    }
+    //------------------------------------------------------------------------
+    //                          calcNearestFood
+    //------------------------------------------------------------------------
+    private void calcNearestFood()
+    {
+        float minDist = game.width;
+        foreach (Food food in foodList)
+        {
+            if ((food._position - _position).Magnitude() < minDist)
+            {
+                minDist = (food._position - _position).Magnitude();
+                currentPoint = food._position;
+                currentFood = food as Food;
+            }
+        }
+    }
+    //------------------------------------------------------------------------
+    //                          move
+    //------------------------------------------------------------------------
+    void move()
+    {
+        calcDistToPoint();
+        _position += velocity;
+        UpdateScreenPosition();
+    }
+    //------------------------------------------------------------------------
+    //                          handleAnimation
+    //------------------------------------------------------------------------
+    void handleAnimation()
+    {
+        frameTimer -= Time.deltaTime;
+        if (frameTimer < 0)
+        {
+            NextFrame();
+            frameTimer = 100;
+        }
+    }
+    //------------------------------------------------------------------------
+    //                          Update
+    //------------------------------------------------------------------------
+    void Update()
+    {
+        if (hungerMeterForFish > 0)
+        {
+            hungerMeterForFish -= Time.deltaTime;
+        }
+        handleAnimation();
+        move();
+        displayHungerIcon();
 
+    }
+    //------------------------------------------------------------------------
+    //                          displayHungerIcon
+    //------------------------------------------------------------------------
+    void displayHungerIcon()
+    {
+        if (hungerMeterForFish <= isFishHungry)
+        {
+            AddChild(hungerIcon);
+        }
+        else RemoveChild(hungerIcon);
+    }
+    //------------------------------------------------------------------------
+    //                          GetFishType
+    //------------------------------------------------------------------------
+    public string GetFishType()
+    {
+        return type;
+    }
+    //------------------------------------------------------------------------
+    //                          GetFishName
+    //------------------------------------------------------------------------
+    public string GetFishName()
+    {
+        return fishName;
+    }
+    //------------------------------------------------------------------------
+    //                          GetFishDescription
+    //------------------------------------------------------------------------
+    public string GetFishDescription()
+    {
+        return description;
+    }
+    //------------------------------------------------------------------------
+    //                          GetCoinValue
+    //------------------------------------------------------------------------
+    public int GetCoinValue()
+    {
+        return coinValue;
+    }
+    //------------------------------------------------------------------------
+    //                          GetFishPrice
+    //------------------------------------------------------------------------
+    public int GetFishPrice()
+    {
+        return FishPrice;
+    }
+    //------------------------------------------------------------------------
+    //                          GetNumberOfCoinsProduced
+    //------------------------------------------------------------------------
+    public int GetNumberOfCoinsProduced()
+    {
+        return HowManyCoins;
+    }
+    //------------------------------------------------------------------------
+    //                          GetMaxProgress
+    //------------------------------------------------------------------------
+    public int GetMaxProgress()
+    {
+        return maxProgress;
+    }
+    //------------------------------------------------------------------------
+    //                          GetFishProgress
+    //------------------------------------------------------------------------
+    public int GetFishProgress()
+    {
+        return FishProgrss;
+    }
+    //------------------------------------------------------------------------
+    //                          SetFishProgressToZero
+    //------------------------------------------------------------------------
+    public void SetFishProgressToZero()
+    {
+        FishProgrss = 0;
+    }
+    //------------------------------------------------------------------------
+    //                          IncreaseFishProgress
+    //------------------------------------------------------------------------
+    public void IncreaseFishProgress()
+    {
+        FishProgrss += Time.deltaTime;
+    }
+    //------------------------------------------------------------------------
+    //                          GetHungerMeter
+    //------------------------------------------------------------------------
+    public int GetHungerMeter()
+    {
+        return hungerMeterForFish;
+    }
+    //------------------------------------------------------------------------
+    //                          GetIsFishHungry
+    //------------------------------------------------------------------------
+    public int GetIsFishHungry()
+    {
+        return isFishHungry;
+    }
+    //------------------------------------------------------------------------
+    //                          GetIsUnlocked
+    //------------------------------------------------------------------------
+    public bool GetIsUnlocked()
+    {
+        return isUnlocked;
+    }
+    //------------------------------------------------------------------------
+    //                          GetIsAdded
+    //------------------------------------------------------------------------
+    public bool GetIsAdded()
+    {
+        return isAdded;
+    }
+    public void SetIsAddedToTrue()
+    {
+        isAdded = true;
     }
 
 }
+
+
