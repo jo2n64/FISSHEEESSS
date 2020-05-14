@@ -8,8 +8,11 @@ namespace GXPEngine
    public class Food:Sprite
     {
         public Vec2 _position;
-        float minY, maxY;
-        float move=0.3f;
+        private float minY, maxY;
+        private float move=0.3f;
+        //------------------------------------------------------------------------
+        //                          Counstructor
+        //------------------------------------------------------------------------
         public Food() : base("fish_food.png")
         {
             this.SetOrigin(width / 2, height / 2);
@@ -21,10 +24,16 @@ namespace GXPEngine
             minY = this.y-20;
             maxY = this.y+20;
         }
+        //------------------------------------------------------------------------
+        //                          Update
+        //------------------------------------------------------------------------
         void Update()
         {
             animate();
         }
+        //------------------------------------------------------------------------
+        //                          animate
+        //------------------------------------------------------------------------
         void animate()
         {
             this.y += move;
