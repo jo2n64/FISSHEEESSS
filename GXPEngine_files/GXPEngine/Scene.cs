@@ -167,7 +167,7 @@ namespace GXPEngine
                         {
                             makeDirt();
                         }
-                        switch (inv.id)
+                        switch (inv.getID())
                         {
                             case Inventory.Food:
                                 if (inv.checkIfItemIsOverlapped() == false)
@@ -198,7 +198,7 @@ namespace GXPEngine
                                     
                                 }
                                 break;
-                            case 0:
+                            case Inventory.Deselected:
                                 RemoveShop();
                                 RemoveSponge();
                                 RemoveFoodCan();
@@ -215,7 +215,7 @@ namespace GXPEngine
                                 spongeTimer = 791;
                             }
                         }
-                        if(level.tutorial.count == 3 && sponge.dirtList.Count <= 0)
+                        if(level.tutorial.count == 3 && sponge.getNumerOfElementInDirtList() <= 0)
                         {
                             level.tutorial.count = 4;
                         }
@@ -250,7 +250,7 @@ namespace GXPEngine
 
             if (MyGame.CheckMouseInRectClick(clickToBuy))
             {
-                if (level.currencySystem.money >= priceOfAquarium)
+                if (level.currencySystem.getMoney() >= priceOfAquarium)
                 {
                     clickToBuy.LateDestroy();
                     isBought = true;
@@ -325,7 +325,7 @@ namespace GXPEngine
 
         public void removeDirtConsequence(Dirt dirt)
         {
-            cleanMeter -= dirt.cleanImpact;
+            cleanMeter -= dirt.getCleanImpact();
         }
 
         void goBack()

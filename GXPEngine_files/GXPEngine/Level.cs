@@ -64,7 +64,7 @@ public class Level : GameObject
     void Update()
     {
         canvas.graphics.Clear(Color.Transparent);
-        canvas.graphics.DrawString(currencySystem.money.ToString(), font, Brushes.Yellow, 0, 0);
+        canvas.graphics.DrawString(currencySystem.getMoney().ToString(), font, Brushes.Yellow, 0, 0);
         if ((!isInScene && !journal.inWindow))
         {
             for (int i = 0; i < buttons.Count; i++)

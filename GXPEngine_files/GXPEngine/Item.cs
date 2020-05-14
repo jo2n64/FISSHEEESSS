@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using GXPEngine;
 
-namespace GXPEngine
+
+public class Item : Sprite
 {
-    public class Item:Sprite
+    public bool selected = false;
+    public int id;
+    public Item(string fileName, int idTag) : base(fileName)
     {
-        public bool selected = false;
-        public int id;
-        public Item(string fileName, int idTag) : base(fileName)
-        {
-            id = idTag;
-        }
+        id = idTag;
     }
 }
+
