@@ -31,7 +31,7 @@ class DisplayFishInScene : GameObject
     //----------------------------------------------------------------------------------------------
     //                          loadScene1
     //----------------------------------------------------------------------------------------------
-    void loadScene1(List<Food> foodList, List<Fish> fishListPerScene)
+    private void loadScene1(List<Food> foodList, List<Fish> fishListPerScene)
     {
         scene1Fishes[0] = new Fish(foodList, 6, "Fresh water", "European Perch", "It belongs to the genus perch and can\nbe found in most of Europe and Siberia\nbut has also been introduced to Oceania and South\nAfrica. It is typically less than 25 cm long and has a\ngreenish base color with 5 to 9 dark green bars on\nits body. Their meals mostly consist of worms,\ninsects, and smaller fish.", 30000, 3000, 1, 1, 1);
         scene1Fishes[1] = new Fish(foodList, 6, "Fresh water", "Northern Pike", "Its name translated literally means “water wolf”\nThis name comes from them eating most fishes smaller\nthan them with themsometimes even eating other\nnorthern pikes. They can typically befound in most of\nNorth America and Europe. Their average length is\nbetween 40 and 55cm and they can be identified\nby their long body and their bright green color", 30000, 3000, 3, 2, 1);
@@ -48,7 +48,7 @@ class DisplayFishInScene : GameObject
     //----------------------------------------------------------------------------------------------
     //                          loadScene2
     //----------------------------------------------------------------------------------------------
-    void loadScene2(List<Food> foodList, List<Fish> fishListPerScene)
+    private void loadScene2(List<Food> foodList, List<Fish> fishListPerScene)
     {
         scene2Fishes[0] = new Fish(foodList, 8, "Sea water", "Clownfish", "It is mostly known from the movie “Finding Nemo”.\n They live in anemones all around the globe since\ntheir toxin provides protection against predators.\nTheir average size is between 7 and 8 cm and\nthey consume small plants and algae.\nThey can be easily identified by their bright orange\nbase colour with white stripes.", 40000, 3000, 100, 3, 20);
         scene2Fishes[1] = new Fish(foodList, 8, "Sea water", "Schooling Bannerfish", "It is a butterflyfish native to the Indo-Pacific area.\nIt has a large depth range and is usually observed\nat 5–30 m depth, but has also been observed at\ndepths of up to 210 meters. It feeds on plankton\nand smaller examples sometimes act as\ncleaner fish.", 40000, 3000, 150, 2, 50);
@@ -64,7 +64,7 @@ class DisplayFishInScene : GameObject
     //-----------------------------------------------------------------------------------------------
     //                          loadScene3
     //-----------------------------------------------------------------------------------------------
-    void loadScene3(List<Food> foodList, List<Fish> fishListPerScene)
+    private void loadScene3(List<Food> foodList, List<Fish> fishListPerScene)
     {
         scene3Fishes[0] = new Fish(foodList, 4, "Deep water", "Black Swallower", "It is a species of deep sea fish with\nthe ability to swallow fish larger than itself by\nextending his stomach.Black swallowers have been found to have\nswallowed fish so large that they could not be digested\nbefore decomposition set in, and the resulting release\nof gases forced the swallower to the ocean surface.\nThe fish has a maximum known length of 25 cm and\nit is very common and widespread at depths of\n700–2,745 m in most of the Atlantic Ocean.", 60000, 3000, 1000, 1, 500);
         scene3Fishes[1] = new Fish(foodList, 5, "Deep water", "Pelican Eel", "It is a deep-sea eel which takes its name\nfrom its large lower jaw which they can use to swallow\nprey much larger than itself. There have not been many\ninteractions with living pelican eels as most specimens were\nfound dead in fishing nets. They can grow up to length\nof 75 cm and can be found in most parts of the atlantic\nbetween the depth of 500 to 3,000 m.", 60000, 3000, 2000, 3, 200);

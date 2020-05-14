@@ -50,9 +50,9 @@ public class Level : GameObject
         AddButton(new Button(new Vec2(0, 300), 500, 400, "dis de first tenk"));
         AddButton(new Button(new Vec2(game.width / 2  - 260, game.height / 2 - 140), 650, 300, "dis de second denk"));
         AddButton(new Button(new Vec2(game.width - 310, 300), 320, 400, "und diese ist die dritte Aquarium"));
-        AddScene(new Scene("bottom_1", currencySystem, this, 1,_options,10));
-        AddScene(new Scene("bottom_2", currencySystem, this, 2, _options, 100));
-        AddScene(new Scene("bottom_3", currencySystem, this, 3, _options, 1000));
+        AddScene(new Scene("bottom_1", this, 1,_options,10));
+        AddScene(new Scene("bottom_2", this, 2, _options, 100));
+        AddScene(new Scene("bottom_3", this, 3, _options, 1000));
         AddChild(canvas);
         AddChild(moneyIcon);
         AddChild(journal);
