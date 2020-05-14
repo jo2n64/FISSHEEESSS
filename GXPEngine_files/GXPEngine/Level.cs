@@ -25,7 +25,7 @@ public class Level : GameObject
         moneyIcon.SetScaleXY(0.06f);
         moneyIcon.SetXY(game.width - 200, 30);
         canvas = new Canvas(200, 100);
-        canvas.SetXY(game.width - 100, 50);
+        canvas.SetXY(game.width - 140, 50);
         _options = options;
         this.myGame = myGame;
         hub = new Sprite("aquariums.png");
