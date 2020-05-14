@@ -21,7 +21,7 @@ public class Level : GameObject
     public MyGame myGame;
     Canvas canvas;
     Sound clicks;
-    Options _options;
+    public Options _options;
     public Level(MyGame myGame,Options options) : base()
     {
         inTutorial = false;
@@ -31,7 +31,7 @@ public class Level : GameObject
         moneyIcon = new Sprite("coin.png");
         moneyIcon.SetScaleXY(0.06f);
         home = new Sprite("home_icon.png");
-        home.SetScaleXY(0.2f);
+        home.SetScaleXY(0.4f);
         home.SetXY(game.width / 2, game.height - home.height);
         moneyIcon.SetXY(game.width - 200, 30);
         canvas = new Canvas(200, 100);
@@ -84,6 +84,11 @@ public class Level : GameObject
                     }
                 }
             }
+            home.alpha = 1f;
+        }
+        if (isInScene)
+        {
+            home.alpha = 0f;
         }
         if (HasChild(tutorial)){
             inTutorial = true;
@@ -92,7 +97,7 @@ public class Level : GameObject
         {
             inTutorial = false;
         }
-        if(MyGame.CheckMouseInRectClick(home) && !inTutorial)
+        if(MyGame.CheckMouseInRectClick(home) && home.alpha == 1f)
         {
             parent.RemoveChild(this);
             myGame.isPlaying = false;

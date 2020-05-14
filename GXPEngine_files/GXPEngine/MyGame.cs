@@ -51,7 +51,10 @@ public class MyGame : Game
                 musicChannel = music.Play();
                 hasStarted = true;
             }
-            click.Play();
+            if (level._options.isSoundPlaying)
+            {
+                click.Play();
+            }
             AddChild(level);
             isPlaying = true;
         }
@@ -91,11 +94,17 @@ public class MyGame : Game
         if (CheckMouseInRectClick(options) && !isPlaying)
         {
             option.visible = true;
-            click.Play();
+            if (level != null && level._options.isSoundPlaying)
+            {
+                click.Play();
+            }
         }
         if (CheckMouseInRectClick(exit) && !isPlaying)
         {
-            click.Play();
+            if (level != null && level._options.isSoundPlaying)
+            {
+                click.Play();
+            }
             Environment.Exit(0);
         }
 
