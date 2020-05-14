@@ -14,15 +14,18 @@ public class Level : GameObject
     public CurrencySystem currencySystem;
     public bool isInScene;
     bool isInHub;
-    Sprite hub;
+    Sprite hub, moneyIcon;
     public MyGame myGame;
     Canvas canvas;
     Options _options;
     public Level(MyGame myGame,Options options) : base()
     {
         font = new Font("Fast Action", 24);
+        moneyIcon = new Sprite("coin.png");
+        moneyIcon.SetScaleXY(0.06f);
+        moneyIcon.SetXY(game.width - 200, 80);
         canvas = new Canvas(200, 100);
-        canvas.SetXY(game.width - 200, 100);
+        canvas.SetXY(game.width - 100, 100);
         _options = options;
         this.myGame = myGame;
         hub = new Sprite("aquariums.png");
@@ -42,6 +45,7 @@ public class Level : GameObject
         AddScene(new Scene("bottom_2.png", currencySystem, this, 2, _options, 100));
         AddScene(new Scene("fishtank3.jpg", currencySystem, this, 3, _options, 1000));
         AddChild(canvas);
+        AddChild(moneyIcon);
     }
 
     void Update()

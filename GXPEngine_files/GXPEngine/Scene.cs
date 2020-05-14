@@ -79,7 +79,7 @@ namespace GXPEngine
             downArrow = new Sprite("downarrow.png");
             isPlayingMusic = false;
             downArrow.SetXY(game.width / 2, game.height - 200);
-            downArrow.SetScaleXY(0.2f);
+            downArrow.SetScaleXY(0.5f);
             foodList = new List<Food>();
             AddChildAt(tank, 0);
             AddChild(downArrow);
