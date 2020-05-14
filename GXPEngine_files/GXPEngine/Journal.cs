@@ -56,8 +56,8 @@ public class Journal : GameObject
         AddChild(window);
         journal.alpha = 0f;
         close.alpha = 0f;
-        titleFont = new Font("Fast Action", 48);
-        textFont = new Font("Fast Action", 16);
+        titleFont = new Font("MV Boli", 48);
+        textFont = new Font("MV Boli", 16);
         inWindow = false;
         for (int i = 0; i < 3; i++)
         {

@@ -34,10 +34,8 @@ namespace GXPEngine
         bool isOneFishShown = false;
         bool isPlayingMusic;
         bool isActivated;
-        public bool passedTutorial = false;
         bool spongeSoundsPlaying;
         Sprite clickToBuy;
-        Tutorial _tutorial;
         Options _option;
         //Sound cleanDirtWithSponge;
         Sound[] spongeSounds;
@@ -55,10 +53,6 @@ namespace GXPEngine
         public Scene(string path, CurrencySystem currency, Level level, int scene, Options option, int price = 400) : base()
         {
             _option = option;
-            if (scene == 1 && !passedTutorial)
-            {
-                _tutorial = new Tutorial(new Vec2(game.width / 2 - 300, game.height / 2), this);
-            }
             if (scene == 2)
             {
                 sceneMusic = new Sound("seaTank.mp3");
@@ -78,7 +72,7 @@ namespace GXPEngine
             tank.height = game.height;
             downArrow = new Sprite("downarrow.png");
             isPlayingMusic = false;
-            downArrow.SetXY(game.width / 2, game.height - 200);
+            downArrow.SetXY(game.width / 2, game.height - 300);
             downArrow.SetScaleXY(0.5f);
             foodList = new List<Food>();
             AddChildAt(tank, 0);
@@ -117,11 +111,6 @@ namespace GXPEngine
             repairAquarium = new Sound("repair_aquarium_sound.wav", false, true);
             makeFoodSound = new Sound("fish_food_pick_sound.wav", false, true);
             openShop = new Sound("opening_journal_shop_sound.wav", false, true);
-            if (_tutorial != null)
-            {
-                AddChild(_tutorial);
-                Console.WriteLine(_tutorial.Index);
-            }
 
         }
         void addFish()
@@ -156,10 +145,6 @@ namespace GXPEngine
                     {
                         makeFoodSound.Play();
                     }
-                    if (_tutorial != null && _tutorial.count == 7)
-                    {
-                        _tutorial.count = 8;
-                    }
                 }
             }
         }
@@ -193,27 +178,24 @@ namespace GXPEngine
                                 moveFoodCan();
                                 RemoveShop();
                                 RemoveSponge();
-                                if (scene == 1 && _tutorial.isVisible && _tutorial.count == 6)
+                                if(level.tutorial.count == 8)
                                 {
-                                    _tutorial.count = 7;
+                                    level.tutorial.count = 9;
                                 }
                                 break;
                             case Inventory.Sponge:
                                 displaySponge();
                                 RemoveShop();
                                 RemoveFoodCan();
-                                if (scene == 1 && _tutorial.isVisible && _tutorial.count == 3)
-                                {
-                                    _tutorial.count = 4;
-                                }
                                 break;
                             case Inventory.Shop:
                                 displayShop();
                                 RemoveSponge();
                                 RemoveFoodCan();
-                                if (scene == 1 && _tutorial.isVisible && _tutorial.count == 5)
+                                if(level.tutorial.count == 4)
                                 {
-                                    _tutorial.count = 6;
+                                    level.tutorial.count = 5;
+                                    
                                 }
                                 break;
                             case 0:
@@ -224,10 +206,6 @@ namespace GXPEngine
                                 goBack();
                                 break;
                         }
-                        if (scene == 1 && sponge.dirtList.Count <= 0 && !isOneFishShown && _tutorial.count == 4)
-                        {
-                            _tutorial.count = 5;
-                        }
                         if (spongeSoundsPlaying && _option.isSoundPlaying)
                         {
                             int rand = soundRand.Next(0, spongeSounds.Length - 1);
@@ -237,6 +215,10 @@ namespace GXPEngine
                                 spongeClean = spongeSounds[rand].Play();
                                 spongeTimer = 791;
                             }
+                        }
+                        if(level.tutorial.count == 3 && sponge.dirtList.Count <= 0)
+                        {
+                            level.tutorial.count = 4;
                         }
 
                     }
@@ -277,9 +259,9 @@ namespace GXPEngine
                     {
                         repairAquarium.Play();
                     }
-                    if (scene == 1 && _tutorial.isVisible && _tutorial.count == 1)
+                    if(level.tutorial.count == 2)
                     {
-                        _tutorial.count = 2;
+                        level.tutorial.count = 3;
                     }
                 }
                 else

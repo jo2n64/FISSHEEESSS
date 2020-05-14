@@ -111,6 +111,10 @@ namespace GXPEngine
                                 fish.soldOut.y = fish.buyToUnlock.y-10;
                                 RemoveChild(fish.buyToUnlock);
                                 RemoveChild(fish.fishNameAndPrice);
+                                if(_level.tutorial.count == 6)
+                                {
+                                    _level.tutorial.count = 7;
+                                }
                             }
 
                         }

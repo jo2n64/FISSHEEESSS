@@ -123,6 +123,14 @@ namespace GXPEngine
             return false;
         }
 
+        public void Deselect()
+        {
+            id = 0;
+            food.selected = false;
+            sponge.selected = false;
+            shop.selected = false;
+        }
+
         void checkID()
         {
             switch (id)

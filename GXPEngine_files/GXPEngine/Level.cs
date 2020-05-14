@@ -8,6 +8,8 @@ using GXPEngine;
 public class Level : GameObject
 {
     List<Button> buttons;
+    public Tutorial tutorial;
+    public bool isInTutorial;
     Font font;
     public List<Scene> scenes;
     public Journal journal;
@@ -20,6 +22,7 @@ public class Level : GameObject
     Options _options;
     public Level(MyGame myGame,Options options) : base()
     {
+        tutorial = new Tutorial(new Vec2(game.width / 2 - 100, game.height - 400), this);
         font = new Font("Fast Action", 24);
         moneyIcon = new Sprite("coin.png");
         moneyIcon.SetScaleXY(0.06f);
@@ -47,6 +50,7 @@ public class Level : GameObject
         AddChild(canvas);
         AddChild(moneyIcon);
         AddChild(journal);
+        AddChildAt(tutorial, 100);
         SetChildIndex(journal, 100);
     }
 
@@ -65,6 +69,10 @@ public class Level : GameObject
                         scenes[i].visible = true;
                         scenes[i].isActive = true;
                         isInScene = true;
+                        if(tutorial.count == 1 && i == 0)
+                        {
+                            tutorial.count = 2;
+                        }
                     }
                     if(i == 3 && isInHub) {
                         isInHub = false;
