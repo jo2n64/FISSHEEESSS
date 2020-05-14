@@ -50,7 +50,12 @@ namespace GXPEngine
             _position = new Vec2(Utils.Random(width, game.width - 200), Utils.Random(height, game.height - 200));
             ChangePosition();
             _radius = width / 2;
-            hungerIcon = new Sprite("square.png");
+            hungerIcon = new Sprite("hunger_icon.png");
+            hungerIcon.width /= 3;
+            hungerIcon.height /= 3;
+            //hungerIcon.SetXY()
+            hungerIcon.x += 100;
+            hungerIcon.y -= 100;
             timer = 100;
             buyToUnlock = new Sprite("buy_button.png");
             buyToUnlock.width /= 5;
@@ -91,14 +96,17 @@ namespace GXPEngine
             ChangePosition();
             MirrorIfNeded();
         }
-
+        bool flipped = true;
         private void MirrorIfNeded()
         {
             if (velocity.x < 0)
             {
                 Mirror(true, false);
             }
-            else Mirror(false, false);
+            else
+            {
+                Mirror(false, false);
+            }
         }
 
         private void ChangePosition()

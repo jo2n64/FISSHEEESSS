@@ -73,7 +73,7 @@ namespace GXPEngine
             this.level = level;
             isActive = false;
             canMakeFood = true;
-            tank = new Sprite(path);
+            tank = new Sprite(path + ".png");
             tank.width = game.width;
             tank.height = game.height;
             downArrow = new Sprite("downarrow.png");
@@ -96,7 +96,7 @@ namespace GXPEngine
                 sponge.addDirt(dirt);
                 AddChild(dirt);
             }
-            clickToBuy = new Sprite("buy_button.png");
+            clickToBuy = new Sprite(path+"-buy.png");
             clickToBuy.SetXY(game.width / 2 - clickToBuy.width / 2, game.height / 2 - clickToBuy.height);
 
             AddChild(clickToBuy);
