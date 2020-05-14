@@ -249,7 +249,7 @@ namespace GXPEngine
                 }
                 else
                 {
-                    inv.shop.selected = false;
+                    inv.Deselect();
                     if (isOneFishShown == true)
                     {
                         makeDirt();

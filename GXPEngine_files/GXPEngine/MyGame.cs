@@ -24,7 +24,6 @@ public class MyGame : Game
         changedaworld = new Sprite("changedaworld.png");
         changedaworld.SetScaleXY(3.3f, 1.9f);
         change = new Sound("myfinalmessage.mp3");
-       // bg.SetScaleXY(1.05f);
         play = new Button(new Vec2(width / 2 - 110, height / 2-15), 250, 100, "Welcome");
         options = new Button(new Vec2(width / 2 - 80, height / 2 + 95), 210, 90, "Options");
         exit = new Button(new Vec2(width / 2 - 50, height / 2 + 190), 165, 65, "Exit");
