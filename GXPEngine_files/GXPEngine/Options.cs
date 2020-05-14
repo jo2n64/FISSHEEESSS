@@ -3,157 +3,222 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using GXPEngine;
 
-namespace GXPEngine
+
+public class Options : GameObject
 {
-    public class Options:GameObject
+    public bool isMusicPlaying = true;
+    public bool isSoundPlaying = true;
+
+    private Button music;
+    private Button sound;
+    private Button backToMainMenu;
+
+    private Sprite musicIcon;
+    private Sprite soundIcon;
+
+    private Sprite cross1;
+    private Sprite cross2;
+
+    private Sprite textMusic;
+    private Sprite textSound;
+
+    private Sprite backGround;
+    private Sprite home;
+
+    private Sound click;
+    //------------------------------------------------------------------------
+    //                          Counstructor
+    //------------------------------------------------------------------------
+    public Options()
     {
-        public bool isMusicPlaying = true;
-        public bool isSoundPlaying = true;
-        Button music;
-        Button sound;
-        Button backToMainMenu;
-        Sprite MusicIcon;
-        Sprite SoundIcon;
-        Sprite Box1;
-        Sprite Box2;
-        Sprite Check1;
-        Sprite Check2;
-        Sprite TextMusic;
-        Sprite TextSound;
-        Sprite bg;
-        Sprite home;
-        Sound click;
+        makeBackground();
+        makeMusicIcon();
+        makeSoundIcon();
+        makeCross1();
+        makeCross2();
+        makeTextMusic();
+        makeTextSound();
+        makeHomeIcon();
+        makeButtons();
 
-        public Options()
+        addChildrenToScreen();
+
+        click = new Sound("clicking buttons sound.wav");
+    }
+    //------------------------------------------------------------------------
+    //                          addChildrenToScreen
+    //------------------------------------------------------------------------
+    private void addChildrenToScreen()
+    {
+        AddChild(backGround);
+        AddChild(musicIcon);
+        AddChild(soundIcon);
+
+        AddChild(textMusic);
+        AddChild(textSound);
+        AddChild(home);
+    }
+    //------------------------------------------------------------------------
+    //                          makeButtons
+    //------------------------------------------------------------------------
+    private void makeButtons()
+    {
+        backToMainMenu = new Button(new Vec2(50, game.height - 220), 150, 150, "Bach to main menu");
+        music = new Button(new Vec2(musicIcon.x - musicIcon.width / 2, musicIcon.y - musicIcon.width / 2), musicIcon.width, musicIcon.height, "MUSIC");
+        sound = new Button(new Vec2(soundIcon.x - soundIcon.width / 2, soundIcon.y - soundIcon.height / 2), soundIcon.width, soundIcon.height, "SOUND");
+    }
+    //------------------------------------------------------------------------
+    //                              private void makeHomeIcon()
+
+    //------------------------------------------------------------------------
+    private void makeHomeIcon()
+    {
+        home = new Sprite("home_icon.png");
+        home.SetOrigin(home.width / 2, home.height / 2);
+        home.SetXY(game.width / 13, game.height - 150);
+        home.width /= 3;
+        home.height /= 3;
+    }
+    //------------------------------------------------------------------------
+    //                          makeTextSound
+    //------------------------------------------------------------------------
+    private void makeTextSound()
+    {
+        textSound = new Sprite("sound_icon.png");
+        textSound.SetOrigin(textSound.width / 2, textSound.height / 2);
+        textSound.SetXY(game.width / 3 * 2 - 130, game.height / 3 * 2);
+        textSound.width /= 3;
+        textSound.height /= 3;
+    }
+    //------------------------------------------------------------------------
+    //                          makeTextMusic
+    //------------------------------------------------------------------------
+    private void makeTextMusic()
+    {
+        textMusic = new Sprite("music_icon.png");
+        textMusic.SetOrigin(textMusic.width / 2, textMusic.height / 2);
+        textMusic.SetXY(game.width / 3 * 2 - 130, game.height / 3);
+        textMusic.width /= 3;
+        textMusic.height /= 3;
+    }
+    //------------------------------------------------------------------------
+    //                          makeCross2
+    //------------------------------------------------------------------------
+    private void makeCross2()
+    {
+        cross2 = new Sprite("cross2.png");
+        cross2.SetOrigin(cross2.width / 2, cross2.height / 2);
+        cross2.SetXY(game.width / 3 + 130, game.height / 3 * 2);
+        cross2.width /= 4;
+        cross2.height /= 4;
+    }
+    //------------------------------------------------------------------------
+    //                          makeCross1
+    //------------------------------------------------------------------------
+    private void makeCross1()
+    {
+        cross1 = new Sprite("cross2.png");
+        cross1.SetOrigin(cross1.width / 2, cross1.height / 2);
+        cross1.SetXY(game.width / 3 + 130, game.height / 3);
+        cross1.width /= 4;
+        cross1.height /= 4;
+    }
+    //------------------------------------------------------------------------
+    //                          makeSoundIcon
+    //------------------------------------------------------------------------
+    private void makeSoundIcon()
+    {
+        soundIcon = new Sprite("sound.png");
+        soundIcon.SetOrigin(soundIcon.width / 2, soundIcon.height / 2);
+        soundIcon.SetXY(game.width / 3 + 130, game.height / 3 * 2);
+        soundIcon.width /= 3;
+        soundIcon.height /= 3;
+    }
+    //------------------------------------------------------------------------
+    //                          makeMusicIcon
+    //------------------------------------------------------------------------
+    private void makeMusicIcon()
+    {
+        musicIcon = new Sprite("music.png");
+        musicIcon.SetOrigin(musicIcon.width / 2, musicIcon.height / 2);
+        musicIcon.SetXY(game.width / 3 + 130, game.height / 3);
+        musicIcon.width /= 3;
+        musicIcon.height /= 3;
+    }
+    //------------------------------------------------------------------------
+    //                          makeBackground
+    //------------------------------------------------------------------------
+    private void makeBackground()
+    {
+        backGround = new Sprite("main_menu_plants.png");
+        backGround.width = game.width;
+        backGround.height = game.height;
+    }
+    //------------------------------------------------------------------------
+    //                          Update
+    //------------------------------------------------------------------------
+    void Update()
+    {
+        if (visible == true)
         {
-            bg = new Sprite("main_menu_plants.png");
-            bg.width = game.width;
-            bg.height = game.height;
-
-            backToMainMenu = new Button(new Vec2(50, game.height - 220), 150, 150, "Bach to main menu");
-            MusicIcon = new Sprite("music.png");
-            MusicIcon.SetOrigin(MusicIcon.width / 2, MusicIcon.height / 2);
-            MusicIcon.x = game.width / 3+130;
-            MusicIcon.y = game.height / 3;
-            MusicIcon.width /= 3;
-            MusicIcon.height /= 3;
-
-            SoundIcon = new Sprite("sound.png");
-            SoundIcon.SetOrigin(SoundIcon.width / 2, SoundIcon.height / 2);
-            SoundIcon.x = game.width / 3+130;
-            SoundIcon.y = game.height / 3*2;
-            SoundIcon.width /= 3;
-            SoundIcon.height /= 3;
-
-            //Box1 = new Sprite("border.png");
-            //Box1.SetOrigin(Box1.width / 2, Box1.height / 2);
-            //Box1.x = game.width / 3*2;
-            //Box1.y = game.height / 3;
-            //Box1.width /= 3;
-            //Box1.height /= 3;
-
-            //Box2 = new Sprite("border.png");
-            //Box2.SetOrigin(Box2.width / 2, Box2.height / 2);
-            //Box2.x = game.width / 3*2;
-            //Box2.y = game.height / 3 * 2;
-            //Box2.width /= 3;
-            //Box2.height /= 3;
-
-            Check1 = new Sprite("cross2.png");
-            Check1.SetOrigin(Check1.width / 2, Check1.height / 2);
-            Check1.x = game.width / 3 + 130;
-            Check1.y = game.height / 3;
-            Check1.width /= 4;
-            Check1.height /= 4;
-
-            Check2 = new Sprite("cross2.png");
-            Check2.SetOrigin(Check2.width / 2, Check2.height / 2);
-            Check2.x = game.width / 3 + 130;
-            Check2.y = game.height / 3 * 2;
-            Check2.width /= 4;
-            Check2.height /= 4;
-
-            TextMusic = new Sprite("music_icon.png");
-            TextMusic.SetOrigin(TextMusic.width / 2, TextMusic.height / 2);
-            TextMusic.SetXY(game.width / 3*2-130, game.height / 3);
-            TextMusic.width /= 3;
-            TextMusic.height /= 3;
-
-            TextSound = new Sprite("sound_icon.png");
-            TextSound.SetOrigin(TextSound.width / 2, TextSound.height / 2);
-            TextSound.SetXY(game.width / 3*2-130, game.height / 3 * 2);
-            TextSound.width /= 3;
-            TextSound.height /= 3;
-
-            home = new Sprite("home_icon.png");
-            home.SetOrigin(home.width / 2, home.height / 2);
-            home.SetXY(game.width / 13, game.height -150);
-            home.width /= 3;
-            home.height /= 3;
-
-            music = new Button(new Vec2(MusicIcon.x - MusicIcon.width / 2, MusicIcon.y - MusicIcon.width/2), MusicIcon.width, MusicIcon.height, "MUSIC");
-            sound = new Button(new Vec2(SoundIcon.x - SoundIcon.width / 2, SoundIcon.y - SoundIcon.height / 2), SoundIcon.width, SoundIcon.height, "SOUNDS");
-            click = new Sound("clicking buttons sound.wav");
-            AddChild(bg);
-            AddChild(MusicIcon);
-            AddChild(SoundIcon);
-
-            //AddChild(Check1);
-            //AddChild(Check2);
-
-            //AddChild(Box1);
-            //AddChild(Box2);
-
-            //AddChild(SoundIcon);
-            AddChild(TextMusic);
-            AddChild(TextSound);
-            AddChild(home);
-           // AddChild(music);
-            //AddChild(sound);
-            //AddChild(backToMainMenu);
+            handleMusicOption();
+            handleSoundOption();
+            handleReturToMenuOption();
         }
-
-        void Update()
+    }
+    //------------------------------------------------------------------------
+    //                          handleReturToMenuOption
+    //------------------------------------------------------------------------
+    private void handleReturToMenuOption()
+    {
+        if (MyGame.CheckMouseInRectClick(backToMainMenu))
         {
-            if (visible == true)
+            visible = false;
+            if (isSoundPlaying)
             {
-                if (MyGame.CheckMouseInRectClick(music))
-                {
-                    if (isMusicPlaying == true)
-                    {
-                        isMusicPlaying = false;
-                        AddChild(Check1);
-                    }
-                    else
-                    {
-                        isMusicPlaying = true;
-                        RemoveChild(Check1);
-                    }
-                }
-                if (MyGame.CheckMouseInRectClick(sound))
-                {
-                    if (isSoundPlaying == true)
-                    {
-                        isSoundPlaying = false;
-                        AddChild(Check2);
-                    }
-                    else
-                    {
-                        isSoundPlaying = true;
-                        RemoveChild(Check2);
-                    }
-                }
-                if (MyGame.CheckMouseInRectClick(backToMainMenu))
-                {
-                    visible = false;
-                    if (isSoundPlaying)
-                    {
-                        click.Play();
-                    }
-                }
+                click.Play();
             }
         }
-
+    }
+    //------------------------------------------------------------------------
+    //                          handleSoundOption
+    //------------------------------------------------------------------------
+    private void handleSoundOption()
+    {
+        if (MyGame.CheckMouseInRectClick(sound))
+        {
+            if (isSoundPlaying == true)
+            {
+                isSoundPlaying = false;
+                AddChild(cross2);
+            }
+            else
+            {
+                isSoundPlaying = true;
+                RemoveChild(cross2);
+            }
+        }
+    }
+    //------------------------------------------------------------------------
+    //                          handleMusicOption
+    //------------------------------------------------------------------------
+    private void handleMusicOption()
+    {
+        if (MyGame.CheckMouseInRectClick(music))
+        {
+            if (isMusicPlaying == true)
+            {
+                isMusicPlaying = false;
+                AddChild(cross1);
+            }
+            else
+            {
+                isMusicPlaying = true;
+                RemoveChild(cross1);
+            }
+        }
     }
 }
+
