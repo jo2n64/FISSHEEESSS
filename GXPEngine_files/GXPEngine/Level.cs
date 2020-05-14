@@ -20,10 +20,12 @@ public class Level : GameObject
     Sprite hub, moneyIcon, home;
     public MyGame myGame;
     Canvas canvas;
+    Sound clicks;
     Options _options;
     public Level(MyGame myGame,Options options) : base()
     {
         inTutorial = false;
+        clicks = new Sound("clicking button sound.wav");
         tutorial = new Tutorial(new Vec2(game.width / 2 - 150, game.height - 400), this);
         font = new Font("Fast Action", 24);
         moneyIcon = new Sprite("coin.png");
@@ -74,6 +76,7 @@ public class Level : GameObject
                         scenes[i].visible = true;
                         scenes[i].isActive = true;
                         isInScene = true;
+                        clicks.Play();
                         if(tutorial.count == 1 && i == 0)
                         {
                             tutorial.count = 2;

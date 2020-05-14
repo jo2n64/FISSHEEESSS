@@ -14,11 +14,14 @@ public class Journal : GameObject
     List<Button> freshButtons, seaButtons, deepButtons, categories, buttonsToShow, buttons;
     Canvas canvas, descriptionCanvas;
     Level level;
+    Sound open;
+    SoundChannel channel;
     int category;
 
     public bool inWindow;
     public Journal(Level level) : base()
     {
+        open = new Sound("opening_journal_shop_sound.wav");
         this.level = level;
         freshFish = new List<Fish>();
         seaFish = new List<Fish>();
@@ -91,6 +94,7 @@ public class Journal : GameObject
                 close.alpha = 1f;
                 window.alpha = 1f;
                 inWindow = true;
+                channel = open.Play();
                 foreach(Button button in categories)
                 {
                     AddChild(button);
