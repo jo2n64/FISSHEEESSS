@@ -68,7 +68,7 @@ public class Level : GameObject
                         isInHub = false;
                         myGame.isPlaying = false;
                         myGame.RemoveChild(this);
-                        Console.WriteLine(myGame.isPlaying);
+                        //Console.WriteLine(myGame.isPlaying);
                     }
                 }
             }

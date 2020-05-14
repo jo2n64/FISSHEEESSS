@@ -7,7 +7,7 @@ namespace GXPEngine
 {
     public class CurrencySystem:GameObject
     {
-        public int money=20;
+        public int money=2000000;
         public CurrencySystem()
         {
 

@@ -96,7 +96,7 @@ namespace GXPEngine
                 sponge.addDirt(dirt);
                 AddChild(dirt);
             }
-            clickToBuy = new Sprite(path+"-buy.png");
+            clickToBuy = new Sprite(path + "-buy.png");
             clickToBuy.SetXY(game.width / 2 - clickToBuy.width / 2, game.height / 2 - clickToBuy.height);
 
             AddChild(clickToBuy);
@@ -169,7 +169,6 @@ namespace GXPEngine
             {
                 if (isActivated)
                 {
-                    //Console.WriteLine(timer);
                     if (isBought == true)
                     {
                         canMakeFood = true;
@@ -250,6 +249,7 @@ namespace GXPEngine
                 }
                 else
                 {
+                    inv.shop.selected = false;
                     if (isOneFishShown == true)
                     {
                         makeDirt();
