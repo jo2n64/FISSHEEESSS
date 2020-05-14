@@ -295,7 +295,7 @@ namespace GXPEngine
 
                             for (int i = 0; i < fish.GetNumberOfCoinsProduced(); i++)
                             {
-                                Coin coin = new Coin(fish, level, _option, fish.fishName+"-money.png");
+                                Coin coin = new Coin(fish, level, _option, fish.GetFishName()+"-money.png");
                                 AddChildAt(coin, 1);
                             }
                             fish.SetFishProgressToZero();

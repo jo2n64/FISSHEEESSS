@@ -7,7 +7,6 @@ using GXPEngine;
 
 public class Fish : AnimationSprite
 {
-    public string fishName;
     public Sprite buyToUnlock;
     public Sprite soldOut;
     public Sprite fishNameAndPrice;
@@ -33,6 +32,7 @@ public class Fish : AnimationSprite
     private int frameTimer;
     private int offset = 100;
     private string description, type;
+    private string fishName;
 
     //------------------------------------------------------------------------
     //                          Counstructor

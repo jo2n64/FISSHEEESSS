@@ -109,7 +109,7 @@ class Shop : GameObject
     //------------------------------------------------------------------------
     private void makeIconsForFish(int i, int j, Fish fish)
     {
-        Sprite fishIcon = new Sprite(fish.fishName + "-icon.png");
+        Sprite fishIcon = new Sprite(fish.GetFishName() + "-icon.png");
         AddChild(fishIcon);
         fishIcon.SetOrigin(fishIcon.width / 2, fishIcon.height / 2);
         fishIcon.width /= 8;
