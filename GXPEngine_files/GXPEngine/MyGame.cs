@@ -43,8 +43,7 @@ public class MyGame : Game
 
     void Update()
     {
-        if (CheckMouseInRectClick(play) && (!isPlaying))
-        {
+        if (CheckMouseInRectClick(play) && (!isPlaying)) { 
             
             if (!hasStarted)
             {
