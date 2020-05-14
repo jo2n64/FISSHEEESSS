@@ -42,7 +42,7 @@ public class MyGame : Game
 
     void Update()
     {
-        if (CheckMouseInRectClick(play) && !isPlaying)
+        if (CheckMouseInRectClick(play) && !isPlaying&&option.visible==false)
         {
             
             if (!hasStarted)
@@ -51,7 +51,7 @@ public class MyGame : Game
                 musicChannel = music.Play();
                 hasStarted = true;
             }
-            if (level._options.isSoundPlaying)
+            if (option.isSoundPlaying)
             {
                 click.Play();
             }
