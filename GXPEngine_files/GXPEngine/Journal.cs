@@ -46,8 +46,8 @@ public class Journal : GameObject
         descriptionCanvas = new Canvas(500, 500);
         category = 1;
         window = new Sprite("window_PNG17666.png");
-        window.SetScaleXY(0.7f);
-        window.SetXY(journal.x + 550, journal.y + 120);
+        window.SetScaleXY(0.9f, 0.5f);
+        window.SetXY(journal.x + 660, journal.y + 120);
         window.alpha = 0f;
         AddChild(journalButton);
         AddChild(journal);
@@ -66,13 +66,13 @@ public class Journal : GameObject
             switch (i)
             {
                 case 0:
-                    text = "Fresh Fish";
+                    text = "Fresh Water";
                     break;
                 case 1:
-                    text = "Sea Fish";
+                    text = "Sea Water";
                     break;
                 case 2:
-                    text = "Deep Fish";
+                    text = "Deep Water";
                     break;
             }
             Button button = new Button(new Vec2(journal.x + 50 + 110 * i, journal.y + 50), 100, 50, text);
@@ -192,7 +192,7 @@ public class Journal : GameObject
     {
         Button button = new Button(new Vec2(0, 0), 300, 30, fish.GetFishName());
         Sprite spr = new Sprite(fish.GetFishName() + "-icon.png");
-        spr.SetXY(journal.x + 670, journal.y + 150);
+        spr.SetXY(journal.x + 690, journal.y + 150);
         spr.SetScaleXY(0.2f);
         spr.alpha = 0f;
         buttons.Add(button);

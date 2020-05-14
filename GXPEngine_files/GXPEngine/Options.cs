@@ -30,7 +30,7 @@ namespace GXPEngine
             bg.width = game.width;
             bg.height = game.height;
 
-            backToMainMenu = new Button(new Vec2(300, 600), 100, 50, "Bach to main menu");
+            backToMainMenu = new Button(new Vec2(50, game.height - 220), 150, 150, "Bach to main menu");
             MusicIcon = new Sprite("music.png");
             MusicIcon.SetOrigin(MusicIcon.width / 2, MusicIcon.height / 2);
             MusicIcon.x = game.width / 3;
@@ -91,7 +91,7 @@ namespace GXPEngine
             home.width /= 3;
             home.height /= 3;
 
-            music = new Button(new Vec2(Box1.x - Box1.width / 2, 0), Box1.width, Box1.height, "MUSIC");
+            music = new Button(new Vec2(Box1.x - Box1.width / 2, Box1.y - Box1.width/2), Box1.width, Box1.height, "MUSIC");
             sound = new Button(new Vec2(Box2.x- Box2.width/2, Box2.y - Box2.height / 2), Box2.width, Box2.height, "SOUNDS");
             AddChild(bg);
             AddChild(MusicIcon);
@@ -107,9 +107,9 @@ namespace GXPEngine
             AddChild(TextMusic);
             AddChild(TextSound);
             AddChild(home);
-            AddChild(music);
-            AddChild(sound);
-            AddChild(backToMainMenu);
+            //AddChild(music);
+            //AddChild(sound);
+            //AddChild(backToMainMenu);
         }
 
         void Update()
