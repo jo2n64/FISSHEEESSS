@@ -142,6 +142,10 @@ namespace GXPEngine
                     visible = false;
                     inv.id = 0;
                     inv.shop.selected = false;
+                    if(_level.tutorial.count == 7)
+                    {
+                        _level.tutorial.count = 8;
+                    }
 
                 }
             }
