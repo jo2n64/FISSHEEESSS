@@ -250,7 +250,7 @@ namespace GXPEngine
 
             if (MyGame.CheckMouseInRectClick(clickToBuy))
             {
-                if (level.currencySystem.money >= priceOfAquarium)
+                if (level.currencySystem.getMoney() >= priceOfAquarium)
                 {
                     clickToBuy.LateDestroy();
                     isBought = true;

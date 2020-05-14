@@ -94,7 +94,7 @@ namespace GXPEngine
                     if (MyGame.CheckMouseInRectClick(fish.buyToUnlock))
                     {
 
-                        if (_level.currencySystem.money >= fish.FishPrice)
+                        if (_level.currencySystem.getMoney() >= fish.FishPrice)
                         {
 
                             if (fish.isUnlocked == false)
