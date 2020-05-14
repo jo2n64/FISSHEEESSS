@@ -215,7 +215,7 @@ namespace GXPEngine
                                 spongeTimer = 791;
                             }
                         }
-                        if(level.tutorial.count == 3 && sponge.dirtList.Count <= 0)
+                        if(level.tutorial.count == 3 && sponge.getNumerOfElementInDirtList() <= 0)
                         {
                             level.tutorial.count = 4;
                         }
