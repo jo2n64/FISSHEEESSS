@@ -23,7 +23,7 @@ namespace GXPEngine
         Sprite TextSound;
         Sprite bg;
         Sprite home;
-
+        Sound click;
 
         public Options()
         {
@@ -94,6 +94,7 @@ namespace GXPEngine
 
             music = new Button(new Vec2(MusicIcon.x - MusicIcon.width / 2, MusicIcon.y - MusicIcon.width/2), MusicIcon.width, MusicIcon.height, "MUSIC");
             sound = new Button(new Vec2(SoundIcon.x - SoundIcon.width / 2, SoundIcon.y - SoundIcon.height / 2), SoundIcon.width, SoundIcon.height, "SOUNDS");
+            click = new Sound("clicking buttons sound.wav");
             AddChild(bg);
             AddChild(MusicIcon);
             AddChild(SoundIcon);
@@ -146,6 +147,10 @@ namespace GXPEngine
                 if (MyGame.CheckMouseInRectClick(backToMainMenu))
                 {
                     visible = false;
+                    if (isSoundPlaying)
+                    {
+                        click.Play();
+                    }
                 }
             }
         }

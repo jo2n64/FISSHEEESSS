@@ -11,6 +11,7 @@ public class MyGame : Game
     public SoundChannel musicChannel;
     public Sound music, change;
     public bool isPlaying;
+    bool inOptions;
     int timer;
     bool hasStarted, inEasterEgg;
     Sound click;
@@ -42,7 +43,8 @@ public class MyGame : Game
 
     void Update()
     {
-        if (CheckMouseInRectClick(play) && !isPlaying&&option.visible==false)
+
+        if (CheckMouseInRectClick(play) && (!isPlaying && !options.visible))
         {
             
             if (!hasStarted)
@@ -94,14 +96,14 @@ public class MyGame : Game
         if (CheckMouseInRectClick(options) && !isPlaying)
         {
             option.visible = true;
-            if (level != null && level._options.isSoundPlaying)
+            if (option.isSoundPlaying)
             {
                 click.Play();
             }
         }
         if (CheckMouseInRectClick(exit) && !isPlaying)
         {
-            if (level != null && level._options.isSoundPlaying)
+            if (option.isSoundPlaying)
             {
                 click.Play();
             }
