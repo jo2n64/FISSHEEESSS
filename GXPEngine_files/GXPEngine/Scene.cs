@@ -52,7 +52,7 @@ namespace GXPEngine
         Sound notEnpughMoneyToBuyFish;
 
 
-        public Scene(string path, CurrencySystem currency, Level level, int scene,Options option, int price = 400) : base()
+        public Scene(string path, CurrencySystem currency, Level level, int scene, Options option, int price = 400) : base()
         {
             _option = option;
             if (scene == 1 && !passedTutorial)
@@ -73,7 +73,7 @@ namespace GXPEngine
             this.level = level;
             isActive = false;
             canMakeFood = true;
-            tank = new Sprite(path);
+            tank = new Sprite(path + ".png");
             tank.width = game.width;
             tank.height = game.height;
             downArrow = new Sprite("downarrow.png");
@@ -96,7 +96,7 @@ namespace GXPEngine
                 sponge.addDirt(dirt);
                 AddChild(dirt);
             }
-            clickToBuy = new Sprite("buy_button.png");
+            clickToBuy = new Sprite(path + "-buy.png");
             clickToBuy.SetXY(game.width / 2 - clickToBuy.width / 2, game.height / 2 - clickToBuy.height);
 
             AddChild(clickToBuy);
@@ -156,7 +156,7 @@ namespace GXPEngine
                     {
                         makeFoodSound.Play();
                     }
-                    if(_tutorial != null && _tutorial.count == 7)
+                    if (_tutorial != null && _tutorial.count == 7)
                     {
                         _tutorial.count = 8;
                     }
@@ -169,7 +169,6 @@ namespace GXPEngine
             {
                 if (isActivated)
                 {
-                    //Console.WriteLine(timer);
                     if (isBought == true)
                     {
                         canMakeFood = true;
@@ -229,7 +228,7 @@ namespace GXPEngine
                         {
                             _tutorial.count = 5;
                         }
-                        if (spongeSoundsPlaying&&_option.isSoundPlaying)
+                        if (spongeSoundsPlaying && _option.isSoundPlaying)
                         {
                             int rand = soundRand.Next(0, spongeSounds.Length - 1);
                             spongeTimer -= Time.deltaTime;
@@ -244,15 +243,13 @@ namespace GXPEngine
                     else
                     {
                         goBack();
-                        if (isActive)
-                        {
-                            buyAquarium();
-                        }
+                        buyAquarium();
                     }
 
                 }
                 else
                 {
+                    inv.shop.selected = false;
                     if (isOneFishShown == true)
                     {
                         makeDirt();
@@ -382,7 +379,7 @@ namespace GXPEngine
         {
             if (spongeOnScreen == true)
             {
-                if (spongeClean != null&&_option.isSoundPlaying)
+                if (spongeClean != null && _option.isSoundPlaying)
                 {
                     spongeClean.Stop();
                 }

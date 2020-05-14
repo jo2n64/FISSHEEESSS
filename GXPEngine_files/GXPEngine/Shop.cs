@@ -43,7 +43,7 @@ namespace GXPEngine
                 {
                     AddChild(fish.buyToUnlock);
                     fish.buyToUnlock.x = i * game.width / 4 - fish.buyToUnlock.width / 2;
-                    fish.buyToUnlock.y = j * game.height / 3+100;
+                    fish.buyToUnlock.y = j * game.height / 3+105;
 
                     AddChild(fish.fishNameAndPrice);
                     fish.fishNameAndPrice.x = i * game.width / 4 - fish.fishNameAndPrice.width / 2;
@@ -79,8 +79,8 @@ namespace GXPEngine
             backgroundShop.width = game.width - game.width / 5;
             backgroundShop.height = game.height - game.height / 5;
             backgroundShop.x = game.width / 10;
-            backgroundShop.y = game.height / 10;
-            close.x = backgroundShop.width+ game.width / 10-close.width;
+            backgroundShop.y = game.height / 10-20;
+            close.x = backgroundShop.width+ game.width / 10-close.width-20;
             close.y = game.height / 10;
         }
 
@@ -93,6 +93,7 @@ namespace GXPEngine
 
                     if (MyGame.CheckMouseInRectClick(fish.buyToUnlock))
                     {
+
                         if (_level.currencySystem.money >= fish.FishPrice)
                         {
 
@@ -107,7 +108,7 @@ namespace GXPEngine
                                 _level.journal.AddFish(fish);
                                 AddChild(fish.soldOut);
                                 fish.soldOut.x = fish.buyToUnlock.x;
-                                fish.soldOut.y = fish.buyToUnlock.y;
+                                fish.soldOut.y = fish.buyToUnlock.y-10;
                                 RemoveChild(fish.buyToUnlock);
                                 RemoveChild(fish.fishNameAndPrice);
                             }
@@ -115,13 +116,17 @@ namespace GXPEngine
                         }
                         else
                         {
-                            if (_option.isSoundPlaying)
+                            if (fish.isUnlocked == false)
                             {
-                                notEnpughMoneyToBuyFish.Play();
+                                if (_option.isSoundPlaying)
+                                {
+                                    notEnpughMoneyToBuyFish.Play();
+                                }
+                                AddChild(notEnoughMoney);
+                                notEnoughMoney.x = fish.buyToUnlock.x;
+                                notEnoughMoney.y = fish.buyToUnlock.y;
                             }
-                            AddChild(notEnoughMoney);
-                            notEnoughMoney.x = fish.buyToUnlock.x;
-                            notEnoughMoney.y = fish.buyToUnlock.y;
+
 
                         }
                     }
@@ -133,6 +138,14 @@ namespace GXPEngine
                     visible = false;
                     inv.id = 0;
                     inv.shop.selected = false;
+
+                }
+            }
+            else
+            {
+                if (HasChild(notEnoughMoney))
+                {
+                    RemoveChild(notEnoughMoney);
                 }
             }
         }
