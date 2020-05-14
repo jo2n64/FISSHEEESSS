@@ -6,8 +6,8 @@ using System.Drawing;
 using GXPEngine;
 public class Journal : GameObject
 {
-    public Sprite journalButton, close;
-    Sprite journal, window;
+    public Sprite journalButton;
+    Sprite journal, window, close;
     Font titleFont, textFont;
     List<Fish> freshFish, seaFish, deepFish, listToShow;
     List<Sprite> freshSprites, seaSprites, deepSprites, spritesToShow, fishSprites;
@@ -35,13 +35,14 @@ public class Journal : GameObject
         journalButton = new Sprite("journal_icon.png");
         journalButton.SetScaleXY(0.25f);
         journalButton.SetXY(game.width - 130, game.height - 400);
-        close = new Sprite("jurnalClose.png");
+        close = new Sprite("cross1.png");
+        close.SetScaleXY(0.1f);
         journal = new Sprite("journalitself.png");
         journal.SetScaleXY(1.8f);
         journal.SetXY(game.width / 2 - journal.width / 2, game.height / 2 - journal.height / 2);
-        close.SetXY(journal.x + journal.width - close.width, journal.y);
+        close.SetXY(journal.x + journal.width - 120, journal.y + 40);
         canvas = new Canvas(journal.width, journal.height);
-        descriptionCanvas = new Canvas(500, 500);
+        descriptionCanvas = new Canvas(550, 500);
         category = 1;
         window = new Sprite("window_PNG17666.png");
         window.SetScaleXY(0.9f, 0.5f);
@@ -81,7 +82,7 @@ public class Journal : GameObject
     void Update()
     {
         canvas.SetXY(journal.x, journal.y);
-        descriptionCanvas.SetXY(journal.x + 670, journal.y + 450);
+        descriptionCanvas.SetXY(journal.x + 660, journal.y + 450);
         if (!inWindow)
         {
             if (MyGame.CheckMouseInRectClick(journalButton))
@@ -108,6 +109,7 @@ public class Journal : GameObject
                     button.SetScaleXY(1.1f);
                     if (Input.GetMouseButtonDown(0))
                     {
+                        button.SetScaleXY(1.1f);
                         foreach(Button catButton in buttonsToShow)
                         {
                             RemoveChild(catButton);
@@ -140,6 +142,15 @@ public class Journal : GameObject
                     listToShow = deepFish;
                     spritesToShow = deepSprites;
                     break;
+            }
+
+            foreach(Button button in buttonsToShow)
+            {
+                if (MyGame.CheckMouseInRect(button))
+                {
+                    button.SetScaleXY(1.1f);
+                }
+                else button.SetScaleXY(1f);
             }
 
             for (int i = 0; i < listToShow.Count; i++)

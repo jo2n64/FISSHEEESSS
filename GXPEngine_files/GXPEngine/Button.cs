@@ -41,7 +41,7 @@ public class Button : GameObject
 
     void Update()
     {
-        canvas.graphics.FillRectangle(Brushes.Red, 0, 0, width, height);
+        canvas.graphics.FillRectangle(Brushes.Transparent, 0, 0, width, height);
         canvas.graphics.DrawString(text, font, Brushes.Black, 0, 0);
     }
 
