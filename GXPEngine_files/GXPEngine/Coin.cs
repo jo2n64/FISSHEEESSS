@@ -19,8 +19,8 @@ namespace GXPEngine
             x = Utils.Random(fish.x - fish.width, fish.x + fish.width);
             y = Utils.Random(fish.y - fish.height, fish.y + fish.height);
             value = fish.coinValue;
-            width /= 7;
-            height /= 7;
+            width /= 5;
+            height /= 5;
             _level = level;
             colectCoin = new Sound("pick_up_coin_sound.wav", false, true);
         }
