@@ -281,8 +281,6 @@ namespace GXPEngine
                     {
                         _tutorial.count = 2;
                     }
-                    level.AddChild(level.journal);
-                    level.journal.isDisplayed = true;
                 }
                 else
                 {
@@ -354,7 +352,6 @@ namespace GXPEngine
                 isActive = false;
                 isActivated = false;
                 level.isInScene = false;
-                level.RemoveChild(level.journal);
                 visible = false;
                 if (HasChild(shop))
                 {

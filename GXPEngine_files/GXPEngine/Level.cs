@@ -23,9 +23,9 @@ public class Level : GameObject
         font = new Font("Fast Action", 24);
         moneyIcon = new Sprite("coin.png");
         moneyIcon.SetScaleXY(0.06f);
-        moneyIcon.SetXY(game.width - 200, 80);
+        moneyIcon.SetXY(game.width - 200, 30);
         canvas = new Canvas(200, 100);
-        canvas.SetXY(game.width - 100, 100);
+        canvas.SetXY(game.width - 100, 50);
         _options = options;
         this.myGame = myGame;
         hub = new Sprite("aquariums.png");
@@ -46,6 +46,8 @@ public class Level : GameObject
         AddScene(new Scene("bottom_2", currencySystem, this, 3, _options, 1000));
         AddChild(canvas);
         AddChild(moneyIcon);
+        AddChild(journal);
+        SetChildIndex(journal, 100);
     }
 
     void Update()
@@ -56,7 +58,7 @@ public class Level : GameObject
         {
             for (int i = 0; i < buttons.Count; i++)
             {
-                if (MyGame.CheckMouseInRectClick(buttons[i]))
+                if (MyGame.CheckMouseInRectClick(buttons[i]) && !MyGame.CheckMouseInRect(journal.journalButton))
                 {
                     if (i < 3)
                     {

@@ -9,6 +9,7 @@ public class Button : GameObject
     Canvas canvas;
     int width, height;
     StringFormat sf;
+    Font font;
     string text;
     public bool isActive;
     public float Width
@@ -23,6 +24,7 @@ public class Button : GameObject
 
     public Button(Vec2 position, int width, int height, string text)
     {
+        font = new Font("MV Boli", 18);
         isActive = true;
         sf = new StringFormat();
         sf.Alignment = StringAlignment.Center;
@@ -40,7 +42,7 @@ public class Button : GameObject
     void Update()
     {
         canvas.graphics.FillRectangle(Brushes.Red, 0, 0, width, height);
-        canvas.graphics.DrawString(text, SystemFonts.DefaultFont, Brushes.Black, 0, 0);
+        canvas.graphics.DrawString(text, font, Brushes.Black, 0, 0);
     }
 
 }
