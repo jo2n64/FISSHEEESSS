@@ -219,7 +219,6 @@ namespace GXPEngine
                             case 0:
                                 RemoveShop();
                                 RemoveSponge();
-                                handleMoney();
                                 RemoveFoodCan();
                                 goBack();
                                 break;
@@ -250,8 +249,10 @@ namespace GXPEngine
                 else
                 {
                     inv.Deselect();
+                    handleMoney();
                     if (isOneFishShown == true)
                     {
+
                         makeDirt();
                     }
                 }
@@ -312,7 +313,7 @@ namespace GXPEngine
 
                             for (int i = 0; i < fish.HowManyCoins; i++)
                             {
-                                Coin coin = new Coin(fish, level, _option);
+                                Coin coin = new Coin(fish, level, _option, fish.fishName+"-money.png");
                                 AddChildAt(coin, 1);
                             }
                             fish.FishProgrss = 0;

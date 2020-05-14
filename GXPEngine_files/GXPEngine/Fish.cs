@@ -30,7 +30,6 @@ namespace GXPEngine
         public string fishName;
         public int _frames;
         string description, type;
-
         public Sprite buyToUnlock;
         public Sprite soldOut;
         public Sprite fishNameAndPrice;
