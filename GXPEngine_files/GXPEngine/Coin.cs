@@ -20,7 +20,7 @@ public class Coin : Sprite
         _option = option;
         x = Utils.Random(fish.x - fish.width, fish.x + fish.width);
         y = Utils.Random(fish.y - fish.height, fish.y + fish.height);
-        value = fish.coinValue;
+        value = fish.GetCoinValue();
         width /= 5;
         height /= 5;
         _level = level;
