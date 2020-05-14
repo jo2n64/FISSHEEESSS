@@ -21,5 +21,10 @@ namespace GXPEngine
         {
             money -= subtraction;
         }
+
+        public int getMoney()
+        {
+            return money;
+        }
     }
 }

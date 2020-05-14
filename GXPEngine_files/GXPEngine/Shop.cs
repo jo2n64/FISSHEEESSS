@@ -39,7 +39,7 @@ namespace GXPEngine
             makeBackground();
             foreach (Fish fish in fishList)
             {
-                if (fish.isUnlocked == false)
+                if (fish.GetIsUnlocked() == false)
                 {
                     AddChild(fish.buyToUnlock);
                     fish.buyToUnlock.x = i * game.width / 4 - fish.buyToUnlock.width / 2;
@@ -63,7 +63,7 @@ namespace GXPEngine
 
         private void makeIconsForFish(int i, int j, Fish fish)
         {
-            Sprite fishIcon = new Sprite(fish.fishName + "-icon.png");
+            Sprite fishIcon = new Sprite(fish.GetFishName() + "-icon.png");
             AddChild(fishIcon);
             fishIcon.SetOrigin(fishIcon.width / 2, fishIcon.height / 2);
             fishIcon.width /= 8;
@@ -94,16 +94,16 @@ namespace GXPEngine
                     if (MyGame.CheckMouseInRectClick(fish.buyToUnlock))
                     {
 
-                        if (_level.currencySystem.money >= fish.FishPrice)
+                        if (_level.currencySystem.money >= fish.GetFishPrice())
                         {
 
-                            if (fish.isUnlocked == false)
+                            if (fish.GetIsUnlocked() == false)
                             {
                                 if (_option.isSoundPlaying)
                                 {
                                     buyFish.Play();
                                 }
-                                _level.currencySystem.RemoveMoney(fish.FishPrice);
+                                _level.currencySystem.RemoveMoney(fish.GetFishPrice());
                                 fish.Unlock();
                                 _level.journal.AddFish(fish);
                                 AddChild(fish.soldOut);
@@ -120,7 +120,7 @@ namespace GXPEngine
                         }
                         else
                         {
-                            if (fish.isUnlocked == false)
+                            if (fish.GetIsUnlocked() == false)
                             {
                                 if (_option.isSoundPlaying)
                                 {
@@ -140,8 +140,7 @@ namespace GXPEngine
                 if (MyGame.CheckMouseInRectClick(close))
                 {
                     visible = false;
-                    inv.id = 0;
-                    inv.shop.selected = false;
+                    inv.DeselectShop();
                     if(_level.tutorial.count == 7)
                     {
                         _level.tutorial.count = 8;

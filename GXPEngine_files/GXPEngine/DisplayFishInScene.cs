@@ -8,6 +8,12 @@ namespace GXPEngine
     class DisplayFishInScene : GameObject
     {
         Fish[] scene1Fishes, scene2Fishes, scene3Fishes;
+
+
+        //------------------------------------------------------------------------
+        //                          Constructor
+        //------------------------------------------------------------------------
+
         public DisplayFishInScene(int sceneNumber, List<Food> foodList, List<Fish> fishListPerScene)
         {
             scene1Fishes = new Fish[5];
@@ -28,6 +34,10 @@ namespace GXPEngine
 
         }
 
+        //------------------------------------------------------------------------
+        //                          Loads the fish for the 1st scene
+        //------------------------------------------------------------------------
+
         void loadScene1(List<Food> foodList, List<Fish> fishListPerScene)
         {
             scene1Fishes[0] = new Fish(foodList, 6, "Fresh water", "European Perch", "It belongs to the genus perch and can\nbe found in most of Europe and Siberia,\nbut has also been introduced to Oceania and South\nAfrica. It is typically less than 25 cm long and has a\ngreenish base color with 5 to 9 dark green bars on\nits body. Their meals mostly consist of worms,\ninsects, and smaller fish.",30000,3000,1,1,1);
@@ -42,6 +52,11 @@ namespace GXPEngine
             fishListPerScene.Add(scene1Fishes[3]);
             fishListPerScene.Add(scene1Fishes[4]);
         }
+
+        //------------------------------------------------------------------------
+        //                          Loads the fish for the 2nd scene
+        //------------------------------------------------------------------------
+
         void loadScene2(List<Food> foodList, List<Fish> fishListPerScene)
         {
             scene2Fishes[0] = new Fish(foodList, 8, "Sea water", "Clownfish", "It is mostly known from the movie “Finding Nemo”.\n They live in anemones all around the globe since\ntheir toxin provides protection against predators.\nTheir average size is between 7 and 8 cm and\nthey consume small plants and algae.\nThey can be easily identified by their bright orange\nbase colour with white stripes.", 40000, 3000, 100, 3, 20);
@@ -55,6 +70,12 @@ namespace GXPEngine
             fishListPerScene.Add(scene2Fishes[3]);
             fishListPerScene.Add(scene2Fishes[4]);
         }
+
+
+        //------------------------------------------------------------------------
+        //                          Loads the fish for the 3rd scene
+        //------------------------------------------------------------------------
+
 
         void loadScene3(List<Food> foodList, List<Fish> fishListPerScene)
         {
