@@ -9,29 +9,41 @@ class Shop : GameObject
 {
     private List<Fish> fishList;
     private Level _level;
+    private Options _option;
+    private Inventory inv;
+
     private Sound buyFishSound;
-    private Sound notEnpughMoneyToBuyFish;
+    private Sound notEnpughMoneySound;
+
     private Sprite close;
     private Sprite notEnoughMoney;
-    private Inventory inv;
-    private Options _option;
     //------------------------------------------------------------------------
     //                          Counstructor
     //------------------------------------------------------------------------
     public Shop(List<Fish> fishListOfTank, Level level, Inventory inventory, Options option)
     {
         _option = option;
-        notEnoughMoney = new Sprite("no_money.png");
-        notEnoughMoney.width /= 10;
-        notEnoughMoney.height /= 10;
+        inv = inventory;
+
+        initializeNotEnoughMoney();
 
         _level = level;
         fishList = fishListOfTank;
+
         buyFishSound = new Sound("buying_fish_sound.mp3", false, true);
-        notEnpughMoneyToBuyFish = new Sound("no_money_sound.wav", false, true);
+        notEnpughMoneySound = new Sound("no_money_sound.wav", false, true);
         makeShop();
-        inv = inventory;
     }
+    //------------------------------------------------------------------------
+    //                          initializeNotEnoughMoney
+    //------------------------------------------------------------------------
+    private void initializeNotEnoughMoney()
+    {
+        notEnoughMoney = new Sprite("no_money.png");
+        notEnoughMoney.width /= 10;
+        notEnoughMoney.height /= 10;
+    }
+
     //------------------------------------------------------------------------
     //                          makeCloseButton
     //------------------------------------------------------------------------
@@ -145,7 +157,6 @@ class Shop : GameObject
     {
         foreach (Fish fish in fishList)
         {
-
             if (MyGame.CheckMouseInRectClick(fish.buyToUnlock))
             {
                 if (_level.currencySystem.getMoney() >= fish.FishPrice)
@@ -157,7 +168,6 @@ class Shop : GameObject
                     cannotBuyFish(fish);
                 }
             }
-
         }
     }
     //------------------------------------------------------------------------
@@ -169,7 +179,6 @@ class Shop : GameObject
         {
             visible = false;
             inv.DeselectShop();
-
         }
     }
     //------------------------------------------------------------------------
@@ -181,7 +190,7 @@ class Shop : GameObject
         {
             if (_option.isSoundPlaying)
             {
-                notEnpughMoneyToBuyFish.Play();
+                notEnpughMoneySound.Play();
             }
             AddChild(notEnoughMoney);
             notEnoughMoney.x = fish.buyToUnlock.x;
