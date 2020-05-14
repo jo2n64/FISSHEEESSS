@@ -325,7 +325,7 @@ namespace GXPEngine
 
         public void removeDirtConsequence(Dirt dirt)
         {
-            cleanMeter -= dirt.cleanImpact;
+            cleanMeter -= dirt.getCleanImpact();
         }
 
         void goBack()
