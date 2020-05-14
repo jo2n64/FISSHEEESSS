@@ -13,9 +13,10 @@ public class MyGame : Game
     public bool isPlaying;
     int timer;
     bool hasStarted, inEasterEgg;
-    //nigr
+    Sound click;
     public MyGame() : base(1600, 900, false)        // Create a window that's 800x600 and NOT fullscreen
     {
+        click = new Sound("clicking button sound.wav");
         timer = 8216;
         isPlaying = false;
         inEasterEgg = false;
@@ -49,6 +50,10 @@ public class MyGame : Game
                 level = new Level(this, option);
                 musicChannel = music.Play();
                 hasStarted = true;
+            }
+            if (level._options.isSoundPlaying)
+            {
+                click.Play();
             }
             AddChild(level);
             isPlaying = true;
@@ -89,9 +94,17 @@ public class MyGame : Game
         if (CheckMouseInRectClick(options) && !isPlaying)
         {
             option.visible = true;
+            if (level != null && level._options.isSoundPlaying)
+            {
+                click.Play();
+            }
         }
         if (CheckMouseInRectClick(exit) && !isPlaying)
         {
+            if (level != null && level._options.isSoundPlaying)
+            {
+                click.Play();
+            }
             Environment.Exit(0);
         }
 
