@@ -244,7 +244,10 @@ namespace GXPEngine
                     else
                     {
                         goBack();
-                        buyAquarium();
+                        //if (isActive)
+                        //{
+                            buyAquarium();
+                        //}
                     }
 
                 }
@@ -355,6 +358,7 @@ namespace GXPEngine
                 level.isInScene = false;
                 level.RemoveChild(level.journal);
                 visible = false;
+                isActivated = false;
                 if (HasChild(shop))
                 {
                     RemoveChild(shop);
