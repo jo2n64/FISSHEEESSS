@@ -2,38 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using GXPEngine;
 
-public class CurrencySystem : GameObject
+namespace GXPEngine
 {
-    private int money = 2000000;
-    //------------------------------------------------------------------------
-    //                          Counstructor
-    //------------------------------------------------------------------------
-    public CurrencySystem()
+    public class CurrencySystem:GameObject
     {
+        public int money=11;
+        public CurrencySystem()
+        {
 
-    }
-    //------------------------------------------------------------------------
-    //                          AddMoney
-    //------------------------------------------------------------------------
-    public void AddMoney(int addition)
-    {
-        money += addition;
-    }
-    //------------------------------------------------------------------------
-    //                          RemoveMoney
-    //------------------------------------------------------------------------
-    public void RemoveMoney(int subtraction)
-    {
-        money -= subtraction;
-    }
-    //------------------------------------------------------------------------
-    //                          getMoney
-    //------------------------------------------------------------------------
-    public int getMoney()
-    {
-        return money;
+        }
+
+        public void AddMoney(int addition)
+        {
+            money += addition;
+        }
+        public void RemoveMoney(int subtraction)
+        {
+            money -= subtraction;
+        }
+
+        public int getMoney()
+        {
+            return money;
+        }
     }
 }
-

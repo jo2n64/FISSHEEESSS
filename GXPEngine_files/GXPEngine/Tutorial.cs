@@ -62,36 +62,35 @@ namespace GXPEngine
                 switch (count)
                 {
                     case 0:
-                        text = "Hello and welcome to your\nnew aquarium. This is the\nmain hub. From here you\ncan see all" +
+                        text = "Hello and welcome to your\nnew aquarium. This is the\nmain hub. From here you\ncan see all " +
                             "of your aquariums\nand you can also repair them\nto get access to new\ntypes of fish.";
                         break;
                     case 1:
-                        text = "First you need to buy\nyour first aquarium.\nThankfully you have enough\nmoney to do so. Click on\nthe aquarium to the left\nto select it.";
+                        text = "First you need to buy\nyour first aquarium.\nThankfully, you have enough\nmoney to do so. Click on\nthe aquarium to the left\nto enter it.";
                         RemoveChild(next);
                         break;
                     case 2:
-                        text = "Good Job! This is the\nfirst aquarium. Later you\nwill be able to marvel at\nyour fishes here. Click on\n'Buy' to purchase your\nfirst aquarium.";
+                        text = "Good Job! This is the\nfirst aquarium. Later you\nwill be able to look at\nyour fishes here. Click on\nthe sign to purchase your\nfirst aquarium.";
                         break;
                     case 3:
-                        text = "Congratulations on your\nnew Aquarium. But I think it\nhas seen better days. Click on\nthe sponge on the right and\nuse it to wipe the stains\nfrom the glass.Beware as\nstains could be behind\nthis tutorial";
+                        text = "Congratulations on your\nnew Aquarium. But it seems a\nlittle dirty. Click on\nthe sponge on the right and\nuse it to wipe the stains\nfrom the glass.Beware as\nstains could be behind\nthis tutorial";
                         break;
                     case 4:
-                        text = "Perfect. Now you just\nneed a fish and you have a\nworking Aquarium. To buy\nfish you need to click\non the shop icon\nto the right.";
+                        text = "Perfect. Now you just\nneed a fish and you will get the\naquarium fully working. To buy\nfish you need to click\non the shop icon\nto the right.";
                         break;
                     case 5:
-                        text = "This is the shop. Here you\ncan buy new fish. The choice\nof fish depends on the type\nof Aquarium you're in.";
+                        text = "This is the shop. Here you\ncan buy new fish. The choice\nof fish depends on the type\nof aquarium you're in.";
                         AddChild(next);
                         break;
                     case 6:
                         RemoveChild(next);
-                        text = "Go and use the rest of\nyour money to buy the first\nfish by clicking on the buy\nbutton.";
+                        text = "Now use the rest of\nyour money to buy the\nEuropean Perch by clicking\non the buy button.";
                         break;
                     case 7:
-                        text = "Good Job you bought your\nfirst fish! Fish create\ndirt and need to be fed\nfrom time to time.";
-                        AddChild(next);
+                        text = "Good job, you bought your\nfirst fish! Fish create\ndirt and need to be fed\nfrom time to time. Click on\nthe close button to proceed.";
                         break;
                     case 8:
-                        text = "This icon shows that\nthe fish is hungry. To feed\nhim click on the food\ncontainer to the right and\nclick anywhere in the level\nto spread some fish food";
+                        text = "You can see that the fish\nhas a bubble next to it. That\nmeans that the fish\nis hungry. To feed\nhim, click on the food\ncontainer to the right and\nclick anywhere in the level\nto spread some fish food";
                         RemoveChild(next);
                         break;
                     case 9:
@@ -100,7 +99,7 @@ namespace GXPEngine
                         AddChild(next);
                         break;
                     case 10:
-                        text = "One last thing before\nI let you run your own\naquarium. The journal at the\nbottom right includes \ninformation to all fish\nyou collect. Now go\nand have fun!";
+                        text = "One last thing before\nyou go. The journal on the\n right includes \ninformation to all fish\nyou collect. Now go\nand have fun!";
                         break;
 
                 }

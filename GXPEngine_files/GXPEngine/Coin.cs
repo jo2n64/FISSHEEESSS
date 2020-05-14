@@ -13,7 +13,7 @@ public class Coin : Sprite
     private Options _option;
 
     //------------------------------------------------------------------------
-    //                          Counstructor
+    //                          Constructor
     //------------------------------------------------------------------------
     public Coin(Fish fish, Level level, Options option, string s) : base(s)
     {
