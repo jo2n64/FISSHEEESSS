@@ -167,7 +167,7 @@ namespace GXPEngine
                         {
                             makeDirt();
                         }
-                        switch (inv.id)
+                        switch (inv.getID())
                         {
                             case Inventory.Food:
                                 if (inv.checkIfItemIsOverlapped() == false)
@@ -198,7 +198,7 @@ namespace GXPEngine
                                     
                                 }
                                 break;
-                            case 0:
+                            case Inventory.Deselected:
                                 RemoveShop();
                                 RemoveSponge();
                                 RemoveFoodCan();

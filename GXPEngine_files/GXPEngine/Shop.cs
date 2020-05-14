@@ -140,8 +140,7 @@ namespace GXPEngine
                 if (MyGame.CheckMouseInRectClick(close))
                 {
                     visible = false;
-                    inv.id = 0;
-                    inv.shop.selected = false;
+                    inv.DeselectShop();
 
                 }
             }
