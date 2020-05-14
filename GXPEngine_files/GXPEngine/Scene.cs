@@ -244,7 +244,10 @@ namespace GXPEngine
                     else
                     {
                         goBack();
-                        buyAquarium();
+                        if (isActive)
+                        {
+                            buyAquarium();
+                        }
                     }
 
                 }
@@ -352,6 +355,7 @@ namespace GXPEngine
             if (MyGame.CheckMouseInRectClick(downArrow) && !level.journal.inWindow)
             {
                 isActive = false;
+                isActivated = false;
                 level.isInScene = false;
                 level.RemoveChild(level.journal);
                 visible = false;
