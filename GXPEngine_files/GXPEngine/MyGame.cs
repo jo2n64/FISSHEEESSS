@@ -8,9 +8,9 @@ public class MyGame : Game
     Sprite bg, changedaworld;
     Level level;
     Options option;
-    public SoundChannel musicChannel;
-    public Sound music, change;
-    public bool isPlaying;
+    SoundChannel musicChannel;
+    Sound music, change;
+    bool isPlaying;
     bool inOptions;
     int timer;
     bool hasStarted, inEasterEgg;
@@ -164,6 +164,16 @@ public class MyGame : Game
             return false;
         }
         else return false;
+    }
+
+    public bool GetIsPlaying()
+    {
+        return isPlaying;
+    }
+
+    public void SetIsPlaying(bool isPlaying)
+    {
+        this.isPlaying = isPlaying;
     }
 
 }

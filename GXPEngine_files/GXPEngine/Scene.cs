@@ -150,7 +150,7 @@ namespace GXPEngine
         }
         void Update()
         {
-            if (level.myGame.isPlaying)
+            if (level.GetMyGame().GetIsPlaying())
             {
                 if (isActivated)
                 {
@@ -178,9 +178,9 @@ namespace GXPEngine
                                 moveFoodCan();
                                 RemoveShop();
                                 RemoveSponge();
-                                if(level.tutorial.count == 8)
+                                if(level.GetTutorial().GetCount() == 8)
                                 {
-                                    level.tutorial.count = 9;
+                                    level.GetTutorial().SetCount(9);
                                 }
                                 break;
                             case Inventory.Sponge:
@@ -192,9 +192,9 @@ namespace GXPEngine
                                 displayShop();
                                 RemoveSponge();
                                 RemoveFoodCan();
-                                if(level.tutorial.count == 4)
+                                if(level.GetTutorial().GetCount() == 4)
                                 {
-                                    level.tutorial.count = 5;
+                                    level.GetTutorial().SetCount(5);
                                     
                                 }
                                 break;
@@ -215,9 +215,9 @@ namespace GXPEngine
                                 spongeTimer = 791;
                             }
                         }
-                        if(level.tutorial.count == 3 && sponge.getNumerOfElementInDirtList() <= 0)
+                        if(level.GetTutorial().GetCount() == 3 && sponge.getNumerOfElementInDirtList() <= 0)
                         {
-                            level.tutorial.count = 4;
+                            level.GetTutorial().SetCount(4);
                         }
 
                     }
@@ -250,19 +250,19 @@ namespace GXPEngine
 
             if (MyGame.CheckMouseInRectClick(clickToBuy))
             {
-                if (level.currencySystem.getMoney() >= priceOfAquarium)
+                if (level.GetCurrencySystem().getMoney() >= priceOfAquarium)
                 {
                     clickToBuy.LateDestroy();
                     isBought = true;
                     AddChild(inv);
-                    level.currencySystem.RemoveMoney(priceOfAquarium);
+                    level.GetCurrencySystem().RemoveMoney(priceOfAquarium);
                     if (_option.isSoundPlaying)
                     {
                         repairAquarium.Play();
                     }
-                    if(level.tutorial.count == 2)
+                    if(level.GetTutorial().GetCount() == 2)
                     {
-                        level.tutorial.count = 3;
+                        level.GetTutorial().SetCount(3);
                     }
                 }
                 else
@@ -330,11 +330,11 @@ namespace GXPEngine
 
         void goBack()
         {
-            if (MyGame.CheckMouseInRectClick(downArrow) && !level.journal.inWindow)
+            if (MyGame.CheckMouseInRectClick(downArrow) && !level.GetJournal().GetInWindow())
             {
                 isActive = false;
                 isActivated = false;
-                level.isInScene = false;
+                level.SetIsInScene(false);
                 visible = false;
                 if (HasChild(shop))
                 {

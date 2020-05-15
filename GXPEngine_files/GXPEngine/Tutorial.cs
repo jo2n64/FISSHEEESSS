@@ -14,8 +14,8 @@ namespace GXPEngine
         Font font;
         Sprite image;
         string text;
-        public bool isVisible;
-        public int count;
+        bool isVisible;
+        int count;
         public Tutorial(Vec2 position, Level level) : base()
         {
             canvas = new Canvas(500, 400);
@@ -45,7 +45,7 @@ namespace GXPEngine
                 if (MyGame.CheckMouseInRectClick(skip) && HasChild(skip))
                 {
                     isVisible = false;
-                    level.isInTutorial = false;
+                    level.SetInTutorial(false);
                     parent.RemoveChild(this);
                 }
                 if (MyGame.CheckMouseInRectClick(next) && HasChild(next))
@@ -54,7 +54,7 @@ namespace GXPEngine
                     if(count > 10)
                     {
                         isVisible = false;
-                        level.isInTutorial = false;
+                        level.SetInTutorial(false);
                         parent.RemoveChild(this);
                     }
                 }
@@ -73,7 +73,7 @@ namespace GXPEngine
                         text = "Good Job! This is the\nfirst aquarium. Later you\nwill be able to look at\nyour fishes here. Click on\nthe sign to purchase your\nfirst aquarium.";
                         break;
                     case 3:
-                        text = "Congratulations on your\nnew Aquarium. But it seems a\nlittle dirty. Click on\nthe sponge on the right and\nuse it to wipe the stains\nfrom the glass.Beware as\nstains could be behind\nthis tutorial";
+                        text = "Congratulations on your\nnew Aquarium. But it seems\na little dirty. Click on\nthe sponge on the right and\nuse it to wipe the stains\nfrom the glass.Beware as\nstains could be behind\nthis tutorial";
                         break;
                     case 4:
                         text = "Perfect. Now you just\nneed a fish and you will get the\naquarium fully working. To buy\nfish you need to click\non the shop icon\nto the right.";
@@ -105,5 +105,16 @@ namespace GXPEngine
                 }
             }
         }
+
+        public int GetCount()
+        {
+            return count;
+        }
+
+        public void SetCount(int count)
+        {
+            this.count = count;
+        }
+
     }
 }

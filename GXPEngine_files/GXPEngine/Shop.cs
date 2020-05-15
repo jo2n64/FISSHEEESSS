@@ -94,7 +94,7 @@ namespace GXPEngine
                     if (MyGame.CheckMouseInRectClick(fish.buyToUnlock))
                     {
 
-                        if (_level.currencySystem.money >= fish.GetFishPrice())
+                        if (_level.GetCurrencySystem().money >= fish.GetFishPrice())
                         {
 
                             if (fish.GetIsUnlocked() == false)
@@ -103,17 +103,17 @@ namespace GXPEngine
                                 {
                                     buyFish.Play();
                                 }
-                                _level.currencySystem.RemoveMoney(fish.GetFishPrice());
+                                _level.GetCurrencySystem().RemoveMoney(fish.GetFishPrice());
                                 fish.Unlock();
-                                _level.journal.AddFish(fish);
+                                _level.GetJournal().AddFish(fish);
                                 AddChild(fish.soldOut);
                                 fish.soldOut.x = fish.buyToUnlock.x;
                                 fish.soldOut.y = fish.buyToUnlock.y-10;
                                 RemoveChild(fish.buyToUnlock);
                                 RemoveChild(fish.fishNameAndPrice);
-                                if(_level.tutorial.count == 6)
+                                if(_level.GetTutorial().GetCount() == 6)
                                 {
-                                    _level.tutorial.count = 7;
+                                    _level.GetTutorial().SetCount(7);
                                 }
                             }
 
@@ -141,9 +141,9 @@ namespace GXPEngine
                 {
                     visible = false;
                     inv.DeselectShop();
-                    if(_level.tutorial.count == 7)
+                    if(_level.GetTutorial().GetCount() == 7)
                     {
-                        _level.tutorial.count = 8;
+                        _level.GetTutorial().SetCount(8);
                     }
 
                 }
