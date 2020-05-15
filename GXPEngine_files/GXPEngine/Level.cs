@@ -136,9 +136,9 @@ public class Level : GameObject
 
     void initScenes()
     {
-        AddScene(new Scene("bottom_1", currencySystem, this, 1, _options, 10));
-        AddScene(new Scene("bottom_2", currencySystem, this, 2, _options, 100));
-        AddScene(new Scene("bottom_3", currencySystem, this, 3, _options, 1000));
+        AddScene(new Scene("bottom_1", this, 1, _options, 10));
+        AddScene(new Scene("bottom_2", this, 2, _options, 100));
+        AddScene(new Scene("bottom_3", this, 3, _options, 1000));
     }
 
     void initBools()

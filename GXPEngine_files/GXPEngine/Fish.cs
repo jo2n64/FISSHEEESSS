@@ -119,7 +119,7 @@ public class Fish : AnimationSprite
     //------------------------------------------------------------------------
     //                          UpdateScreenPosition
     //------------------------------------------------------------------------
-    void UpdateScreenPosition()
+    private void UpdateScreenPosition()
     {
         ChangePosition();
         MirrorIfNeded();
@@ -149,7 +149,7 @@ public class Fish : AnimationSprite
     //------------------------------------------------------------------------
     //                          calcDistToPoint
     //------------------------------------------------------------------------
-    void calcDistToPoint()
+    private void calcDistToPoint()
     {
         if (currentPoint.x != 0 && currentPoint.y != 0)
         {
@@ -252,7 +252,7 @@ public class Fish : AnimationSprite
     //------------------------------------------------------------------------
     //                          move
     //------------------------------------------------------------------------
-    void move()
+    private void move()
     {
         calcDistToPoint();
         _position += velocity;
@@ -261,7 +261,7 @@ public class Fish : AnimationSprite
     //------------------------------------------------------------------------
     //                          handleAnimation
     //------------------------------------------------------------------------
-    void handleAnimation()
+    private void handleAnimation()
     {
         frameTimer -= Time.deltaTime;
         if (frameTimer < 0)
@@ -287,7 +287,7 @@ public class Fish : AnimationSprite
     //------------------------------------------------------------------------
     //                          displayHungerIcon
     //------------------------------------------------------------------------
-    void displayHungerIcon()
+    private void displayHungerIcon()
     {
         if (hungerMeterForFish <= isFishHungry)
         {

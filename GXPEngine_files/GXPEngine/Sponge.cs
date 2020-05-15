@@ -27,7 +27,7 @@ public class Sponge : Sprite
     //------------------------------------------------------------------------
     //                          UpdateScreenPosition
     //------------------------------------------------------------------------
-    void UpdateScreenPosition()
+    private void UpdateScreenPosition()
     {
         x = _position.x;
         y = _position.y;

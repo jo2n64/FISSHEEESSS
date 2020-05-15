@@ -129,7 +129,7 @@ public class Inventory : GameObject
     //------------------------------------------------------------------------
     //                          checkIfItemIsPressed
     //------------------------------------------------------------------------
-    void checkIfItemIsPressed()
+    private void checkIfItemIsPressed()
     {
         foreach (Item item in listOfItemsInInventory)
         {
@@ -185,7 +185,7 @@ public class Inventory : GameObject
     //------------------------------------------------------------------------
     //                          checkID
     //------------------------------------------------------------------------
-    void checkID()
+    private void checkID()
     {
         switch (id)
         {
