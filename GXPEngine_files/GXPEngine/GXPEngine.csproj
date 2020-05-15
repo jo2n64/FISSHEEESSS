@@ -52,7 +52,6 @@
     <Compile Include="Journal.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="LineSegment.cs" />
-    <Compile Include="Menu.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Canvas.cs" />
     <Compile Include="GXPEngine\Game.cs" />
