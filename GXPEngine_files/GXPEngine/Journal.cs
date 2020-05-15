@@ -6,7 +6,7 @@ using System.Drawing;
 using GXPEngine;
 public class Journal : GameObject
 {
-    public Sprite journalButton;
+    Sprite journalButton;
     Sprite journal, window, close;
     Font titleFont, textFont;
     List<Fish> freshFish, seaFish, deepFish, listToShow;
@@ -17,8 +17,8 @@ public class Journal : GameObject
     Sound open;
     SoundChannel channel;
     int category;
+    bool inWindow;
 
-    public bool inWindow;
     public Journal(Level level) : base()
     {
         open = new Sound("opening_journal_shop_sound.wav");
@@ -86,6 +86,14 @@ public class Journal : GameObject
     {
         canvas.SetXY(journal.x, journal.y);
         descriptionCanvas.SetXY(journal.x + 660, journal.y + 450);
+        checkOutsideWindow();
+        checkInWindow();
+
+       
+    }
+
+    void checkOutsideWindow()
+    {
         if (!inWindow)
         {
             if (MyGame.CheckMouseInRectClick(journalButton))
@@ -94,113 +102,140 @@ public class Journal : GameObject
                 close.alpha = 1f;
                 window.alpha = 1f;
                 inWindow = true;
-                if (level._options.isSoundPlaying)
+                if (level.GetOptions().isSoundPlaying)
                 {
                     channel = open.Play();
                 }
-                foreach(Button button in categories)
+                foreach (Button button in categories)
                 {
                     AddChild(button);
                 }
-                
+
             }
         }
+    }
 
-        if (inWindow)
+    void makeCategoryButtons()
+    {
+        for (int i = 0; i < categories.Count; i++)
         {
-            for(int i = 0; i < categories.Count; i++)
+            Button button = categories[i];
+            if (MyGame.CheckMouseInRect(button))
             {
-                Button button = categories[i];
-                if (MyGame.CheckMouseInRect(button))
+                button.SetScaleXY(1.1f);
+                if (Input.GetMouseButtonDown(0))
                 {
                     button.SetScaleXY(1.1f);
-                    if (Input.GetMouseButtonDown(0))
+                    foreach (Button catButton in buttonsToShow)
                     {
-                        button.SetScaleXY(1.1f);
-                        foreach(Button catButton in buttonsToShow)
-                        {
-                            RemoveChild(catButton);
-                        }
-                        descriptionCanvas.graphics.Clear(Color.Transparent);
-                        foreach(Sprite spr in spritesToShow)
-                        {
-                            spr.alpha = 0f;
-                        }
-                        category = i;
+                        RemoveChild(catButton);
                     }
-                }
-                else button.SetScaleXY(1f);
-            }
-
-            switch (category)
-            {
-                case 0:
-                    buttonsToShow = freshButtons;
-                    listToShow = freshFish;
-                    spritesToShow = freshSprites;
-                    break;
-                case 1:
-                    buttonsToShow = seaButtons;
-                    listToShow = seaFish;
-                    spritesToShow = seaSprites;
-                    break;
-                case 2:
-                    buttonsToShow = deepButtons;
-                    listToShow = deepFish;
-                    spritesToShow = deepSprites;
-                    break;
-            }
-
-            foreach(Button button in buttonsToShow)
-            {
-                if (MyGame.CheckMouseInRect(button))
-                {
-                    button.SetScaleXY(1.1f);
-                }
-                else button.SetScaleXY(1f);
-            }
-
-            for (int i = 0; i < listToShow.Count; i++)
-            {
-                Button button = buttonsToShow[i];
-                button.SetXY(journal.x + 100, journal.y + 200 + 50 * i);
-                AddChild(button);
-                if (MyGame.CheckMouseInRectClick(button))
-                {
                     descriptionCanvas.graphics.Clear(Color.Transparent);
-                    descriptionCanvas.graphics.DrawString(listToShow[i].GetFishDescription(), textFont, Brushes.Black, 0, 0);
-                    spritesToShow[i].alpha = 1f;
                     foreach (Sprite spr in spritesToShow)
                     {
-                        if(spritesToShow.IndexOf(spr) != i)
-                        {
-                            spr.alpha = 0f;
-                        }
+                        spr.alpha = 0f;
+                    }
+                    category = i;
+                }
+            }
+            else button.SetScaleXY(1f);
+        }
+    }
+
+    void checkForCategory()
+    {
+        switch (category)
+        {
+            case 0:
+                buttonsToShow = freshButtons;
+                listToShow = freshFish;
+                spritesToShow = freshSprites;
+                break;
+            case 1:
+                buttonsToShow = seaButtons;
+                listToShow = seaFish;
+                spritesToShow = seaSprites;
+                break;
+            case 2:
+                buttonsToShow = deepButtons;
+                listToShow = deepFish;
+                spritesToShow = deepSprites;
+                break;
+        }
+    }
+
+    void mouseOverCheck()
+    {
+        foreach (Button button in buttonsToShow)
+        {
+            if (MyGame.CheckMouseInRect(button))
+            {
+                button.SetScaleXY(1.1f);
+            }
+            else button.SetScaleXY(1f);
+        }
+    }
+
+
+    void showFishList()
+    {
+        for (int i = 0; i < listToShow.Count; i++)
+        {
+            Button button = buttonsToShow[i];
+            button.SetXY(journal.x + 100, journal.y + 200 + 50 * i);
+            AddChild(button);
+            if (MyGame.CheckMouseInRectClick(button))
+            {
+                descriptionCanvas.graphics.Clear(Color.Transparent);
+                descriptionCanvas.graphics.DrawString(listToShow[i].GetFishDescription(), textFont, Brushes.Black, 0, 0);
+                spritesToShow[i].alpha = 1f;
+                foreach (Sprite spr in spritesToShow)
+                {
+                    if (spritesToShow.IndexOf(spr) != i)
+                    {
+                        spr.alpha = 0f;
                     }
                 }
             }
+        }
+    }
 
-            if (MyGame.CheckMouseInRectClick(close))
+    void checkClosing()
+    {
+        if (MyGame.CheckMouseInRectClick(close))
+        {
+            canvas.graphics.Clear(Color.Transparent);
+            close.alpha = 0f;
+            journal.alpha = 0f;
+            window.alpha = 0f;
+            inWindow = false;
+            descriptionCanvas.graphics.Clear(Color.Transparent);
+            foreach (Sprite spr in fishSprites)
             {
-                canvas.graphics.Clear(Color.Transparent);
-                close.alpha = 0f;
-                journal.alpha = 0f;
-                window.alpha = 0f;
-                inWindow = false;
-                descriptionCanvas.graphics.Clear(Color.Transparent);
-                foreach(Sprite spr in fishSprites)
-                {
-                    spr.alpha = 0f;
-                }
-                foreach(Button button in categories)
-                {
-                    RemoveChild(button);
-                }
-                foreach(Button button in buttons)
-                {
-                    RemoveChild(button);
-                }
+                spr.alpha = 0f;
             }
+            foreach (Button button in categories)
+            {
+                RemoveChild(button);
+            }
+            foreach (Button button in buttons)
+            {
+                RemoveChild(button);
+            }
+        }
+    }
+
+    void checkInWindow()
+    {
+        if (inWindow)
+        {
+
+            makeCategoryButtons();
+            checkForCategory();
+            mouseOverCheck();
+            showFishList();
+            checkClosing();
+
         }
     }
 
@@ -214,6 +249,12 @@ public class Journal : GameObject
         buttons.Add(button);
         fishSprites.Add(spr);
         AddChild(spr);
+        checkForType(fish, button, spr);
+
+    }
+
+    void checkForType(Fish fish, Button button, Sprite spr)
+    {
         switch (fish.GetFishType())
         {
             case "Fresh water":
@@ -232,7 +273,16 @@ public class Journal : GameObject
                 deepSprites.Add(spr);
                 break;
         }
+    }
 
+    public bool GetInWindow()
+    {
+        return inWindow;
+    }
+
+    public Sprite GetJournalButton()
+    {
+        return journalButton;
     }
 
 

@@ -137,15 +137,15 @@ class Shop : GameObject
         {
             if (MyGame.CheckMouseInRectClick(fish.buyToUnlock))
             {
-
                 if (_level.currencySystem.money >= fish.GetFishPrice())
                 {
                     fishIsBought(fish);
                 }
-                else
-                {
-                    fishIsNotBought(fish);
-                }
+
+            }
+            else
+            {
+                fishIsNotBought(fish);
             }
         }
     }
@@ -158,9 +158,9 @@ class Shop : GameObject
         {
             visible = false;
             inv.DeselectShop();
-            if (_level.tutorial.count == 7)
+            if (_level.tutorial.GetCount() == 7)
             {
-                _level.tutorial.count = 8;
+                _level.tutorial.SetCount(8);
             }
 
         }
@@ -200,9 +200,9 @@ class Shop : GameObject
             fish.soldOut.y = fish.buyToUnlock.y - 10;
             RemoveChild(fish.buyToUnlock);
             RemoveChild(fish.fishNameAndPrice);
-            if (_level.tutorial.count == 6)
+            if (_level.tutorial.GetCount() == 6)
             {
-                _level.tutorial.count = 7;
+                _level.tutorial.SetCount(7);
             }
         }
     }

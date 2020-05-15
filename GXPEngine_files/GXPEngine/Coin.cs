@@ -46,7 +46,7 @@ public class Coin : Sprite
                 colectCoin.Play();
             }
             //colected = true;
-            _level.currencySystem.AddMoney(value);
+            _level.GetCurrencySystem().AddMoney(value);
             this.LateDestroy();
         }
     }

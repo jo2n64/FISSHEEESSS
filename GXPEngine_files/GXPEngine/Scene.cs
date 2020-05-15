@@ -25,7 +25,7 @@ public class Scene : GameObject
     private List<Fish> fishListPerScene;
     private Shop shop;
     private Inventory inv;
-   
+
     private int scene;
     private int priceOfAquarium;
     private int spongeTimer;
@@ -218,11 +218,13 @@ public class Scene : GameObject
     //------------------------------------------------------------------------
     void Update()
     {
-        if (level.myGame.isPlaying)
+        if (level.GetMyGame().GetIsPlaying())
         {
+
             if (isActivated)
             {
                 actionsIfSceneIsActive();
+
             }
             else
             {
@@ -283,9 +285,9 @@ public class Scene : GameObject
         }
         handleItemSelected();
         handleSpongeSound();
-        if (level.tutorial.count == 3 && sponge.getNumerOfElementInDirtList() <= 0)
+        if (level.tutorial.GetCount() == 3 && sponge.getNumerOfElementInDirtList() <= 0)
         {
-            level.tutorial.count = 4;
+            level.tutorial.SetCount(4);
         }
     }
     //------------------------------------------------------------------------
@@ -343,9 +345,9 @@ public class Scene : GameObject
         displayShop();
         RemoveSponge();
         RemoveFoodCan();
-        if (level.tutorial.count == 4)
+        if (level.tutorial.GetCount() == 4)
         {
-            level.tutorial.count = 5;
+            level.tutorial.SetCount(5);
         }
     }
     //------------------------------------------------------------------------
@@ -370,9 +372,9 @@ public class Scene : GameObject
         moveFoodCan();
         RemoveShop();
         RemoveSponge();
-        if (level.tutorial.count == 8)
+        if (level.tutorial.GetCount() == 8)
         {
-            level.tutorial.count = 9;
+            level.tutorial.SetCount(9);
         }
     }
     //------------------------------------------------------------------------
@@ -421,9 +423,9 @@ public class Scene : GameObject
         {
             repairAquarium.Play();
         }
-        if (level.tutorial.count == 2)
+        if (level.tutorial.GetCount() == 2)
         {
-            level.tutorial.count = 3;
+            level.tutorial.SetCount(3);
         }
     }
     //------------------------------------------------------------------------
@@ -489,7 +491,7 @@ public class Scene : GameObject
     //------------------------------------------------------------------------
     private void goBack()
     {
-        if (MyGame.CheckMouseInRectClick(downArrow) && !level.journal.inWindow)
+        if (MyGame.CheckMouseInRectClick(downArrow) && !level.journal.GetInWindow())
         {
             isActive = false;
             isActivated = false;
